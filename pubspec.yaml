@@ -23,6 +23,7 @@ dependencies:
   flutter_riverpod: ^2.3.6
   font_awesome_flutter: ^10.4.0
   get_it: ^7.6.0
+  google_sign_in: ^6.1.0
   hooks_riverpod: ^2.3.6
   image_picker: ^0.8.7+5
   internet_connection_checker: ^1.0.0+1
