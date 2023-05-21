@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "142065832133",
+    "project_id": "y-23-project",
+    "storage_bucket": "y-23-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:142065832133:android:6461facbe45865638720ac",
+        "android_client_info": {
+          "package_name": "com.tarek.y23"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "142065832133-m0saq95rntvcb7vpcs4dbqssilsptbh7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqmcOalw2mBCF-aP49ABLKC_FdT1vVHfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "142065832133-m0saq95rntvcb7vpcs4dbqssilsptbh7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
