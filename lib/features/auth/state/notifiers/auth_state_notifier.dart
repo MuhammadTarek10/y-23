@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:y23/features/auth/data/backend/authenticator.dart';
-import 'package:y23/features/auth/data/backend/user_info_storage.dart';
+import 'package:y23/features/auth/data/datasources/backend/authenticator.dart';
+import 'package:y23/features/auth/data/datasources/backend/user_info_storage.dart';
 import 'package:y23/features/auth/data/models/auth_result.dart';
 import 'package:y23/features/auth/data/models/auth_state.dart';
 

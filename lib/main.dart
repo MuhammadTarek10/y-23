@@ -5,6 +5,7 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/config/language.dart';
 import 'package:y23/config/routes.dart';
+import 'package:y23/config/utils/theme.dart';
 import 'package:y23/firebase_options.dart';
 
 void main() async {
@@ -43,7 +44,7 @@ class _AppState extends State<App> {
       debugShowCheckedModeBanner: false,
       onGenerateRoute: RouterGenerator.generateRoute,
       initialRoute: Routes.initialRoute,
-      // theme: getApplicationTheme(),
+      theme: AppTheme.getApplicationTheme(),
     );
   }
 }

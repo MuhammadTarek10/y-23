@@ -1,4 +1,12 @@
 {
+  "google_login": "Login with Google",
   "login": "Login",
-  "logout": "Logout"
+  "logout": "Logout",
+  "home": "Home",
+  "profile": "Profile",
+  "quizzes": "Quizzes",
+  "quiz": "Quiz",
+  "sessions": "Sessions",
+  "settings": "Settings",
+  "welcome": "Welcome"
 }
