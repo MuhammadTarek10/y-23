@@ -17,56 +17,60 @@ class QuizView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
       child: Scaffold(
-          appBar: AppBar(
-            title: Text(quiz.name),
+        appBar: AppBar(
+          title: Text(quiz.name),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: quiz.questions.length,
+                separatorBuilder: (context, index) => const Divider(),
+                itemBuilder: (context, index) {
+                  final question = quiz.questions[index];
+                  return QuestionWidget(question: question);
+                },
+              ),
+              const SizedBox(height: AppSizes.s10),
+              buildSubmitSection(),
+            ],
           ),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: quiz.questions.length,
-                  separatorBuilder: (context, index) => const Divider(),
-                  itemBuilder: (context, index) {
-                    final question = quiz.questions[index];
-                    return QuestionWidget(question: question);
-                  },
+        ),
+      ),
+    );
+  }
+
+  Row buildSubmitSection() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Container(
+          margin: const EdgeInsets.symmetric(
+            horizontal: AppPadding.p20,
+          ),
+          child: Text(AppStrings.areYouSure.tr()),
+        ),
+        Expanded(
+          child: InkWell(
+            onTap: () => log(quiz.toJson().toString()),
+            child: Container(
+              padding: const EdgeInsets.all(AppPadding.p10),
+              margin: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey.shade300),
+                borderRadius: BorderRadius.circular(AppSizes.s10),
+              ),
+              child: Center(
+                child: Text(
+                  AppStrings.submit.tr(),
                 ),
-                const SizedBox(height: AppSizes.s10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: AppPadding.p20,
-                      ),
-                      child: Text(AppStrings.areYouSure.tr()),
-                    ),
-                    Expanded(
-                      child: InkWell(
-                        onTap: () => log(quiz.toJson().toString()),
-                        child: Container(
-                          padding: const EdgeInsets.all(AppPadding.p10),
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: AppPadding.p10),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey.shade300),
-                            borderRadius: BorderRadius.circular(AppSizes.s10),
-                          ),
-                          child: Center(
-                            child: Text(
-                              AppStrings.submit.tr(),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+              ),
             ),
-          )),
+          ),
+        ),
+      ],
     );
   }
 }

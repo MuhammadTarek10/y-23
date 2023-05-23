@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:y23/config/utils/colors.dart';
 
 class AppTheme {
   static ThemeData getApplicationTheme() {
@@ -48,11 +49,12 @@ class AppTheme {
           fontWeight: FontWeight.bold,
         ),
         headlineMedium: TextStyle(
-          fontSize: 18.0,
+          fontSize: 20.0,
+          color: AppColors.primaryColor,
           fontWeight: FontWeight.bold,
         ),
         headlineSmall: TextStyle(
-          fontSize: 14.0,
+          fontSize: 18.0,
           fontWeight: FontWeight.bold,
         ),
         titleLarge: TextStyle(

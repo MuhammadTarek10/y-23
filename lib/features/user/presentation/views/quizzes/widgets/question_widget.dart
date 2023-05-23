@@ -26,21 +26,29 @@ class QuestionWidget extends StatelessWidget {
         children: [
           Text(
             question.title,
-            style: Theme.of(context).textTheme.headlineMedium,
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
           const SizedBox(height: AppSizes.s10),
-          ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              final option = question.options[index];
-              return OptionWidget(
-                question: question,
-                option: option,
+          const Divider(color: Colors.white),
+          StatefulBuilder(
+            builder: (context, setState) {
+              return ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  final option = question.options[index];
+                  return OptionWidget(
+                    onPressed: () => setState(() {
+                      question.selectedOption = option;
+                    }),
+                    isSelected: question.selectedOption == option,
+                    option: option,
+                  );
+                },
+                separatorBuilder: (context, index) => const Divider(),
+                itemCount: question.options.length,
               );
             },
-            separatorBuilder: (context, index) => const Divider(),
-            itemCount: question.options.length,
           ),
         ],
       ),
