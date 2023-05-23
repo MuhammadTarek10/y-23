@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/core/widgets/lottie.dart';
+import 'package:y23/features/user/presentation/views/quizzes/state/providers/quiz_result_provider.dart';
 import 'package:y23/features/user/presentation/views/quizzes/state/providers/quizzers_provider.dart';
 import 'package:y23/features/user/presentation/views/quizzes/widgets/quiz_list_widget.dart';
 
@@ -10,7 +11,10 @@ class QuizzesView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final quizzes = ref.watch(quizzesProvider);
-    return quizzes.isNotEmpty
+    final quizResults = ref.watch(quizResultProvider);
+    quizzes.sort((a, b) => a.id.compareTo(b.id));
+    quizResults.sort((a, b) => a.quizId.compareTo(b.quizId));
+    return quizzes.isNotEmpty && quizResults.isNotEmpty
         ? RefreshIndicator(
             onRefresh: ref.read(quizzesProvider.notifier).getQuizzes,
             child: Center(
@@ -23,7 +27,10 @@ class QuizzesView extends ConsumerWidget {
                       itemCount: quizzes.length,
                       separatorBuilder: (context, index) => const Divider(),
                       itemBuilder: (context, index) {
-                        return QuizListWidget(quiz: quizzes[index]);
+                        return QuizListWidget(
+                          quiz: quizzes[index],
+                          result: quizResults[index],
+                        );
                       },
                     ),
                   ],
