@@ -8,5 +8,9 @@
   "quiz": "Quiz",
   "sessions": "Sessions",
   "settings": "Settings",
-  "welcome": "Welcome"
+  "welcome": "Welcome",
+  "tasks": "Tasks",
+  "Loading": "Loading...",
+  "submit": "Submit",
+  "are_you_sure": "Are you sure you want to submit?"
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/features/user/data/models/bottom_navigation_options.dart';
-import 'package:y23/features/user/state/providers/bottom_navigation_provider.dart';
+import 'package:y23/features/user/presentation/views/home/state/providers/bottom_navigation_provider.dart';
 
 class CustomNavigationBar extends StatelessWidget {
   const CustomNavigationBar({
@@ -42,19 +42,19 @@ class CustomNavigationBar extends StatelessWidget {
           icon: IconButton(
             onPressed: () => ref
                 .read(bottomNavigationProvider.notifier)
-                .changeNavigation(BottomNavigationOptions.profile),
-            icon: const Icon(Icons.person_outline),
+                .changeNavigation(BottomNavigationOptions.tasks),
+            icon: const Icon(Icons.task_alt_outlined),
           ),
-          label: AppStrings.profile.tr(),
+          label: AppStrings.tasks.tr(),
         ),
         BottomNavigationBarItem(
           icon: IconButton(
             onPressed: () => ref
                 .read(bottomNavigationProvider.notifier)
-                .changeNavigation(BottomNavigationOptions.settings),
-            icon: const Icon(Icons.settings),
+                .changeNavigation(BottomNavigationOptions.profile),
+            icon: const Icon(Icons.person_outline),
           ),
-          label: AppStrings.settings.tr(),
+          label: AppStrings.profile.tr(),
         ),
       ],
     );

@@ -8,7 +8,11 @@ class AppStrings {
   static const String quizzes = "quizzes";
   static const String sessions = "sessions";
   static const String settings = "settings";
+  static const String tasks = "tasks";
   static const String welcome = "welcome";
+  static const String loading = "loading";
+  static const String submit = "submit";
+  static const String areYouSure = "are_you_sure";
 
   const AppStrings._();
 }

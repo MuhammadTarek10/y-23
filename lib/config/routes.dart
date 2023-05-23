@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/features/auth/presentation/views/login_view.dart';
 import 'package:y23/features/auth/state/providers/is_logged_in_provider.dart';
 import 'package:y23/features/splash/views/splash_view.dart';
-import 'package:y23/features/user/presentation/views/home_view.dart';
+import 'package:y23/features/user/domain/entities/quizzes/quiz.dart';
+import 'package:y23/features/user/presentation/views/home/home_view.dart';
+import 'package:y23/features/user/presentation/views/quizzes/quiz_view.dart';
 
 class Routes {
   static const String initialRoute = "/";
@@ -15,6 +17,7 @@ class Routes {
 
   //* User
   static const String homeRoute = "/home";
+  static const String quizzesRoute = "/quizzes";
 
   //* Undefined
   static const String undefined = "/undefined";
@@ -36,6 +39,12 @@ class RouterGenerator {
         );
       case Routes.homeRoute:
         return MaterialPageRoute(builder: (context) => const HomeView());
+      case Routes.quizzesRoute:
+        return MaterialPageRoute(
+          builder: (context) => QuizView(
+            quiz: settings.arguments as Quiz,
+          ),
+        );
       default:
         return MaterialPageRoute(builder: (context) => const LoginView());
     }

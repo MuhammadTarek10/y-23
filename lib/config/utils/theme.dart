@@ -9,8 +9,10 @@ class AppTheme {
 
       //* AppBar
       appBarTheme: const AppBarTheme(
-        elevation: 0,
         backgroundColor: Colors.transparent,
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
         titleTextStyle: TextStyle(
           fontSize: 24.0,
           fontWeight: FontWeight.bold,
@@ -164,7 +166,7 @@ class AppTheme {
       //* PageTransition
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
-          TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+          TargetPlatform.android: ZoomPageTransitionsBuilder(),
           TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
         },
       ),

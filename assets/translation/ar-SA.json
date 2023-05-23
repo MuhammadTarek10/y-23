@@ -8,5 +8,9 @@
   "quiz": "اختبار",
   "sessions": "الدروس",
   "settings": "الإعدادات",
-  "welcome": "مرحبا"
+  "welcome": "مرحبا",
+  "tasks": "الواجبات",
+  "loading": "...جار التحميل",
+  "submit": "إرسال",
+  "are_you_sure": "هل أنت متأكد؟"
 }
