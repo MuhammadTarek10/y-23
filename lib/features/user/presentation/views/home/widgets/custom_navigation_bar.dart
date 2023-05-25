@@ -1,6 +1,8 @@
+import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:y23/config/utils/colors.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/features/user/data/models/bottom_navigation_options.dart';
 import 'package:y23/features/user/presentation/views/home/state/providers/bottom_navigation_provider.dart';
@@ -17,44 +19,54 @@ class CustomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
+    return BubbleBottomBar(
+      opacity: 0.2,
+      backgroundColor: Colors.transparent,
       currentIndex: option.index,
       items: [
-        BottomNavigationBarItem(
+        BubbleBottomBarItem(
+          backgroundColor: AppColors.primaryColor,
           icon: IconButton(
             onPressed: () => ref
                 .read(bottomNavigationProvider.notifier)
                 .changeNavigation(BottomNavigationOptions.sessions),
             icon: const Icon(Icons.task_outlined),
           ),
-          label: AppStrings.sessions.tr(),
+          activeIcon: const Icon(Icons.task),
+          title: Text(AppStrings.sessions.tr()),
         ),
-        BottomNavigationBarItem(
+        BubbleBottomBarItem(
+          backgroundColor: AppColors.primaryColor,
           icon: IconButton(
             onPressed: () => ref
                 .read(bottomNavigationProvider.notifier)
                 .changeNavigation(BottomNavigationOptions.quizzes),
             icon: const Icon(Icons.quiz_outlined),
           ),
-          label: AppStrings.quizzes.tr(),
+          activeIcon: const Icon(Icons.quiz),
+          title: Text(AppStrings.quizzes.tr()),
         ),
-        BottomNavigationBarItem(
+        BubbleBottomBarItem(
+          backgroundColor: AppColors.primaryColor,
           icon: IconButton(
             onPressed: () => ref
                 .read(bottomNavigationProvider.notifier)
                 .changeNavigation(BottomNavigationOptions.tasks),
-            icon: const Icon(Icons.task_alt_outlined),
+            icon: const Icon(Icons.flag_outlined),
           ),
-          label: AppStrings.tasks.tr(),
+          activeIcon: const Icon(Icons.flag),
+          title: Text(AppStrings.tasks.tr()),
         ),
-        BottomNavigationBarItem(
+        BubbleBottomBarItem(
+          backgroundColor: AppColors.primaryColor,
           icon: IconButton(
             onPressed: () => ref
                 .read(bottomNavigationProvider.notifier)
                 .changeNavigation(BottomNavigationOptions.profile),
             icon: const Icon(Icons.person_outline),
           ),
-          label: AppStrings.profile.tr(),
+          activeIcon: const Icon(Icons.person),
+          title: Text(AppStrings.profile.tr()),
         ),
       ],
     );

@@ -80,6 +80,7 @@ class QuizView extends ConsumerWidget {
 
   Future<void> submit(WidgetRef ref) async {
     final quizId = quiz.id;
+    final totalQuestions = quiz.questions.length;
     final userId = ref.read(userIdProvider) as String;
 
     final score = quiz.questions
@@ -92,6 +93,7 @@ class QuizView extends ConsumerWidget {
           userId: userId,
           quizId: quizId,
           score: score,
+          totalQuestions: totalQuestions,
         );
   }
 }

@@ -1,0 +1,57 @@
+class QuizResult {
+  final String id;
+  final String userId;
+  final String quizId;
+  final bool isTaken;
+  final int score;
+  final bool isPassed;
+
+  QuizResult({
+    required this.id,
+    required this.userId,
+    required this.quizId,
+    required this.isTaken,
+    required this.score,
+    required this.isPassed,
+  });
+
+  QuizResult copyWith({
+    String? id,
+    String? userId,
+    String? quizId,
+    bool? isTaken,
+    int? score,
+    bool? isPassed,
+  }) {
+    return QuizResult(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      quizId: quizId ?? this.quizId,
+      isTaken: isTaken ?? this.isTaken,
+      score: score ?? this.score,
+      isPassed: isPassed ?? this.isPassed,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'userId': userId,
+      'quizId': quizId,
+      'isTaken': isTaken,
+      'score': score,
+      'isPassed': isPassed,
+    };
+  }
+
+  factory QuizResult.fromJson(String? id, Map<String, dynamic> json) {
+    return QuizResult(
+      id: id as String,
+      userId: json['userId'] as String,
+      quizId: json['quizId'] as String,
+      isTaken: json['isTaken'] as bool,
+      score: json['score'] as int,
+      isPassed: json['isPassed'] as bool,
+    );
+  }
+}

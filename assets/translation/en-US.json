@@ -12,5 +12,9 @@
   "tasks": "Tasks",
   "Loading": "Loading...",
   "submit": "Submit",
-  "are_you_sure": "Are you sure you want to submit?"
+  "are_you_sure": "Are you sure you want to submit?",
+  "no_quizzes_found": "There are no Quizzes Right Now",
+  "no_sessions_found": "There are no Sessions Right Now",
+  "no_tasks_found": "There are no Tasks Right Now",
+  "no_results_found": "No Results Found"
 }

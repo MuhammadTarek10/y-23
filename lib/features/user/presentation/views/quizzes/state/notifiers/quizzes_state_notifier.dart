@@ -2,9 +2,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/features/user/data/datasources/backend/quizzer.dart';
 import 'package:y23/features/user/domain/entities/quizzes/quiz.dart';
 
-class QuizzesStateNotifier extends StateNotifier<List<Quiz>> {
+class QuizzesStateNotifier extends StateNotifier<List<Quiz>?> {
   final quizzer = const Quizzer();
-  QuizzesStateNotifier() : super([]) {
+  QuizzesStateNotifier() : super(null) {
     getQuizzes();
   }
 
@@ -13,7 +13,8 @@ class QuizzesStateNotifier extends StateNotifier<List<Quiz>> {
   }
 
   Future<void> getQuizById(String id) async {
-    state = [await quizzer.getQuizById(id)];
+    final quiz = await quizzer.getQuizById(id);
+    state = [quiz!];
   }
 
   Future<void> saveQuiz(Quiz quiz) async {
@@ -35,11 +36,13 @@ class QuizzesStateNotifier extends StateNotifier<List<Quiz>> {
     required String userId,
     required String quizId,
     required int score,
+    required int totalQuestions,
   }) async {
     await quizzer.saveQuizResult(
       userId: userId,
       quizId: quizId,
       score: score,
+      totalQuestions: totalQuestions,
     );
   }
 }

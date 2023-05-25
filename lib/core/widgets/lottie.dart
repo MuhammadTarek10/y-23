@@ -10,3 +10,29 @@ class LottieLoading extends StatelessWidget {
     return Lottie.asset(AppAssets.loading);
   }
 }
+
+class LottieEmpty extends StatelessWidget {
+  const LottieEmpty({
+    super.key,
+    required this.message,
+  });
+
+  final String message;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Lottie.asset(
+          AppAssets.empty,
+          repeat: true,
+          reverse: true,
+        ),
+        Text(
+          message,
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+      ],
+    );
+  }
+}

@@ -13,6 +13,10 @@ class AppStrings {
   static const String loading = "loading";
   static const String submit = "submit";
   static const String areYouSure = "are_you_sure";
+  static const String noQuizzesFound = "no_quizzes_found";
+  static const String noSessionsFound = "no_sessions_found";
+  static const String noTasksFound = "no_tasks_found";
+  static const String noResultsFound = "no_results_found";
 
   const AppStrings._();
 }

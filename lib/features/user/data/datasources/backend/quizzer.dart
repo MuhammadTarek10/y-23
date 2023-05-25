@@ -6,7 +6,7 @@ import 'package:y23/features/user/domain/entities/quizzes/quiz_result.dart';
 class Quizzer {
   const Quizzer();
 
-  Future<List<Quiz>> getQuizzes() async {
+  Future<List<Quiz>?> getQuizzes() async {
     final data = await FirebaseFirestore.instance
         .collection(FirebaseCollectionName.quizzes)
         .get();
@@ -14,7 +14,7 @@ class Quizzer {
     return data.docs.map((e) => Quiz.fromJson(e.id, e.data())).toList();
   }
 
-  Future<Quiz> getQuizById(String id) async {
+  Future<Quiz?> getQuizById(String id) async {
     final data = await FirebaseFirestore.instance
         .collection(FirebaseCollectionName.quizzes)
         .doc(id)
@@ -23,7 +23,7 @@ class Quizzer {
     return Quiz.fromJson(data.id, data.data()!);
   }
 
-  Future<bool> saveQuiz(Quiz quiz) async {
+  Future<bool?> saveQuiz(Quiz quiz) async {
     try {
       await FirebaseFirestore.instance
           .collection(FirebaseCollectionName.quizzes)
@@ -34,7 +34,7 @@ class Quizzer {
     }
   }
 
-  Future<bool> updateQuiz(Quiz quiz) async {
+  Future<bool?> updateQuiz(Quiz quiz) async {
     try {
       await FirebaseFirestore.instance
           .collection(FirebaseCollectionName.quizzes)
@@ -46,7 +46,7 @@ class Quizzer {
     }
   }
 
-  Future<bool> deleteQuiz(String id) async {
+  Future<bool?> deleteQuiz(String id) async {
     try {
       await FirebaseFirestore.instance
           .collection(FirebaseCollectionName.quizzes)
@@ -58,72 +58,11 @@ class Quizzer {
     }
   }
 
-  Future<List<QuizResult>> prepareQuizResultsByUserId(String userId) async {
-    try {
-      final quizResults = await FirebaseFirestore.instance
-          .collection(FirebaseCollectionName.quizResults)
-          .where(FirebaseFieldName.quizResultUserId, isEqualTo: userId)
-          .get();
-
-      final quizIds = quizResults.docs
-          .map((e) => e[FirebaseFieldName.quizResultQuizId] as String)
-          .toList();
-
-      final quizzes = await FirebaseFirestore.instance
-          .collection(FirebaseCollectionName.quizzes)
-          .where(FirebaseFieldName.quizId, whereIn: quizIds)
-          .get();
-
-      final quizIdsToBeAdded = quizzes.docs
-          .map((e) => e[FirebaseFieldName.quizId] as String)
-          .toList();
-
-      final quizIdsToBeRemoved = quizIds
-          .where((element) => !quizIdsToBeAdded.contains(element))
-          .toList();
-
-      for (final quizId in quizIdsToBeRemoved) {
-        final quizResult = await FirebaseFirestore.instance
-            .collection(FirebaseCollectionName.quizResults)
-            .where(FirebaseFieldName.quizResultQuizId, isEqualTo: quizId)
-            .where(FirebaseFieldName.quizResultUserId, isEqualTo: userId)
-            .limit(1)
-            .get();
-
-        await quizResult.docs.first.reference.delete();
-      }
-
-      for (final quizId in quizIdsToBeAdded) {
-        final quizResult = await FirebaseFirestore.instance
-            .collection(FirebaseCollectionName.quizResults)
-            .where(FirebaseFieldName.quizResultQuizId, isEqualTo: quizId)
-            .where(FirebaseFieldName.quizResultUserId, isEqualTo: userId)
-            .limit(1)
-            .get();
-
-        if (quizResult.docs.isEmpty) {
-          await FirebaseFirestore.instance
-              .collection(FirebaseCollectionName.quizResults)
-              .add({
-            FirebaseFieldName.quizResultUserId: userId,
-            FirebaseFieldName.quizResultQuizId: quizId,
-            FirebaseFieldName.quizResultScore: 0,
-            FirebaseFieldName.quizResultIsTaken: false,
-            FirebaseFieldName.quizResultIsPassed: false,
-          });
-        }
-      }
-
-      return getQuizResultsByUserId(userId);
-    } catch (_) {
-      return [];
-    }
-  }
-
-  Future<bool> saveQuizResult({
+  Future<bool?> saveQuizResult({
     required String userId,
     required String quizId,
     required int score,
+    required int totalQuestions,
   }) async {
     try {
       final quizResult = await FirebaseFirestore.instance
@@ -137,7 +76,7 @@ class Quizzer {
         await quizResult.docs.first.reference.update({
           FirebaseFieldName.quizResultScore: score,
           FirebaseFieldName.quizResultIsTaken: true,
-          FirebaseFieldName.quizResultIsPassed: score >= 1,
+          FirebaseFieldName.quizResultIsPassed: score / totalQuestions >= 0.5,
         });
         return true;
       }
@@ -154,11 +93,11 @@ class Quizzer {
       });
       return true;
     } catch (_) {
-      return false;
+      return null;
     }
   }
 
-  Future<QuizResult> getQuizResult(
+  Future<QuizResult?> getQuizResult(
     String userId,
     String quizId,
   ) async {
@@ -184,7 +123,7 @@ class Quizzer {
     );
   }
 
-  Future<List<QuizResult>> getQuizResultsByUserId(String userId) async {
+  Future<List<QuizResult>?> getQuizResultsByUserId(String userId) async {
     final quizResults = await FirebaseFirestore.instance
         .collection(FirebaseCollectionName.quizResults)
         .where(FirebaseFieldName.quizResultUserId, isEqualTo: userId)
@@ -214,10 +153,12 @@ class Quizzer {
       return getQuizResultsByUserId(userId);
     }
 
-    return quizResults.docs.map((e) => QuizResult.fromJson(e.id, e.data())).toList();
+    return quizResults.docs
+        .map((e) => QuizResult.fromJson(e.id, e.data()))
+        .toList();
   }
 
-  Future<List<Quiz>> getQuizzesByUserId(String userId) async {
+  Future<List<Quiz>?> getQuizzesByUserId(String userId) async {
     final quizResults = await FirebaseFirestore.instance
         .collection(FirebaseCollectionName.quizResults)
         .where(FirebaseFieldName.quizResultUserId, isEqualTo: userId)
@@ -235,7 +176,7 @@ class Quizzer {
     return quizzes.docs.map((e) => Quiz.fromJson(e.id, e.data())).toList();
   }
 
-  Future<List<Quiz>> getQuizzesByUserIdAndIsPassed(
+  Future<List<Quiz>?> getQuizzesByUserIdAndIsPassed(
       String userId, bool isPassed) async {
     final quizResults = await FirebaseFirestore.instance
         .collection(FirebaseCollectionName.quizResults)
