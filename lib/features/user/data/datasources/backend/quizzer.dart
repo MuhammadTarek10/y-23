@@ -61,6 +61,7 @@ class Quizzer {
   Future<bool?> saveQuizResult({
     required String userId,
     required String quizId,
+    required Map<String, String> selectedOptions,
     required int score,
     required int totalQuestions,
   }) async {
@@ -76,6 +77,7 @@ class Quizzer {
         await quizResult.docs.first.reference.update({
           FirebaseFieldName.quizResultScore: score,
           FirebaseFieldName.quizResultIsTaken: true,
+          FirebaseFieldName.quizResultSelectedOption: selectedOptions,
           FirebaseFieldName.quizResultIsPassed: score / totalQuestions >= 0.5,
         });
         return true;
@@ -88,6 +90,7 @@ class Quizzer {
         FirebaseFieldName.quizResultUserId: userId,
         FirebaseFieldName.quizResultQuizId: quizId,
         FirebaseFieldName.quizResultScore: score,
+        FirebaseFieldName.quizResultSelectedOption: selectedOptions,
         FirebaseFieldName.quizResultIsTaken: true,
         FirebaseFieldName.quizResultIsPassed: score >= 3,
       });
@@ -118,9 +121,25 @@ class Quizzer {
       userId: userId,
       quizId: quizId,
       isTaken: false,
+      selectedOptions: {},
       score: 0,
       isPassed: false,
     );
+  }
+
+  Future<QuizResult?> getQuizResultByQuizId(String quizId) async {
+    final quizResult = await FirebaseFirestore.instance
+        .collection(FirebaseCollectionName.quizResults)
+        .where(FirebaseFieldName.quizResultQuizId, isEqualTo: quizId)
+        .limit(1)
+        .get();
+
+    if (quizResult.docs.isNotEmpty) {
+      return QuizResult.fromJson(
+          quizResult.docs.first.id, quizResult.docs.first.data());
+    }
+
+    return null;
   }
 
   Future<List<QuizResult>?> getQuizResultsByUserId(String userId) async {
@@ -144,6 +163,7 @@ class Quizzer {
             FirebaseFieldName.quizResultUserId: userId,
             FirebaseFieldName.quizResultQuizId: quiz[FirebaseFieldName.quizId],
             FirebaseFieldName.quizResultScore: 0,
+            FirebaseFieldName.quizResultSelectedOption: {},
             FirebaseFieldName.quizResultIsTaken: false,
             FirebaseFieldName.quizResultIsPassed: false,
           });

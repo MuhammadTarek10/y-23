@@ -5,7 +5,6 @@ import 'package:y23/features/auth/presentation/views/login_view.dart';
 import 'package:y23/features/auth/state/providers/auth_loading_provider.dart';
 import 'package:y23/features/auth/state/providers/is_logged_in_provider.dart';
 import 'package:y23/features/splash/views/splash_view.dart';
-import 'package:y23/features/user/domain/entities/quizzes/quiz.dart';
 import 'package:y23/features/user/presentation/views/help/help_view.dart';
 import 'package:y23/features/user/presentation/views/home/home_view.dart';
 import 'package:y23/features/user/presentation/views/quizzes/quiz_view.dart';
@@ -55,9 +54,8 @@ class RouterGenerator {
         return MaterialPageRoute(builder: (context) => const HomeView());
       case Routes.quizzesRoute:
         return MaterialPageRoute(
-          builder: (context) => QuizView(
-            quiz: settings.arguments as Quiz,
-          ),
+          builder: (context) =>
+              QuizView(data: settings.arguments as Map<String, dynamic>),
         );
       case Routes.settingsRoute:
         return MaterialPageRoute(builder: (context) => const SettingsView());

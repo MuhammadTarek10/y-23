@@ -2,7 +2,6 @@ class Question {
   final String id;
   final String title;
   final List<String> options;
-  String selectedOption;
   final String answer;
 
   Question({
@@ -10,7 +9,6 @@ class Question {
     required this.title,
     required this.options,
     required this.answer,
-    this.selectedOption = "",
   });
 
   Question copyWith({
@@ -24,7 +22,6 @@ class Question {
       id: id ?? this.id,
       title: title ?? this.title,
       options: options ?? this.options,
-      selectedOption: selectedOption ?? this.selectedOption,
       answer: answer ?? this.answer,
     );
   }
@@ -35,7 +32,6 @@ class Question {
       title: json['title'] as String,
       options:
           (json['options'] as List<dynamic>).map((e) => e as String).toList(),
-      selectedOption: json['selectedOption'] ?? "",
       answer: json['answer'] as String,
     );
   }
@@ -45,7 +41,6 @@ class Question {
       'id': id,
       'title': title,
       'options': options,
-      'selectedOption': selectedOption,
       'answer': answer,
     };
   }

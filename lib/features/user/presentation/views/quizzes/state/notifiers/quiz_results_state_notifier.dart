@@ -13,18 +13,23 @@ class QuizResultStateNotifier extends StateNotifier<List<QuizResult>?> {
     state = await quizzer.getQuizResultsByUserId(userId);
   }
 
+  Future<QuizResult?> getQuizResultById(String id) async {
+    return await quizzer.getQuizResultByQuizId(id);
+  }
+
   Future<void> saveQuizResult({
     required String userId,
     required String quizId,
+    required Map<String, String> selectedOptions,
     required int score,
     required int totalQuestions,
   }) async {
     await quizzer.saveQuizResult(
-      userId: userId,
-      quizId: quizId,
-      score: score,
-      totalQuestions: totalQuestions
-    );
+        userId: userId,
+        quizId: quizId,
+        selectedOptions: selectedOptions,
+        score: score,
+        totalQuestions: totalQuestions);
     await getQuizResults(userId);
   }
 }

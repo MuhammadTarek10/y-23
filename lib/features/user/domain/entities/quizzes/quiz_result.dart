@@ -3,6 +3,7 @@ class QuizResult {
   final String userId;
   final String quizId;
   final bool isTaken;
+  final Map<String, String> selectedOptions;
   final int score;
   final bool isPassed;
 
@@ -11,6 +12,7 @@ class QuizResult {
     required this.userId,
     required this.quizId,
     required this.isTaken,
+    required this.selectedOptions,
     required this.score,
     required this.isPassed,
   });
@@ -20,6 +22,7 @@ class QuizResult {
     String? userId,
     String? quizId,
     bool? isTaken,
+    Map<String, String>? selectedOptions,
     int? score,
     bool? isPassed,
   }) {
@@ -28,6 +31,7 @@ class QuizResult {
       userId: userId ?? this.userId,
       quizId: quizId ?? this.quizId,
       isTaken: isTaken ?? this.isTaken,
+      selectedOptions: selectedOptions ?? this.selectedOptions,
       score: score ?? this.score,
       isPassed: isPassed ?? this.isPassed,
     );
@@ -39,6 +43,7 @@ class QuizResult {
       'userId': userId,
       'quizId': quizId,
       'isTaken': isTaken,
+      'selectedOptions': selectedOptions,
       'score': score,
       'isPassed': isPassed,
     };
@@ -50,8 +55,12 @@ class QuizResult {
       userId: json['userId'] as String,
       quizId: json['quizId'] as String,
       isTaken: json['isTaken'] as bool,
+      selectedOptions: (json['selectedOptions'] as Map<String, dynamic>)
+          .map((key, value) => MapEntry(key, value as String)),
       score: json['score'] as int,
       isPassed: json['isPassed'] as bool,
     );
   }
+
+  firstWhere(bool Function(dynamic element) param0) {}
 }

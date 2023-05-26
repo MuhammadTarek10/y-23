@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:y23/config/routes.dart';
+import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
 import 'package:y23/features/user/domain/entities/quizzes/quiz.dart';
 import 'package:y23/features/user/domain/entities/quizzes/quiz_result.dart';
@@ -20,7 +21,10 @@ class QuizListWidget extends StatelessWidget {
       onTap: () => Navigator.pushNamed(
         context,
         Routes.quizzesRoute,
-        arguments: quiz,
+        arguments: {
+          AppKeys.quiz: quiz,
+          AppKeys.result: result,
+        },
       ),
       child: Container(
         height: AppSizes.s100,

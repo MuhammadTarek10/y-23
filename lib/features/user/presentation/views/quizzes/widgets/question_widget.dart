@@ -3,13 +3,19 @@ import 'package:y23/config/utils/values.dart';
 import 'package:y23/features/user/domain/entities/quizzes/question.dart';
 import 'package:y23/features/user/presentation/views/quizzes/widgets/option_widget.dart';
 
+typedef OptionCallback = void Function(String option);
+
 class QuestionWidget extends StatelessWidget {
   const QuestionWidget({
     super.key,
     required this.question,
+    required this.selectedOption,
+    required this.onPressed,
   });
 
   final Question question;
+  final String selectedOption;
+  final OptionCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -30,25 +36,19 @@ class QuestionWidget extends StatelessWidget {
           ),
           const SizedBox(height: AppSizes.s10),
           const Divider(color: Colors.white),
-          StatefulBuilder(
-            builder: (context, setState) {
-              return ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  final option = question.options[index];
-                  return OptionWidget(
-                    onPressed: () => setState(() {
-                      question.selectedOption = option;
-                    }),
-                    isSelected: question.selectedOption == option,
-                    option: option,
-                  );
-                },
-                separatorBuilder: (context, index) => const Divider(),
-                itemCount: question.options.length,
+          ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              final option = question.options[index];
+              return OptionWidget(
+                onPressed: () => onPressed(option),
+                isSelected: selectedOption == option,
+                option: option,
               );
             },
+            separatorBuilder: (context, index) => const Divider(),
+            itemCount: question.options.length,
           ),
         ],
       ),

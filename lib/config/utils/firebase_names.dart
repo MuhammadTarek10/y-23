@@ -13,7 +13,6 @@ class FirebaseFieldName {
   static const String questionTitle = "title";
   static const String questionOptions = "options";
   static const String questionAnswer = "answer";
-  static const String selectedOption = "selectedOption";
   static const String questionQuizId = "quizId";
 
   //* Quiz Results
@@ -21,6 +20,7 @@ class FirebaseFieldName {
   static const String quizResultUserId = "userId";
   static const String quizResultQuizId = "quizId";
   static const String quizResultIsTaken = "isTaken";
+  static const String quizResultSelectedOption = "selectedOptions";
   static const String quizResultScore = "score";
   static const String quizResultIsPassed = "isPassed";
 

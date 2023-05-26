@@ -21,3 +21,8 @@ class AppStrings {
 
   const AppStrings._();
 }
+
+class AppKeys {
+  static const String quiz = "quiz";
+  static const String result = "result";
+}

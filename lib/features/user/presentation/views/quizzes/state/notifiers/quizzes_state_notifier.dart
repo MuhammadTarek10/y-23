@@ -36,12 +36,14 @@ class QuizzesStateNotifier extends StateNotifier<List<Quiz>?> {
     required String userId,
     required String quizId,
     required int score,
+    required Map<String, String> selectedOptions,
     required int totalQuestions,
   }) async {
     await quizzer.saveQuizResult(
       userId: userId,
       quizId: quizId,
       score: score,
+      selectedOptions: selectedOptions,
       totalQuestions: totalQuestions,
     );
   }

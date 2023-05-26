@@ -5,7 +5,6 @@ import 'package:y23/config/routes.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/core/state/providers/loading_provider.dart';
 import 'package:y23/core/widgets/loading_screen.dart';
-import 'package:y23/features/auth/state/providers/auth_state_provider.dart';
 import 'package:y23/features/auth/state/providers/user_display_name_provider.dart';
 import 'package:y23/features/user/presentation/views/home/state/providers/bottom_navigation_provider.dart';
 import 'package:y23/features/user/presentation/views/home/widgets/custom_navigation_bar.dart';
@@ -61,11 +60,11 @@ class HomeView extends ConsumerWidget {
               title: Text(AppStrings.help.tr()),
               onTap: () => Navigator.pushNamed(context, Routes.helpRoute),
             ),
-            ListTile(
-              leading: const Icon(Icons.logout, color: Colors.red),
-              title: Text(AppStrings.logout.tr()),
-              onTap: () => ref.read(authStateProvider.notifier).logOut(),
-            )
+            // ListTile(
+            //   leading: const Icon(Icons.logout, color: Colors.red),
+            //   title: Text(AppStrings.logout.tr()),
+            //   onTap: () => ref.read(authStateProvider.notifier).logOut(),
+            // ),
           ],
         ),
       ),
