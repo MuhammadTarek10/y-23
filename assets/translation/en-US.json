@@ -17,5 +17,11 @@
   "no_sessions_found": "There are no Sessions Right Now",
   "no_tasks_found": "There are no Tasks Right Now",
   "no_results_found": "No Results Found",
-  "help": "Help"
+  "help": "Help",
+  "quizzes_taken": "Quizzes Taken",
+  "quizzes_passed": "Quizzes Passed",
+  "score": "Score",
+  "light_mode": "Light Mode",
+  "dark_mode": "Dark Mode",
+  "language": "Change Language"
 }

@@ -6,7 +6,8 @@ import 'package:y23/features/user/presentation/views/quizzes/state/notifiers/qui
 final quizResultProvider =
     StateNotifierProvider<QuizResultStateNotifier, List<QuizResult>?>(
   (ref) {
-    final userId = ref.watch(userIdProvider) as String;
-    return QuizResultStateNotifier(userId: userId);
+    final userId = ref.watch(userIdProvider);
+    if (userId != null) return QuizResultStateNotifier(userId: userId);
+    return QuizResultStateNotifier(userId: "");
   },
 );

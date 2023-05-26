@@ -18,6 +18,12 @@ class AppStrings {
   static const String noSessionsFound = "no_sessions_found";
   static const String noTasksFound = "no_tasks_found";
   static const String noResultsFound = "no_results_found";
+  static const String quizzesTaken = "quizzes_taken";
+  static const String quizzesPassed = "quizzes_passed";
+  static const String score = "score";
+  static const String lightMode = "light_mode";
+  static const String darkMode = "dark_mode";
+  static const String language = "language";
 
   const AppStrings._();
 }

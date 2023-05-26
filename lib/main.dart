@@ -5,13 +5,16 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/config/language.dart';
 import 'package:y23/config/routes.dart';
-import 'package:y23/config/utils/theme.dart';
+import 'package:y23/core/di.dart';
+import 'package:y23/core/prefs.dart';
+import 'package:y23/core/state/providers/theme_provider.dart';
 import 'package:y23/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await EasyLocalization.ensureInitialized();
+  await initApp();
   runApp(
     EasyLocalization(
       supportedLocales: const [arabicLocale, englishLocale],
@@ -29,22 +32,30 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  final prefs = instance<AppPreferences>();
+
   @override
   void didChangeDependencies() {
-    context.setLocale(englishLocale);
+    prefs.getLocale().then((locale) => {context.setLocale(locale)});
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: RouterGenerator.generateRoute,
-      initialRoute: Routes.initialRoute,
-      theme: AppTheme.getApplicationTheme(),
-    );
+    return Consumer(builder: (context, ref, child) {
+      prefs.isDarkMode().then(
+            (isDark) => ref.read(themeProvider.notifier).setTheme(isDark),
+          );
+      final theme = ref.watch(themeProvider);
+      return MaterialApp(
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: RouterGenerator.generateRoute,
+        initialRoute: Routes.initialRoute,
+        theme: theme,
+      );
+    });
   }
 }

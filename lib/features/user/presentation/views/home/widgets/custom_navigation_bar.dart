@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/config/utils/colors.dart';
 import 'package:y23/config/utils/strings.dart';
+import 'package:y23/core/state/providers/theme_provider.dart';
 import 'package:y23/features/user/data/models/bottom_navigation_options.dart';
 import 'package:y23/features/user/presentation/views/home/state/providers/bottom_navigation_provider.dart';
 
@@ -19,13 +20,17 @@ class CustomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = ref.watch(themeProvider).brightness == Brightness.dark;
+    final color = isDarkMode ? AppColors.primaryColor : Colors.black;
+    final backgroundColor =
+        isDarkMode ? Colors.transparent : AppColors.primaryColor;
     return BubbleBottomBar(
       opacity: 0.2,
-      backgroundColor: Colors.transparent,
+      backgroundColor: backgroundColor,
       currentIndex: option.index,
       items: [
         BubbleBottomBarItem(
-          backgroundColor: AppColors.primaryColor,
+          backgroundColor: color,
           icon: IconButton(
             onPressed: () => ref
                 .read(bottomNavigationProvider.notifier)
@@ -36,7 +41,7 @@ class CustomNavigationBar extends StatelessWidget {
           title: Text(AppStrings.sessions.tr()),
         ),
         BubbleBottomBarItem(
-          backgroundColor: AppColors.primaryColor,
+          backgroundColor: color,
           icon: IconButton(
             onPressed: () => ref
                 .read(bottomNavigationProvider.notifier)
@@ -47,7 +52,7 @@ class CustomNavigationBar extends StatelessWidget {
           title: Text(AppStrings.quizzes.tr()),
         ),
         BubbleBottomBarItem(
-          backgroundColor: AppColors.primaryColor,
+          backgroundColor: color,
           icon: IconButton(
             onPressed: () => ref
                 .read(bottomNavigationProvider.notifier)
@@ -58,7 +63,7 @@ class CustomNavigationBar extends StatelessWidget {
           title: Text(AppStrings.tasks.tr()),
         ),
         BubbleBottomBarItem(
-          backgroundColor: AppColors.primaryColor,
+          backgroundColor: color,
           icon: IconButton(
             onPressed: () => ref
                 .read(bottomNavigationProvider.notifier)

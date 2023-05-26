@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/config/utils/strings.dart';
+import 'package:y23/config/utils/values.dart';
 import 'package:y23/core/widgets/lottie.dart';
 import 'package:y23/features/user/presentation/views/quizzes/state/providers/quiz_result_provider.dart';
 import 'package:y23/features/user/presentation/views/quizzes/state/providers/quizzers_provider.dart';
@@ -27,23 +28,27 @@ class QuizzesView extends ConsumerWidget {
               )
             : RefreshIndicator(
                 onRefresh: ref.read(quizzesProvider.notifier).getQuizzes,
-                child: Center(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        ListView.separated(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: quizzes.length,
-                          separatorBuilder: (context, index) => const Divider(),
-                          itemBuilder: (context, index) {
-                            return QuizListWidget(
-                              quiz: quizzes[index],
-                              result: quizResults[index],
-                            );
-                          },
-                        ),
-                      ],
+                child: Padding(
+                  padding: const EdgeInsets.all(AppPadding.p10),
+                  child: Center(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          ListView.separated(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: quizzes.length,
+                            separatorBuilder: (context, index) =>
+                                const Divider(),
+                            itemBuilder: (context, index) {
+                              return QuizListWidget(
+                                quiz: quizzes[index],
+                                result: quizResults[index],
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

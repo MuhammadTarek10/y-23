@@ -46,12 +46,12 @@ class RouterGenerator {
                       : LoadingScreen.instance().hide();
                 },
               );
-              return isLoggedIn ? const HomeView() : const LoginView();
+              return isLoggedIn ? HomeView() : const LoginView();
             },
           ),
         );
       case Routes.homeRoute:
-        return MaterialPageRoute(builder: (context) => const HomeView());
+        return MaterialPageRoute(builder: (context) => HomeView());
       case Routes.quizzesRoute:
         return MaterialPageRoute(
           builder: (context) =>
