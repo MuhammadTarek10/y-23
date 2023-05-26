@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
+import 'package:y23/core/state/providers/loading_provider.dart';
 import 'package:y23/features/auth/state/providers/user_id_provider.dart';
 import 'package:y23/features/user/domain/entities/quizzes/quiz.dart';
 import 'package:y23/features/user/presentation/views/quizzes/state/providers/quiz_result_provider.dart';
@@ -79,6 +80,7 @@ class QuizView extends ConsumerWidget {
   }
 
   Future<void> submit(WidgetRef ref) async {
+    ref.read(loadingProvider.notifier).loading();
     final quizId = quiz.id;
     final totalQuestions = quiz.questions.length;
     final userId = ref.read(userIdProvider) as String;
@@ -89,11 +91,12 @@ class QuizView extends ConsumerWidget {
 
     await ref.read(quizzesProvider.notifier).updateQuiz(quiz);
 
-    ref.read(quizResultProvider.notifier).saveQuizResult(
+    await ref.read(quizResultProvider.notifier).saveQuizResult(
           userId: userId,
           quizId: quizId,
           score: score,
           totalQuestions: totalQuestions,
         );
+    ref.read(loadingProvider.notifier).doneLoading();
   }
 }

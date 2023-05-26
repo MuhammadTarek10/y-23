@@ -2,9 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/config/utils/strings.dart';
+import 'package:y23/core/state/providers/loading_provider.dart';
+import 'package:y23/core/widgets/loading_screen.dart';
 import 'package:y23/features/auth/state/providers/user_display_name_provider.dart';
-import 'package:y23/features/user/presentation/views/home/widgets/custom_navigation_bar.dart';
 import 'package:y23/features/user/presentation/views/home/state/providers/bottom_navigation_provider.dart';
+import 'package:y23/features/user/presentation/views/home/widgets/custom_navigation_bar.dart';
 
 class HomeView extends ConsumerWidget {
   const HomeView({super.key});
@@ -13,8 +15,17 @@ class HomeView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final option = ref.watch(bottomNavigationProvider);
     final views = ref.read(bottomNavigationProvider.notifier).views;
-    final pageController = ref.watch(bottomNavigationProvider.notifier).pageController;
+    final pageController =
+        ref.watch(bottomNavigationProvider.notifier).pageController;
     final displayName = ref.watch(userDisplayNameProvider) ?? "";
+    ref.listen<bool>(
+      loadingProvider,
+      (_, isLoading) {
+        isLoading
+            ? LoadingScreen.instance().show(context: context)
+            : LoadingScreen.instance().hide();
+      },
+    );
     return Scaffold(
       appBar: AppBar(
         title: const Text(AppStrings.appName),

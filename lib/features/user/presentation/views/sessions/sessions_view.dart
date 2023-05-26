@@ -9,8 +9,6 @@ class SessionsView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return LottieEmpty(
-      message: AppStrings.noSessionsFound.tr(),
-    );
+    return LottieEmpty(message: AppStrings.noSessionsFound.tr());
   }
 }
