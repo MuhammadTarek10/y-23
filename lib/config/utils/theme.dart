@@ -93,7 +93,7 @@ class AppTheme {
 
       //* Icon
       iconTheme: const IconThemeData(
-        color: Colors.white,
+        color: AppColors.primaryColor,
       ),
 
       //* BottomNavigationBar

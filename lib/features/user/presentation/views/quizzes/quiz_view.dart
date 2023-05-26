@@ -39,7 +39,7 @@ class QuizView extends ConsumerWidget {
                 },
               ),
               const SizedBox(height: AppSizes.s10),
-              buildSubmitSection(ref),
+              buildSubmitSection(context, ref),
             ],
           ),
         ),
@@ -47,7 +47,7 @@ class QuizView extends ConsumerWidget {
     );
   }
 
-  Row buildSubmitSection(WidgetRef ref) {
+  Row buildSubmitSection(BuildContext context, WidgetRef ref) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -59,7 +59,7 @@ class QuizView extends ConsumerWidget {
         ),
         Expanded(
           child: InkWell(
-            onTap: () => submit(ref),
+            onTap: () => submit(context, ref),
             child: Container(
               padding: const EdgeInsets.all(AppPadding.p10),
               margin: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
@@ -79,7 +79,7 @@ class QuizView extends ConsumerWidget {
     );
   }
 
-  Future<void> submit(WidgetRef ref) async {
+  Future<void> submit(BuildContext context, WidgetRef ref) async {
     ref.read(loadingProvider.notifier).loading();
     final quizId = quiz.id;
     final totalQuestions = quiz.questions.length;
@@ -98,5 +98,6 @@ class QuizView extends ConsumerWidget {
           totalQuestions: totalQuestions,
         );
     ref.read(loadingProvider.notifier).doneLoading();
+    if (context.mounted) Navigator.pop(context);
   }
 }

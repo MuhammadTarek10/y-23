@@ -6,11 +6,12 @@ class AppStrings {
   static const String home = "home";
   static const String profile = "profile";
   static const String quizzes = "quizzes";
-  static const String sessions = "sessions";
   static const String settings = "settings";
+  static const String sessions = "sessions";
   static const String tasks = "tasks";
   static const String welcome = "welcome";
   static const String loading = "loading";
+  static const String help = "help";
   static const String submit = "submit";
   static const String areYouSure = "are_you_sure";
   static const String noQuizzesFound = "no_quizzes_found";

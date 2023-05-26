@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/config/utils/strings.dart';
 
-class SettingsView extends ConsumerWidget {
-  const SettingsView({super.key});
+class HelpView extends ConsumerWidget {
+  const HelpView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppStrings.settings.tr()),
+        title: Text(AppStrings.help.tr()),
       ),
       body: Center(
-        child: Text(AppStrings.settings.tr()),
+        child: Text(AppStrings.help.tr()),
       ),
     );
   }
