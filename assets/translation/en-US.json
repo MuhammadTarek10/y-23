@@ -23,5 +23,10 @@
   "score": "Score",
   "light_mode": "Light Mode",
   "dark_mode": "Dark Mode",
-  "language": "Change Language"
+  "language": "Change Language",
+  "no_internet": "Check Internet and Try Again",
+  "want_to_add_feedback": "Do you want to add feedback?",
+  "add_feedback": "Add Feedback",
+  "feedback_added": "Feedback Added",
+  "quiz_submitted": "Quiz Submitted"
 }

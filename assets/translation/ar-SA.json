@@ -23,5 +23,10 @@
   "score": "النتيجة",
   "light_mode": "الوضع الفاتح",
   "dark_mode": "الوضع الداكن",
-  "language": "تغيير اللغة"
+  "language": "تغيير اللغة",
+  "no_internet": "تحقق من جودة الانترنت",
+  "want_to_add_feedback": "هل تريد إضافة تعليق؟",
+  "add_feedback": "إضافة تعليق",
+  "feedback_added": "تم إضافة التعليق",
+  "quiz_submitted": "تم إرسال الاختبار"
 }

@@ -24,6 +24,11 @@ class AppStrings {
   static const String lightMode = "light_mode";
   static const String darkMode = "dark_mode";
   static const String language = "language";
+  static const String noInternet = "no_internet";
+  static const String wantToAddFeedback = "want_to_add_feedback";
+  static const String addFeedback = "add_feedback";
+  static const String feedbackAdded = "feedback_added";
+  static const String quizSubmitted = "quiz_submitted";
 
   const AppStrings._();
 }
@@ -31,4 +36,7 @@ class AppStrings {
 class AppKeys {
   static const String quiz = "quiz";
   static const String result = "result";
+  static const String title = "title";
+  static const String onPressed = "onPressed";
+
 }

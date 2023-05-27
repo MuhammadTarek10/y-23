@@ -24,6 +24,16 @@ class FirebaseFieldName {
   static const String quizResultScore = "score";
   static const String quizResultIsPassed = "isPassed";
 
+  //* Sessions
+  static const String sessionsId = "id";
+  static const String sessionsTitle = "title";
+  static const String sessionsPoints = "points";
+  static const String sessionsDocumentationLink = "documentationLink";
+  static const String sessionsPhotoUrl = "photoUrl";
+  static const String sessionsFeedback = "feedback";
+
+  //* Tasks
+
   const FirebaseFieldName._();
 }
 
@@ -32,6 +42,7 @@ class FirebaseCollectionName {
   static const String quizzes = "quizzes";
   static const String questions = "questions";
   static const String quizResults = "quizResults";
+  static const String sessions = "sessions";
 
   const FirebaseCollectionName._();
 }

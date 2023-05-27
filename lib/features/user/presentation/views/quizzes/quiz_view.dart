@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
 import 'package:y23/core/state/providers/loading_provider.dart';
+import 'package:y23/core/widgets/snackbar.dart';
 import 'package:y23/features/auth/state/providers/user_id_provider.dart';
 import 'package:y23/features/user/domain/entities/quizzes/quiz.dart';
 import 'package:y23/features/user/domain/entities/quizzes/quiz_result.dart';
@@ -14,15 +15,15 @@ import 'package:y23/features/user/presentation/views/quizzes/widgets/question_wi
 class QuizView extends ConsumerWidget {
   const QuizView({
     super.key,
-    required this.data,
+    required this.args,
   });
 
-  final Map<String, dynamic> data;
+  final Map<String, dynamic> args;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final quiz = data[AppKeys.quiz] as Quiz;
-    final result = data[AppKeys.result] as QuizResult;
+    final quiz = args[AppKeys.quiz] as Quiz;
+    final result = args[AppKeys.result] as QuizResult;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -104,10 +105,10 @@ class QuizView extends ConsumerWidget {
     ref.read(loadingProvider.notifier).loading();
     final userId = ref.read(userIdProvider) as String;
 
-    final quiz = data[AppKeys.quiz] as Quiz;
+    final quiz = args[AppKeys.quiz] as Quiz;
     final quizId = quiz.id;
 
-    final result = data[AppKeys.result] as QuizResult;
+    final result = args[AppKeys.result] as QuizResult;
     final selectedOptions = result.selectedOptions;
 
     final totalQuestions = quiz.questions.length;
@@ -126,6 +127,12 @@ class QuizView extends ConsumerWidget {
           totalQuestions: totalQuestions,
         );
     ref.read(loadingProvider.notifier).doneLoading();
-    if (context.mounted) Navigator.pop(context);
+    if (context.mounted) {
+      customShowSnackBar(
+        context: context,
+        message: AppStrings.quizSubmitted.tr(),
+      );
+      Navigator.pop(context);
+    }
   }
 }

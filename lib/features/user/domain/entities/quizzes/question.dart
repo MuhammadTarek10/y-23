@@ -1,10 +1,13 @@
+import 'package:flutter/foundation.dart' show immutable;
+
+@immutable
 class Question {
   final String id;
   final String title;
   final List<String> options;
   final String answer;
 
-  Question({
+  const Question({
     required this.id,
     required this.title,
     required this.options,
