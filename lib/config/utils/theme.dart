@@ -16,6 +16,7 @@ class AppTheme {
         ),
         centerTitle: true,
         titleTextStyle: TextStyle(
+          color: AppColors.primaryColor,
           fontSize: 24.0,
           fontWeight: FontWeight.bold,
         ),
@@ -50,17 +51,18 @@ class AppTheme {
           fontWeight: FontWeight.bold,
         ),
         headlineLarge: TextStyle(
-          fontSize: 36.0,
+          fontSize: 30.0,
           color: AppColors.primaryColor,
           fontWeight: FontWeight.bold,
         ),
         headlineMedium: TextStyle(
-          fontSize: 24.0,
+          fontSize: 22.0,
           color: AppColors.primaryColor,
           fontWeight: FontWeight.bold,
         ),
         headlineSmall: TextStyle(
           fontSize: 16.0,
+          color: Colors.grey,
           fontWeight: FontWeight.bold,
         ),
         titleLarge: TextStyle(
@@ -73,7 +75,7 @@ class AppTheme {
         ),
         bodyMedium: TextStyle(
           fontSize: 12.0,
-          fontWeight: FontWeight.normal,
+          fontStyle: FontStyle.italic,
         ),
       ),
 
@@ -188,12 +190,14 @@ class AppTheme {
 
       //* AppBar
       appBarTheme: const AppBarTheme(
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: AppColors.secondlyColor,
         iconTheme: IconThemeData(
-          color: Colors.white,
+          color: AppColors.primaryColor,
         ),
         centerTitle: true,
+        elevation: 0,
         titleTextStyle: TextStyle(
+          color: AppColors.primaryColor,
           fontSize: 24.0,
           fontWeight: FontWeight.bold,
         ),
@@ -228,17 +232,18 @@ class AppTheme {
           fontWeight: FontWeight.bold,
         ),
         headlineLarge: TextStyle(
-          fontSize: 36.0,
-          color: AppColors.primaryColor,
+          fontSize: 30.0,
+          color: AppColors.thirdlyColor,
           fontWeight: FontWeight.bold,
         ),
         headlineMedium: TextStyle(
-          fontSize: 24.0,
-          color: AppColors.primaryColor,
+          fontSize: 22.0,
+          color: AppColors.fourthlyColor,
           fontWeight: FontWeight.bold,
         ),
         headlineSmall: TextStyle(
           fontSize: 16.0,
+          color: Colors.grey,
           fontWeight: FontWeight.bold,
         ),
         titleLarge: TextStyle(
@@ -251,7 +256,7 @@ class AppTheme {
         ),
         bodyMedium: TextStyle(
           fontSize: 12.0,
-          fontWeight: FontWeight.normal,
+          fontStyle: FontStyle.italic,
         ),
       ),
 
@@ -293,7 +298,7 @@ class AppTheme {
       ),
 
       //* Scaffold
-      scaffoldBackgroundColor: Colors.white,
+      scaffoldBackgroundColor: AppColors.fakeWhite,
 
       //* Dialog
       dialogTheme: const DialogTheme(

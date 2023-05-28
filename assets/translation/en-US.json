@@ -28,5 +28,12 @@
   "want_to_add_feedback": "Do you want to add feedback?",
   "add_feedback": "Add Feedback",
   "feedback_added": "Feedback Added",
-  "quiz_submitted": "Quiz Submitted"
+  "quiz_submitted": "Quiz Submitted",
+  "points": "Points",
+  "not_submitted": "Not Submitted",
+  "incorrect": "Incorrect",
+  "correct": "Correct",
+  "upload_task": "Upload Your Task",
+  "details": "Details",
+  "problem_with_link": "There is a problem with the link, please try again later"
 }

@@ -28,5 +28,12 @@
   "want_to_add_feedback": "هل تريد إضافة تعليق؟",
   "add_feedback": "إضافة تعليق",
   "feedback_added": "تم إضافة التعليق",
-  "quiz_submitted": "تم إرسال الاختبار"
+  "quiz_submitted": "تم إرسال الاختبار",
+  "points": "النقاط",
+  "not_submitted": "لم يتم إرساله",
+  "incorrect": "غير صحيح",
+  "correct": "صحيح",
+  "upload_task": "ارفع الملف",
+  "details": "التفاصيل",
+  "problem_with_link": "هناك مشكلة في الرابط، من فضلك حاول مرة اخرى لاحقا"
 }

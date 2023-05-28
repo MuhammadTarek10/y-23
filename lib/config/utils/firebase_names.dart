@@ -37,6 +37,7 @@ class FirebaseFieldName {
   static const String tasksTitle = "title";
   static const String tasksDescription = "description";
   static const String tasksDocumentationLink = "documentationLink";
+  static const String tasksPoints = "points";
   static const String tasksFeedback = "feedback";
 
   //* Task Submissions

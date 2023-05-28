@@ -21,9 +21,9 @@ class CustomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDarkMode = ref.watch(themeProvider).brightness == Brightness.dark;
-    final color = isDarkMode ? AppColors.primaryColor : Colors.black;
+    const color = AppColors.primaryColor;
     final backgroundColor =
-        isDarkMode ? Colors.transparent : AppColors.primaryColor;
+        isDarkMode ? Colors.transparent : AppColors.secondlyColor;
     return BubbleBottomBar(
       opacity: 0.2,
       backgroundColor: backgroundColor,
@@ -38,7 +38,12 @@ class CustomNavigationBar extends StatelessWidget {
             icon: const Icon(Icons.task_outlined),
           ),
           activeIcon: const Icon(Icons.task),
-          title: Text(AppStrings.sessions.tr()),
+          title: Text(
+            AppStrings.sessions.tr(),
+            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                  color: AppColors.primaryColor,
+                ),
+          ),
         ),
         BubbleBottomBarItem(
           backgroundColor: color,
@@ -49,7 +54,12 @@ class CustomNavigationBar extends StatelessWidget {
             icon: const Icon(Icons.quiz_outlined),
           ),
           activeIcon: const Icon(Icons.quiz),
-          title: Text(AppStrings.quizzes.tr()),
+          title: Text(
+            AppStrings.quizzes.tr(),
+            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                  color: AppColors.primaryColor,
+                ),
+          ),
         ),
         BubbleBottomBarItem(
           backgroundColor: color,
@@ -60,7 +70,12 @@ class CustomNavigationBar extends StatelessWidget {
             icon: const Icon(Icons.flag_outlined),
           ),
           activeIcon: const Icon(Icons.flag),
-          title: Text(AppStrings.tasks.tr()),
+          title: Text(
+            AppStrings.tasks.tr(),
+            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                  color: AppColors.primaryColor,
+                ),
+          ),
         ),
         BubbleBottomBarItem(
           backgroundColor: color,
@@ -71,7 +86,12 @@ class CustomNavigationBar extends StatelessWidget {
             icon: const Icon(Icons.person_outline),
           ),
           activeIcon: const Icon(Icons.person),
-          title: Text(AppStrings.profile.tr()),
+          title: Text(
+            AppStrings.profile.tr(),
+            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                  color: AppColors.primaryColor,
+                ),
+          ),
         ),
       ],
     );

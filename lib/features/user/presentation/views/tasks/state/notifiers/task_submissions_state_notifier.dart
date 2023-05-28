@@ -48,4 +48,15 @@ class TaskSubmissionsStateNotifier
     );
     await getTaskSubmissions();
   }
+
+  Future<void> sendFeedback({
+    required String id,
+    required String feedback,
+  }) async {
+    await tasker.sendFeedback(
+      id,
+      feedback,
+    );
+    await getTaskSubmissions();
+  }
 }

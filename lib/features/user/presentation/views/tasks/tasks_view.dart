@@ -1,13 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:y23/config/routes.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/core/widgets/lottie.dart';
 import 'package:y23/features/user/domain/entities/tasks/task.dart';
 import 'package:y23/features/user/domain/entities/tasks/task_submission.dart';
 import 'package:y23/features/user/presentation/views/tasks/state/providers/tasks_provider.dart';
-import 'package:y23/features/user/presentation/views/tasks/task_view_params.dart';
+import 'package:y23/features/user/presentation/views/tasks/widgets/task_widget.dart';
 
 import 'state/providers/task_submissions_provider.dart';
 
@@ -22,11 +21,14 @@ class TasksView extends ConsumerWidget {
         ? const LottieLoading()
         : tasks.isEmpty && taskSubmissions.isEmpty
             ? LottieEmpty(message: AppStrings.noTasksFound.tr())
-            : buildTask(ref, tasks, taskSubmissions);
+            : buildTasks(ref, tasks, taskSubmissions);
   }
 
-  RefreshIndicator buildTask(
-      WidgetRef ref, List<Task> tasks, List<TaskSubmission> taskSubmissions) {
+  RefreshIndicator buildTasks(
+    WidgetRef ref,
+    List<Task> tasks,
+    List<TaskSubmission> taskSubmissions,
+  ) {
     return RefreshIndicator(
       onRefresh: () async {
         await ref.read(tasksProvider.notifier).getTasks();
@@ -39,21 +41,9 @@ class TasksView extends ConsumerWidget {
           final taskSubmission = taskSubmissions.firstWhere(
             (element) => element.taskId == task.id,
           );
-          return ListTile(
-            title: Text(task.title),
-            onTap: () => Navigator.pushNamed(
-              context,
-              Routes.taskRoute,
-              arguments: TaskViewParams(
-                task: task,
-                taskSubmission: taskSubmission,
-              ),
-            ),
-            subtitle: Text(task.description),
-            trailing: taskSubmission.isSubmitted == null ||
-                    taskSubmission.isSubmitted == false
-                ? const Icon(Icons.check_box_outline_blank)
-                : const Icon(Icons.check_box),
+          return TaskWidget(
+            task: task,
+            taskSubmission: taskSubmission,
           );
         },
       ),

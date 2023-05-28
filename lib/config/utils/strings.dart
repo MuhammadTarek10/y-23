@@ -29,6 +29,13 @@ class AppStrings {
   static const String addFeedback = "add_feedback";
   static const String feedbackAdded = "feedback_added";
   static const String quizSubmitted = "quiz_submitted";
+  static const String correct = "correct";
+  static const String incorrect = "incorrect";
+  static const String notSubmitted = "not_submitted";
+  static const String points = "points";
+  static const String uploadTask = "upload_task";
+  static const String details = "details";
+  static const String problemWithLink = "problem_with_link";
 
   const AppStrings._();
 }

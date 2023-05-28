@@ -63,13 +63,21 @@ class _FeedbackViewState extends State<FeedbackView> {
             ),
             const SizedBox(height: AppSizes.s20),
             InkWell(
-              onTap: () => onPressed(_controller.text),
+              onTap: () {
+                if (_controller.text.isNotEmpty) {
+                  onPressed(_controller.text);
+                } else {
+                  return;
+                }
+              },
               child: Container(
                 width: double.infinity,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: Theme.of(context).primaryColor,
+                    color: _controller.text.isNotEmpty
+                        ? Theme.of(context).primaryColor
+                        : Colors.grey.shade400,
                   ),
                   borderRadius: BorderRadius.circular(AppSizes.s10),
                 ),
