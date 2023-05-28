@@ -6,6 +6,7 @@ class TaskSubmission {
   final String taskId;
   final String userId;
   final dynamic submission;
+  final bool? isSubmitted;
   final bool? isCorrect;
   final List<dynamic>? feedback;
 
@@ -14,6 +15,7 @@ class TaskSubmission {
     required this.taskId,
     required this.userId,
     required this.submission,
+    this.isSubmitted,
     this.isCorrect,
     this.feedback,
   });
@@ -23,6 +25,7 @@ class TaskSubmission {
     String? taskId,
     String? userId,
     dynamic submission,
+    bool? isSubmitted,
     bool? isCorrect,
     List<dynamic>? feedback,
   }) {
@@ -31,6 +34,7 @@ class TaskSubmission {
       taskId: taskId ?? this.taskId,
       userId: userId ?? this.userId,
       submission: submission,
+      isSubmitted: isSubmitted,
       isCorrect: isCorrect,
       feedback: feedback,
     );
@@ -42,6 +46,7 @@ class TaskSubmission {
       taskId: json['taskId'] as String,
       userId: json['userId'] as String,
       submission: json['submission'],
+      isSubmitted: json['isSubmitted'],
       isCorrect: json['isCorrect'],
       feedback: json['feedback'],
     );
@@ -53,6 +58,7 @@ class TaskSubmission {
       'taskId': taskId,
       'userId': userId,
       'submission': submission,
+      'isSubmitted': isSubmitted,
       'isCorrect': isCorrect,
       'feedback': feedback,
     };

@@ -6,15 +6,11 @@ class QuizResultStateNotifier extends StateNotifier<List<QuizResult>?> {
   final quizzer = const Quizzer();
   final String userId;
   QuizResultStateNotifier({required this.userId}) : super(null) {
-    getQuizResults(userId);
+    getQuizResults();
   }
 
-  Future<void> getQuizResults(String userId) async {
+  Future<void> getQuizResults() async {
     state = await quizzer.getQuizResultsByUserId(userId);
-  }
-
-  Future<QuizResult?> getQuizResultById(String id) async {
-    return await quizzer.getQuizResultByQuizId(id);
   }
 
   Future<void> saveQuizResult({
@@ -30,6 +26,6 @@ class QuizResultStateNotifier extends StateNotifier<List<QuizResult>?> {
         selectedOptions: selectedOptions,
         score: score,
         totalQuestions: totalQuestions);
-    await getQuizResults(userId);
+    await getQuizResults();
   }
 }

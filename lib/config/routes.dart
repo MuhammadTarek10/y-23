@@ -12,8 +12,12 @@ import 'package:y23/features/user/presentation/views/feedback_view.dart';
 import 'package:y23/features/user/presentation/views/help/help_view.dart';
 import 'package:y23/features/user/presentation/views/home/home_view.dart';
 import 'package:y23/features/user/presentation/views/quizzes/quiz_view.dart';
-import 'package:y23/features/user/presentation/views/sessions/state/widgets/session_view.dart';
+import 'package:y23/features/user/presentation/views/quizzes/quiz_view_params.dart';
+import 'package:y23/features/user/presentation/views/sessions/session_view.dart';
+import 'package:y23/features/user/presentation/views/sessions/session_view_params.dart';
 import 'package:y23/features/user/presentation/views/settings/settings_view.dart';
+import 'package:y23/features/user/presentation/views/tasks/task_view.dart';
+import 'package:y23/features/user/presentation/views/tasks/task_view_params.dart';
 
 class Routes {
   static const String initialRoute = "/";
@@ -30,6 +34,7 @@ class Routes {
   static const String helpRoute = "/help";
   static const String sessionRoute = "/session";
   static const String feedbackRoute = "/feedback";
+  static const String taskRoute = "/task";
 
   //* Undefined
   static const String undefined = "/undefined";
@@ -67,7 +72,7 @@ class RouterGenerator {
       case Routes.quizzesRoute:
         return MaterialPageRoute(
           builder: (context) =>
-              QuizView(args: settings.arguments as Map<String, dynamic>),
+              QuizView(params: settings.arguments as QuizViewParams),
         );
       case Routes.sessionRoute:
         return MaterialPageRoute(
@@ -77,9 +82,17 @@ class RouterGenerator {
       case Routes.feedbackRoute:
         return MaterialPageRoute(
           builder: (context) => FeedbackView(
-            args: settings.arguments as Map<String, dynamic>,
+            params: settings.arguments as FeedbackViewParams,
           ),
         );
+
+      case Routes.taskRoute:
+        return MaterialPageRoute(
+          builder: (context) => TaskView(
+            params: settings.arguments as TaskViewParams,
+          ),
+        );
+
       case Routes.settingsRoute:
         return MaterialPageRoute(builder: (context) => const SettingsView());
       case Routes.helpRoute:

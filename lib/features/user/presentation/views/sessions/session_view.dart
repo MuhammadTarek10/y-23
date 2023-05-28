@@ -7,6 +7,7 @@ import 'package:y23/config/utils/values.dart';
 import 'package:y23/core/state/providers/loading_provider.dart';
 import 'package:y23/core/widgets/snackbar.dart';
 import 'package:y23/features/user/domain/entities/sessions/session.dart';
+import 'package:y23/features/user/presentation/views/sessions/session_view_params.dart';
 import 'package:y23/features/user/presentation/views/sessions/state/providers/session_provider.dart';
 
 class SessionView extends ConsumerWidget {
@@ -53,11 +54,10 @@ class SessionView extends ConsumerWidget {
           child: InkWell(
             onTap: () => Navigator.of(context).pushNamed(
               Routes.feedbackRoute,
-              arguments: {
-                AppKeys.title: session.title,
-                AppKeys.onPressed: (feedback) =>
-                    sendFeedback(context, ref, feedback),
-              },
+              arguments: FeedbackViewParams(
+                title: session.title,
+                onPressed: (feedback) => sendFeedback(context, ref, feedback),
+              ),
             ),
             child: Container(
               decoration: BoxDecoration(

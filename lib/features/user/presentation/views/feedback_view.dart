@@ -2,17 +2,17 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
-
+import 'package:y23/features/user/presentation/views/sessions/session_view_params.dart';
 
 typedef FeedbackCallback = void Function(String feedback);
 
 class FeedbackView extends StatefulWidget {
   const FeedbackView({
     super.key,
-    required this.args,
+    required this.params,
   });
 
-  final Map<String, dynamic> args;
+  final FeedbackViewParams params;
 
   @override
   State<FeedbackView> createState() => _FeedbackViewState();
@@ -26,8 +26,8 @@ class _FeedbackViewState extends State<FeedbackView> {
   @override
   void initState() {
     super.initState();
-    title = widget.args[AppKeys.title] as String;
-    onPressed = widget.args[AppKeys.onPressed] as FeedbackCallback;
+    title = widget.params.title;
+    onPressed = widget.params.onPressed;
     _controller = TextEditingController();
   }
 

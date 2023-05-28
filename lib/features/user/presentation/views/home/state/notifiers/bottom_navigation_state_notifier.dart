@@ -4,7 +4,7 @@ import 'package:y23/features/user/data/models/bottom_navigation_options.dart';
 import 'package:y23/features/user/presentation/views/profile/profile_view.dart';
 import 'package:y23/features/user/presentation/views/quizzes/quizzes_view.dart';
 import 'package:y23/features/user/presentation/views/sessions/sessions_view.dart';
-import 'package:y23/features/user/presentation/views/tasks/task_view.dart';
+import 'package:y23/features/user/presentation/views/tasks/tasks_view.dart';
 
 class BottomNavigationStateNotifier
     extends StateNotifier<BottomNavigationOptions> {

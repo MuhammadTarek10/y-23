@@ -6,8 +6,7 @@ import 'package:y23/config/utils/values.dart';
 import 'package:y23/core/state/providers/loading_provider.dart';
 import 'package:y23/core/widgets/snackbar.dart';
 import 'package:y23/features/auth/state/providers/user_id_provider.dart';
-import 'package:y23/features/user/domain/entities/quizzes/quiz.dart';
-import 'package:y23/features/user/domain/entities/quizzes/quiz_result.dart';
+import 'package:y23/features/user/presentation/views/quizzes/quiz_view_params.dart';
 import 'package:y23/features/user/presentation/views/quizzes/state/providers/quiz_result_provider.dart';
 import 'package:y23/features/user/presentation/views/quizzes/state/providers/quizzers_provider.dart';
 import 'package:y23/features/user/presentation/views/quizzes/widgets/question_widget.dart';
@@ -15,15 +14,15 @@ import 'package:y23/features/user/presentation/views/quizzes/widgets/question_wi
 class QuizView extends ConsumerWidget {
   const QuizView({
     super.key,
-    required this.args,
+    required this.params,
   });
 
-  final Map<String, dynamic> args;
+  final QuizViewParams params;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final quiz = args[AppKeys.quiz] as Quiz;
-    final result = args[AppKeys.result] as QuizResult;
+    final quiz = params.quiz;
+    final result = params.result;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -105,10 +104,10 @@ class QuizView extends ConsumerWidget {
     ref.read(loadingProvider.notifier).loading();
     final userId = ref.read(userIdProvider) as String;
 
-    final quiz = args[AppKeys.quiz] as Quiz;
+    final quiz = params.quiz;
     final quizId = quiz.id;
 
-    final result = args[AppKeys.result] as QuizResult;
+    final result = params.result;
     final selectedOptions = result.selectedOptions;
 
     final totalQuestions = quiz.questions.length;

@@ -6,6 +6,8 @@ import 'package:y23/features/user/domain/entities/quizzes/quiz_result.dart';
 class Quizzer {
   const Quizzer();
 
+  //* Quizzes
+
   Future<List<Quiz>?> getQuizzes() async {
     final data = await FirebaseFirestore.instance
         .collection(FirebaseCollectionName.quizzes)
@@ -57,6 +59,8 @@ class Quizzer {
       return false;
     }
   }
+
+  //* Quiz Results
 
   Future<bool?> saveQuizResult({
     required String userId,
@@ -161,7 +165,7 @@ class Quizzer {
               .collection(FirebaseCollectionName.quizResults)
               .add({
             FirebaseFieldName.quizResultUserId: userId,
-            FirebaseFieldName.quizResultQuizId: quiz[FirebaseFieldName.quizId],
+            FirebaseFieldName.quizResultQuizId: quiz.id,
             FirebaseFieldName.quizResultScore: 0,
             FirebaseFieldName.quizResultSelectedOption: {},
             FirebaseFieldName.quizResultIsTaken: false,

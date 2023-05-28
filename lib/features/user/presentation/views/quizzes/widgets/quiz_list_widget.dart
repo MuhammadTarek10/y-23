@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:y23/config/routes.dart';
-import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
 import 'package:y23/features/user/domain/entities/quizzes/quiz.dart';
 import 'package:y23/features/user/domain/entities/quizzes/quiz_result.dart';
+import 'package:y23/features/user/presentation/views/quizzes/quiz_view_params.dart';
 
 class QuizListWidget extends StatelessWidget {
   const QuizListWidget({
@@ -18,14 +18,11 @@ class QuizListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.pushNamed(
-        context,
-        Routes.quizzesRoute,
-        arguments: {
-          AppKeys.quiz: quiz,
-          AppKeys.result: result,
-        },
-      ),
+      onTap: () => Navigator.pushNamed(context, Routes.quizzesRoute,
+          arguments: QuizViewParams(
+            quiz: quiz,
+            result: result,
+          )),
       child: Container(
         height: AppSizes.s100,
         decoration: BoxDecoration(

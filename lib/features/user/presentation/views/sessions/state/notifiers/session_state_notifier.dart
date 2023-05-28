@@ -17,8 +17,8 @@ class SessionsStateNotifier extends StateNotifier<List<Session>?> {
     state = [session!];
   }
 
-  Future<void> saveSession(Session session) async {
-    await sessioner.saveSession(session);
+  Future<void> addSession(Session session) async {
+    await sessioner.addSession(session);
     getSessions();
   }
 

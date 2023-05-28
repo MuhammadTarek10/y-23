@@ -9,7 +9,9 @@ class QuizzesStateNotifier extends StateNotifier<List<Quiz>?> {
   }
 
   Future<void> getQuizzes() async {
-    state = await quizzer.getQuizzes();
+    final quizzes = await quizzer.getQuizzes();
+    if (quizzes != null) quizzes.sort((a, b) => a.id.compareTo(b.id));
+    state = quizzes;
   }
 
   Future<void> getQuizById(String id) async {

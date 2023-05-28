@@ -22,7 +22,7 @@ class Sessioner {
     return Session.fromJson(data.id, data.data()!);
   }
 
-  Future<bool> saveSession(Session session) async {
+  Future<bool> addSession(Session session) async {
     try {
       await FirebaseFirestore.instance
           .collection(FirebaseCollectionName.sessions)

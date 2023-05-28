@@ -33,6 +33,20 @@ class FirebaseFieldName {
   static const String sessionsFeedback = "feedback";
 
   //* Tasks
+  static const String tasksId = "id";
+  static const String tasksTitle = "title";
+  static const String tasksDescription = "description";
+  static const String tasksDocumentationLink = "documentationLink";
+  static const String tasksFeedback = "feedback";
+
+  //* Task Submissions
+  static const String taskSubmissionsId = "id";
+  static const String taskSubmissionsTaskId = "taskId";
+  static const String taskSubmissionsUserId = "userId";
+  static const String taskSubmissionsSubmission = "submission";
+  static const String taskSubmissionsIsSubmitted = "isSubmitted";
+  static const String taskSubmissionsIsCorrect = "isCorrect";
+  static const String taskSubmissionsFeedback = "feedback";
 
   const FirebaseFieldName._();
 }
@@ -43,6 +57,8 @@ class FirebaseCollectionName {
   static const String questions = "questions";
   static const String quizResults = "quizResults";
   static const String sessions = "sessions";
+  static const String tasks = "tasks";
+  static const String taskSubmissions = "taskSubmissions";
 
   const FirebaseCollectionName._();
 }
