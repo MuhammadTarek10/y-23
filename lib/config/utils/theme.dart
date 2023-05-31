@@ -61,7 +61,7 @@ class AppTheme {
           fontWeight: FontWeight.bold,
         ),
         headlineSmall: TextStyle(
-          fontSize: 16.0,
+          fontSize: 20.0,
           color: Colors.grey,
           fontWeight: FontWeight.bold,
         ),
@@ -70,7 +70,7 @@ class AppTheme {
           fontWeight: FontWeight.bold,
         ),
         bodyLarge: TextStyle(
-          fontSize: 18.0,
+          fontSize: 16.0,
           fontWeight: FontWeight.normal,
         ),
         bodyMedium: TextStyle(
@@ -87,6 +87,7 @@ class AppTheme {
       //* Card
       cardTheme: const CardTheme(
         elevation: 0,
+        color: AppColors.sessionColorDarkTheme,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(8.0),
@@ -242,7 +243,7 @@ class AppTheme {
           fontWeight: FontWeight.bold,
         ),
         headlineSmall: TextStyle(
-          fontSize: 16.0,
+          fontSize: 20.0,
           color: Colors.grey,
           fontWeight: FontWeight.bold,
         ),
@@ -251,7 +252,7 @@ class AppTheme {
           fontWeight: FontWeight.bold,
         ),
         bodyLarge: TextStyle(
-          fontSize: 18.0,
+          fontSize: 16.0,
           fontWeight: FontWeight.normal,
         ),
         bodyMedium: TextStyle(
@@ -268,6 +269,7 @@ class AppTheme {
       //* Card
       cardTheme: const CardTheme(
         elevation: 0,
+        color: AppColors.sessionColorLightTheme,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(8.0),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:y23/config/utils/colors.dart';
 import 'package:y23/config/utils/values.dart';
 import 'package:y23/features/user/domain/entities/quizzes/question.dart';
 import 'package:y23/features/user/presentation/views/quizzes/widgets/option_widget.dart';
@@ -22,8 +23,8 @@ class QuestionWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(AppPadding.p10),
       decoration: BoxDecoration(
-        color: Colors.green.withOpacity(0.1),
-        border: Border.all(color: Colors.grey.shade300),
+        color: AppColors.fakeWhite.withOpacity(0.15),
+        border: Border.all(color: Colors.grey.shade400),
         borderRadius: BorderRadius.circular(AppSizes.s10),
       ),
       child: Column(
@@ -35,7 +36,7 @@ class QuestionWidget extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           const SizedBox(height: AppSizes.s10),
-          const Divider(color: Colors.white),
+          const Divider(thickness: AppSizes.s4),
           ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),

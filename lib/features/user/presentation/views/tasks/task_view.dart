@@ -7,7 +7,7 @@ import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
 import 'package:y23/core/state/providers/loading_provider.dart';
 import 'package:y23/core/widgets/snackbar.dart';
-import 'package:y23/features/user/presentation/views/sessions/session_view_params.dart';
+import 'package:y23/features/user/presentation/views/feedback/feedback_view_params.dart';
 import 'package:y23/features/user/presentation/views/tasks/state/providers/task_submissions_provider.dart';
 import 'package:y23/features/user/presentation/views/tasks/task_view_params.dart';
 import 'package:y23/features/user/presentation/views/tasks/widgets/upload_task_button.dart';
@@ -133,7 +133,10 @@ class FeedbackWidget extends ConsumerWidget {
                       children: [
                         Text(
                           AppStrings.addFeedback.tr(),
-                          style: Theme.of(context).textTheme.bodyMedium,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(fontStyle: FontStyle.normal),
                         ),
                         const Icon(Icons.add),
                       ],

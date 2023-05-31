@@ -54,7 +54,7 @@ class QuizzesDetails extends StatelessWidget {
           children: [
             Text(
               AppStrings.quizzesTaken.tr(),
-              style: Theme.of(context).textTheme.headlineSmall,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SizedBox(height: AppSizes.s4),
             Text(
@@ -70,7 +70,7 @@ class QuizzesDetails extends StatelessWidget {
           children: [
             Text(
               AppStrings.quizzesPassed.tr(),
-              style: Theme.of(context).textTheme.headlineSmall,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SizedBox(height: AppSizes.s4),
             Text(
@@ -86,7 +86,7 @@ class QuizzesDetails extends StatelessWidget {
           children: [
             Text(
               AppStrings.score.tr(),
-              style: Theme.of(context).textTheme.headlineSmall,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
             const SizedBox(height: AppSizes.s4),
             Text(

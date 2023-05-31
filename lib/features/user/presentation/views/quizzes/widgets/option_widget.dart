@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:y23/config/utils/colors.dart';
 
 class OptionWidget extends StatelessWidget {
   const OptionWidget({
@@ -17,7 +18,12 @@ class OptionWidget extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: ListTile(
-        title: Text(option),
+        title: Text(
+          option,
+          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: isSelected ? AppColors.primaryColor : Colors.white,
+              ),
+        ),
         trailing: Radio<String>(
           value: option,
           groupValue: isSelected ? option : null,

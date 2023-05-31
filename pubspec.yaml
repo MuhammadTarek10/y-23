@@ -13,6 +13,7 @@ dependencies:
   cloud_firestore: ^4.7.1
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
+  day_night_switcher: ^0.2.0+1
   easy_localization: ^3.0.2
   firebase_auth: ^4.6.1
   firebase_core: ^2.13.0

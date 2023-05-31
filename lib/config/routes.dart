@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/core/state/providers/internet_provider.dart';
+import 'package:y23/core/state/providers/loading_provider.dart';
 import 'package:y23/core/widgets/loading_screen.dart';
 import 'package:y23/core/widgets/lottie.dart';
 import 'package:y23/features/auth/presentation/views/login_view.dart';
@@ -8,13 +9,13 @@ import 'package:y23/features/auth/state/providers/auth_loading_provider.dart';
 import 'package:y23/features/auth/state/providers/is_logged_in_provider.dart';
 import 'package:y23/features/splash/views/splash_view.dart';
 import 'package:y23/features/user/domain/entities/sessions/session.dart';
+import 'package:y23/features/user/presentation/views/feedback/feedback_view_params.dart';
 import 'package:y23/features/user/presentation/views/feedback_view.dart';
 import 'package:y23/features/user/presentation/views/help/help_view.dart';
 import 'package:y23/features/user/presentation/views/home/home_view.dart';
 import 'package:y23/features/user/presentation/views/quizzes/quiz_view.dart';
 import 'package:y23/features/user/presentation/views/quizzes/quiz_view_params.dart';
 import 'package:y23/features/user/presentation/views/sessions/session_view.dart';
-import 'package:y23/features/user/presentation/views/sessions/session_view_params.dart';
 import 'package:y23/features/user/presentation/views/settings/settings_view.dart';
 import 'package:y23/features/user/presentation/views/tasks/task_view.dart';
 import 'package:y23/features/user/presentation/views/tasks/task_view_params.dart';
@@ -68,7 +69,19 @@ class RouterGenerator {
           ),
         );
       case Routes.homeRoute:
-        return MaterialPageRoute(builder: (context) => HomeView());
+        return MaterialPageRoute(
+          builder: (context) => Consumer(builder: (context, ref, child) {
+            ref.listen<bool>(
+              loadingProvider,
+              (_, isLoading) {
+                isLoading
+                    ? LoadingScreen.instance().show(context: context)
+                    : LoadingScreen.instance().hide();
+              },
+            );
+            return HomeView();
+          }),
+        );
       case Routes.quizzesRoute:
         return MaterialPageRoute(
           builder: (context) =>

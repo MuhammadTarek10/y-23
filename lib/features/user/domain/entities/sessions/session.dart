@@ -1,6 +1,7 @@
 class Session {
   final String id;
   final String title;
+  final String instructor;
   Map<String, dynamic>? points;
   String? documentationLink;
   String? photoUrl;
@@ -9,6 +10,7 @@ class Session {
   Session({
     required this.id,
     required this.title,
+    required this.instructor,
     this.points,
     this.documentationLink,
     this.photoUrl,
@@ -18,6 +20,7 @@ class Session {
   Session copyWith({
     String? id,
     String? title,
+    String? instructor,
     Map<String, String>? points,
     String? documentationLink,
     String? photoUrl,
@@ -25,6 +28,7 @@ class Session {
     return Session(
       id: id ?? this.id,
       title: title ?? this.title,
+      instructor: instructor ?? this.instructor,
       points: points,
       documentationLink: documentationLink,
       photoUrl: photoUrl,
@@ -36,6 +40,7 @@ class Session {
       id: id,
       title: json['title'] as String,
       points: json['points'] as Map<String, dynamic>,
+      instructor: json['instructor'] as String,
       documentationLink: json['documentationLink'],
       photoUrl: json['photoUrl'],
       feedback: json['feedback'],
@@ -46,6 +51,7 @@ class Session {
     return {
       'id': id,
       'title': title,
+      'instructor': instructor,
       'points': points,
       'documentationLink': documentationLink,
       'photoUrl': photoUrl,

@@ -35,5 +35,6 @@
   "correct": "Correct",
   "upload_task": "Upload Your Task",
   "details": "Details",
-  "problem_with_link": "There is a problem with the link, please try again later"
+  "problem_with_link": "There is a problem with the link, please try again later",
+  "answer_all_questions": "Please answer all questions"
 }

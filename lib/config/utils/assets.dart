@@ -1,5 +1,6 @@
 class AppAssets {
   //* images
+  static const String logo = "assets/images/logo.png";
   static const String googleLogo = "assets/images/g-logo.png";
 
   //* Icons

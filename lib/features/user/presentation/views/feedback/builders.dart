@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/config/routes.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
-import 'package:y23/features/user/presentation/views/sessions/session_view_params.dart';
+import 'package:y23/features/user/presentation/views/feedback/feedback_view_params.dart';
 
 typedef OnPressed = void Function(
   BuildContext context,

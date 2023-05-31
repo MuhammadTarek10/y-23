@@ -10,6 +10,10 @@ class AppColors {
   static const Color fourthlyColor = Color(0xFF546A7B);
   static const Color fakeWhite = Color(0xFFFAFAFA);
 
+  //* Sessions
+  static const Color sessionColorLightTheme = Color(0xFF00A0F0);
+  static const Color sessionColorDarkTheme = Color(0xFF333499);
+
   //* Quizzes
   static const Color quizCardColor = Color(0xFFE0E0E0);
   static const Color quizCardTakenColor = Color(0xFFBDBDBD);

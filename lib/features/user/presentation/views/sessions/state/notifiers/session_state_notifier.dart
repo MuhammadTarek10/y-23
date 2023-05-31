@@ -9,7 +9,9 @@ class SessionsStateNotifier extends StateNotifier<List<Session>?> {
   }
 
   Future<void> getSessions() async {
-    state = await sessioner.getSessions();
+    final sessions = await sessioner.getSessions();
+    if (sessions != null) sessions.sort((a, b) => a.title.compareTo(b.title));
+    state = sessions;
   }
 
   Future<void> getSessionById(String id) async {

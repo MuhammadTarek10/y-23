@@ -7,7 +7,7 @@ import 'package:y23/config/utils/values.dart';
 import 'package:y23/core/state/providers/loading_provider.dart';
 import 'package:y23/core/widgets/snackbar.dart';
 import 'package:y23/features/user/domain/entities/sessions/session.dart';
-import 'package:y23/features/user/presentation/views/sessions/session_view_params.dart';
+import 'package:y23/features/user/presentation/views/feedback/feedback_view_params.dart';
 import 'package:y23/features/user/presentation/views/sessions/state/providers/session_provider.dart';
 
 class SessionView extends ConsumerWidget {
@@ -30,58 +30,83 @@ class SessionView extends ConsumerWidget {
           child: Column(
             children: [
               Center(
-                child: Text(session.title),
+                child: Text(
+                  session.title,
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
               ),
               const SizedBox(height: AppSizes.s20),
-              buildFeedback(context, ref)
+              FeedbackWidget(id: session.id, title: session.title),
             ],
           ),
         ),
       ),
     );
   }
+}
 
-  Row buildFeedback(BuildContext context, WidgetRef ref) {
-    return Row(
+class FeedbackWidget extends ConsumerWidget {
+  const FeedbackWidget({
+    super.key,
+    required this.id,
+    required this.title,
+  });
+
+  final String id;
+  final String title;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          AppStrings.wantToAddFeedback.tr(),
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
-        const SizedBox(width: AppSizes.s10),
-        Expanded(
-          child: InkWell(
-            onTap: () => Navigator.of(context).pushNamed(
-              Routes.feedbackRoute,
-              arguments: FeedbackViewParams(
-                title: session.title,
-                onPressed: (feedback) => sendFeedback(context, ref, feedback),
-              ),
+        const SizedBox(height: AppSizes.s20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              AppStrings.wantToAddFeedback.tr(),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Theme.of(context).primaryColor,
+            const SizedBox(width: AppSizes.s10),
+            Expanded(
+              child: InkWell(
+                onTap: () => Navigator.of(context).pushNamed(
+                  Routes.feedbackRoute,
+                  arguments: FeedbackViewParams(
+                    title: title,
+                    onPressed: (feedback) =>
+                        sendFeedback(context, ref, feedback, id),
+                  ),
                 ),
-                borderRadius: BorderRadius.circular(AppSizes.s10),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(AppPadding.p4),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      AppStrings.addFeedback.tr(),
-                      style: Theme.of(context).textTheme.bodyMedium,
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Theme.of(context).primaryColor,
                     ),
-                    const Icon(Icons.add),
-                  ],
+                    borderRadius: BorderRadius.circular(AppSizes.s10),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(AppPadding.p4),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          AppStrings.addFeedback.tr(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(fontStyle: FontStyle.normal),
+                        ),
+                        const Icon(Icons.add),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
+          ],
+        )
       ],
     );
   }
@@ -90,10 +115,11 @@ class SessionView extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
     String feedback,
+    String id,
   ) async {
     ref.read(loadingProvider.notifier).loading();
     await ref.read(sessionsProvider.notifier).sendFeedback(
-          session.id,
+          id,
           feedback,
         );
     ref.read(loadingProvider.notifier).doneLoading();

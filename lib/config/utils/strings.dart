@@ -36,6 +36,7 @@ class AppStrings {
   static const String uploadTask = "upload_task";
   static const String details = "details";
   static const String problemWithLink = "problem_with_link";
+  static const String answerAllQuestions = "answer_all_questions";
 
   const AppStrings._();
 }

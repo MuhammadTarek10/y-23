@@ -40,7 +40,7 @@ class CustomNavigationBar extends StatelessWidget {
           activeIcon: const Icon(Icons.task),
           title: Text(
             AppStrings.sessions.tr(),
-            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: AppColors.primaryColor,
                 ),
           ),
@@ -56,7 +56,7 @@ class CustomNavigationBar extends StatelessWidget {
           activeIcon: const Icon(Icons.quiz),
           title: Text(
             AppStrings.quizzes.tr(),
-            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: AppColors.primaryColor,
                 ),
           ),
@@ -72,7 +72,7 @@ class CustomNavigationBar extends StatelessWidget {
           activeIcon: const Icon(Icons.flag),
           title: Text(
             AppStrings.tasks.tr(),
-            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: AppColors.primaryColor,
                 ),
           ),
@@ -88,7 +88,7 @@ class CustomNavigationBar extends StatelessWidget {
           activeIcon: const Icon(Icons.person),
           title: Text(
             AppStrings.profile.tr(),
-            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: AppColors.primaryColor,
                 ),
           ),

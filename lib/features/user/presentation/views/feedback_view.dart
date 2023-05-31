@@ -1,8 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:y23/config/utils/colors.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
-import 'package:y23/features/user/presentation/views/sessions/session_view_params.dart';
+import 'package:y23/features/user/presentation/views/feedback/feedback_view_params.dart';
 
 typedef FeedbackCallback = void Function(String feedback);
 
@@ -44,7 +45,7 @@ class _FeedbackViewState extends State<FeedbackView> {
         title: Text(AppStrings.addFeedback.tr()),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(AppPadding.p10),
         child: Column(
           children: [
             Text(
@@ -59,7 +60,7 @@ class _FeedbackViewState extends State<FeedbackView> {
                 hintText: AppStrings.addFeedback.tr(),
                 border: const OutlineInputBorder(),
               ),
-              maxLines: 5,
+              maxLines: 10,
             ),
             const SizedBox(height: AppSizes.s20),
             InkWell(
@@ -76,7 +77,7 @@ class _FeedbackViewState extends State<FeedbackView> {
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: _controller.text.isNotEmpty
-                        ? Theme.of(context).primaryColor
+                        ? AppColors.primaryColor
                         : Colors.grey.shade400,
                   ),
                   borderRadius: BorderRadius.circular(AppSizes.s10),
