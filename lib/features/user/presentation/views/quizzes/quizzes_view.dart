@@ -20,35 +20,49 @@ class QuizzesView extends ConsumerWidget {
     return quizzes != null && quizResults != null
         ? quizzes.isEmpty || quizResults.isEmpty
             ? Center(
-                child: LottieEmpty(
-                  message: AppStrings.noQuizzesFound.tr(),
-                ),
+                child: LottieEmpty(message: AppStrings.noQuizzesFound.tr()),
               )
-            : buildQuiz(ref, quizzes, quizResults)
+            : QuizzesWidget(
+                quizzes: quizzes,
+                results: quizResults,
+                onRefresh: () async {
+                  await ref.read(quizzesProvider.notifier).getQuizzes();
+                  await ref.read(quizResultProvider.notifier).getQuizResults();
+                },
+              )
         : const LottieLoading();
   }
+}
 
-  RefreshIndicator buildQuiz(
-      WidgetRef ref, List<Quiz> quizzes, List<QuizResult> quizResults) {
+class QuizzesWidget extends StatelessWidget {
+  const QuizzesWidget({
+    super.key,
+    required this.quizzes,
+    required this.results,
+    required this.onRefresh,
+  });
+
+  final List<Quiz> quizzes;
+  final List<QuizResult> results;
+  final Function onRefresh;
+
+  @override
+  Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () async {
-        await ref.read(quizzesProvider.notifier).getQuizzes();
-        await ref.read(quizResultProvider.notifier).getQuizResults();
-      },
+      onRefresh: () => onRefresh(),
       child: Padding(
         padding: const EdgeInsets.all(AppPadding.p10),
         child: Center(
           child: SingleChildScrollView(
             child: Column(
               children: [
-                ListView.separated(
+                ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: quizzes.length,
-                  separatorBuilder: (context, index) => const Divider(),
                   itemBuilder: (context, index) {
                     final quiz = quizzes[index];
-                    final quizResult = quizResults.firstWhere(
+                    final quizResult = results.firstWhere(
                         (element) => element.quizId == quizzes[index].id);
                     return QuizListWidget(quiz: quiz, result: quizResult);
                   },

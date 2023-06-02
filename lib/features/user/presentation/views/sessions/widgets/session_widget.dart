@@ -33,7 +33,14 @@ class SessionWidget extends StatelessWidget {
               ),
               height: context.height * 0.2,
               decoration: BoxDecoration(
-                  color: Theme.of(context).cardTheme.color,
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Theme.of(context).cardTheme.color!,
+                      Theme.of(context).cardTheme.color!.withOpacity(0.5),
+                    ],
+                  ),
                   image: DecorationImage(
                     opacity: 0.4,
                     image: session.photoUrl != null

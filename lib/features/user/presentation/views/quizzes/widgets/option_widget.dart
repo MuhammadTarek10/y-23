@@ -21,7 +21,9 @@ class OptionWidget extends StatelessWidget {
         title: Text(
           option,
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                color: isSelected ? AppColors.primaryColor : Colors.white,
+                color: isSelected
+                    ? Theme.of(context).cardTheme.color
+                    : AppColors.green,
               ),
         ),
         trailing: Radio<String>(

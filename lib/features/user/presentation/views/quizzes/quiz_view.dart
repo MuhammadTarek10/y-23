@@ -22,45 +22,43 @@ class QuizView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final quiz = params.quiz;
     final result = params.result;
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(quiz.name),
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(AppPadding.p10),
-            child: Column(
-              children: [
-                ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: quiz.questions.length,
-                  separatorBuilder: (context, index) => const Divider(),
-                  itemBuilder: (context, index) {
-                    final question = quiz.questions[index];
-                    String selectedOption =
-                        result.selectedOptions[question.title] ?? "";
-                    return StatefulBuilder(
-                      builder: (context, setState) {
-                        return QuestionWidget(
-                          question: question,
-                          selectedOption: selectedOption,
-                          onPressed: (option) {
-                            result.selectedOptions[question.title] = option;
-                            setState(() {
-                              selectedOption = option;
-                            });
-                          },
-                        );
-                      },
-                    );
-                  },
-                ),
-                const SizedBox(height: AppSizes.s10),
-                buildSubmitSection(context, ref),
-              ],
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(quiz.name),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(AppPadding.p10),
+          child: Column(
+            children: [
+              ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: quiz.questions.length,
+                separatorBuilder: (context, index) => const Divider(),
+                itemBuilder: (context, index) {
+                  final question = quiz.questions[index];
+                  String selectedOption =
+                      result.selectedOptions[question.title] ?? "";
+                  return StatefulBuilder(
+                    builder: (context, setState) {
+                      return QuestionWidget(
+                        question: question,
+                        selectedOption: selectedOption,
+                        onPressed: (option) {
+                          result.selectedOptions[question.title] = option;
+                          setState(() {
+                            selectedOption = option;
+                          });
+                        },
+                      );
+                    },
+                  );
+                },
+              ),
+              const SizedBox(height: AppSizes.s10),
+              buildSubmitSection(context, ref),
+            ],
           ),
         ),
       ),

@@ -36,7 +36,10 @@ class SessionView extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: AppSizes.s20),
-              FeedbackWidget(id: session.id, title: session.title),
+              FeedbackWidget(
+                id: session.id,
+                title: session.title,
+              ),
             ],
           ),
         ),

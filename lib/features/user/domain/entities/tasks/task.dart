@@ -4,6 +4,7 @@ class Task {
   final String description;
   final String? documentationLink;
   final int? points;
+  final String? photoUrl;
   List<dynamic>? feedback;
 
   Task({
@@ -12,6 +13,7 @@ class Task {
     required this.description,
     this.documentationLink,
     this.points,
+    this.photoUrl,
     this.feedback,
   });
 
@@ -21,6 +23,7 @@ class Task {
     String? description,
     String? documentationLink,
     int? points,
+    String? photoUrl,
     List<dynamic>? feedback,
   }) {
     return Task(
@@ -29,6 +32,7 @@ class Task {
       description: description ?? this.description,
       documentationLink: documentationLink,
       points: points,
+      photoUrl: photoUrl,
       feedback: feedback
     );
   }
@@ -40,6 +44,7 @@ class Task {
       description: json['description'] as String,
       documentationLink: json['documentationLink'],
       points: json['points'],
+      photoUrl: json['photoUrl'],
       feedback: json['feedback'],
     );
   }
@@ -51,6 +56,7 @@ class Task {
       'description': description,
       'documentationLink': documentationLink,
       'points': points,
+      'photoUrl': photoUrl,
       'feedback': feedback,
     };
   }

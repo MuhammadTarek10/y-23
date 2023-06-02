@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:y23/config/extensions.dart';
 import 'package:y23/config/routes.dart';
-import 'package:y23/config/utils/colors.dart';
+import 'package:y23/config/utils/assets.dart';
 import 'package:y23/config/utils/values.dart';
 import 'package:y23/features/user/domain/entities/quizzes/quiz.dart';
 import 'package:y23/features/user/domain/entities/quizzes/quiz_result.dart';
@@ -19,56 +20,112 @@ class QuizListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.pushNamed(context, Routes.quizzesRoute,
-          arguments: QuizViewParams(
-            quiz: quiz,
-            result: result,
-          )),
-      child: Container(
-        height: AppSizes.s100,
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey.shade300),
-          borderRadius: BorderRadius.circular(AppSizes.s10),
-          color: result.isTaken
-              ? result.isPassed
-                  ? AppColors.quizCardPassedColor
-                  : AppColors.quizCardFailedColor
-              : AppColors.quizCardColor,
+      onTap: () => Navigator.pushNamed(
+        context,
+        Routes.quizzesRoute,
+        arguments: QuizViewParams(
+          quiz: quiz,
+          result: result,
         ),
-        child: Container(
-          padding: const EdgeInsets.all(AppPadding.p10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
+      ),
+      child: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p4),
+            child: Container(
+              padding: const EdgeInsets.all(AppPadding.p10),
+              margin: const EdgeInsets.only(
+                top: AppPadding.p16,
+                bottom: AppPadding.p10,
+              ),
+              height: context.height * 0.2,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Theme.of(context).cardTheme.color!,
+                      Theme.of(context).cardTheme.color!.withOpacity(0.5),
+                    ],
+                  ),
+                  image: DecorationImage(
+                    opacity: 0.4,
+                    image: quiz.photoUrl != null
+                        ? Image.network(quiz.photoUrl!).image
+                        : Image.asset(AppAssets.logo).image,
+                  ),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(AppSizes.s20),
+                    bottomLeft: Radius.circular(AppSizes.s20),
+                    bottomRight: Radius.circular(AppSizes.s20),
+                    topRight: Radius.circular(AppSizes.s20),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black.withOpacity(0.3),
+                        blurRadius: AppSizes.s20,
+                        offset: const Offset(5, 15))
+                  ]),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    alignment: Alignment.topLeft,
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: AppPadding.p4,
+                      right: AppPadding.p12,
+                      top: AppPadding.p10,
+                    ),
                     child: Text(
                       quiz.name,
-                      style: Theme.of(context).textTheme.headlineMedium,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineSmall!
+                          .copyWith(
+                            color: Theme.of(context).textTheme.bodyLarge!.color,
+                          ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      quiz.id,
-                      style: Theme.of(context).textTheme.bodyMedium,
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: AppPadding.p4,
+                      right: AppPadding.p4,
+                      bottom: AppPadding.p10,
                     ),
-                  ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              result.isTaken
+                                  ? result.isPassed
+                                      ? Icons.check
+                                      : Icons.close
+                                  : Icons.read_more,
+                              color:
+                                  Theme.of(context).textTheme.bodyLarge!.color,
+                            ),
+                            SizedBox(
+                              width: context.width * 0.01,
+                            ),
+                            Text(
+                              "${result.score}/${quiz.questions.length}",
+                              style: Theme.of(context).textTheme.bodyLarge,
+                              maxLines: 2,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
-              Container(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  "${result.score}/${quiz.questions.length}",
-                  style: Theme.of(context).textTheme.headlineLarge,
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

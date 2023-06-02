@@ -1,5 +1,5 @@
 class AppStrings {
-  static const String appName = "Y23'";
+  static const String appName = "Y23' Project";
   static const String googleLogin = "google_login";
   static const String login = "login";
   static const String logout = "logout";

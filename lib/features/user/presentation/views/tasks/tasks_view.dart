@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/config/utils/strings.dart';
+import 'package:y23/config/utils/values.dart';
 import 'package:y23/core/widgets/lottie.dart';
 import 'package:y23/features/user/domain/entities/tasks/task.dart';
 import 'package:y23/features/user/domain/entities/tasks/task_submission.dart';
@@ -34,18 +35,31 @@ class TasksView extends ConsumerWidget {
         await ref.read(tasksProvider.notifier).getTasks();
         await ref.read(taskSubmissionsProvider.notifier).getTaskSubmissions();
       },
-      child: ListView.builder(
-        itemCount: tasks.length,
-        itemBuilder: (context, index) {
-          final task = tasks[index];
-          final taskSubmission = taskSubmissions.firstWhere(
-            (element) => element.taskId == task.id,
-          );
-          return TaskWidget(
-            task: task,
-            taskSubmission: taskSubmission,
-          );
-        },
+      child: Padding(
+        padding: const EdgeInsets.all(AppPadding.p10),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: tasks.length,
+                  itemBuilder: (context, index) {
+                    final task = tasks[index];
+                    final taskSubmission = taskSubmissions.firstWhere(
+                      (element) => element.taskId == task.id,
+                    );
+                    return TaskWidget(
+                      task: task,
+                      taskSubmission: taskSubmission,
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

@@ -16,6 +16,10 @@ class SessionsView extends ConsumerWidget {
         ? const LottieLoading()
         : sessions.isEmpty
             ? LottieEmpty(message: AppStrings.noSessionsFound.tr())
-            : SessionsListWidget(sessions: sessions);
+            : SessionsListWidget(
+                sessions: sessions,
+                onRefresh: () =>
+                    ref.read(sessionsProvider.notifier).getSessions(),
+              );
   }
 }
