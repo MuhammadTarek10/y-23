@@ -8,6 +8,21 @@ class AppTheme {
       primarySwatch: Colors.blue,
       brightness: Brightness.dark,
 
+      //* Color Scheme
+      colorScheme: const ColorScheme(
+        brightness: Brightness.dark,
+        primary: Colors.transparent,
+        onPrimary: Colors.black,
+        secondary: AppColors.primaryColor,
+        onSecondary: AppColors.secondlyColor,
+        error: AppColors.error,
+        onError: AppColors.error,
+        background: Colors.transparent,
+        onBackground: Colors.transparent,
+        surface: Colors.black,
+        onSurface: Colors.black,
+        outline: AppColors.fakeWhite,
+      ),
       //* AppBar
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
@@ -188,6 +203,22 @@ class AppTheme {
     return ThemeData(
       primarySwatch: Colors.blue,
       brightness: Brightness.light,
+
+      //* Color Scheme
+      colorScheme: const ColorScheme(
+        brightness: Brightness.light,
+        primary: Colors.black,
+        onPrimary: Colors.grey,
+        secondary: AppColors.primaryColor,
+        onSecondary: AppColors.secondlyColor,
+        error: AppColors.error,
+        onError: AppColors.error,
+        background: AppColors.primaryColor,
+        onBackground: Colors.transparent,
+        surface: Colors.black,
+        onSurface: Colors.black,
+        outline: Colors.black,
+      ),
 
       //* AppBar
       appBarTheme: const AppBarTheme(

@@ -63,3 +63,16 @@ class LottieNoInternet extends StatelessWidget {
     );
   }
 }
+
+class LottieFeedback extends StatelessWidget {
+  const LottieFeedback({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Lottie.asset(
+      AppAssets.feedback,
+      repeat: true,
+      reverse: true,
+    );
+  }
+}

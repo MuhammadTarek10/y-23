@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:y23/config/utils/colors.dart';
+import 'package:y23/config/extensions.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
+import 'package:y23/core/widgets/lottie.dart';
+import 'package:y23/core/widgets/snackbar.dart';
 import 'package:y23/features/user/presentation/views/feedback/feedback_view_params.dart';
 
 typedef FeedbackCallback = void Function(String feedback);
@@ -42,56 +44,122 @@ class _FeedbackViewState extends State<FeedbackView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppStrings.addFeedback.tr()),
+        title: Text(title),
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(
+            Icons.arrow_back,
+          ),
+        ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(AppPadding.p10),
-        child: Column(
-          children: [
-            Text(
-              title,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(height: AppSizes.s10),
-            TextField(
-              focusNode: FocusNode()..requestFocus(),
-              controller: _controller,
-              decoration: InputDecoration(
-                hintText: AppStrings.addFeedback.tr(),
-                border: const OutlineInputBorder(),
-              ),
-              maxLines: 10,
-            ),
-            const SizedBox(height: AppSizes.s20),
-            InkWell(
-              onTap: () {
-                if (_controller.text.isNotEmpty) {
-                  onPressed(_controller.text);
-                } else {
-                  return;
-                }
-              },
-              child: Container(
-                width: double.infinity,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: _controller.text.isNotEmpty
-                        ? AppColors.primaryColor
-                        : Colors.grey.shade400,
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: Scaffold(
+          body: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: SizedBox(
+              height: context.height,
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(AppPadding.p10),
+                    child: const LottieFeedback(),
                   ),
-                  borderRadius: BorderRadius.circular(AppSizes.s10),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Text(
-                    AppStrings.submit.tr(),
-                    style: Theme.of(context).textTheme.bodyMedium,
+                  Container(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Text(
+                      AppStrings.addFeedback.tr(),
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
                   ),
+                  _buildComposer(),
+                  Padding(
+                    padding: const EdgeInsets.all(AppPadding.p10),
+                    child: Center(
+                      child: Container(
+                        width: double.infinity,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Theme.of(context).colorScheme.outline,
+                          ),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(AppSizes.s10),
+                          ),
+                        ),
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            onTap: () {
+                              if (_controller.text.isNotEmpty) {
+                                onPressed(_controller.text);
+                              } else {
+                                customShowSnackBar(
+                                  context: context,
+                                  message: AppStrings.fillFeedback.tr(),
+                                  isError: true,
+                                );
+                              }
+                            },
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(
+                                  AppStrings.submit.tr(),
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildComposer() {
+    return Padding(
+      padding: const EdgeInsets.all(AppPadding.p10),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(AppPadding.p10),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(AppPadding.p10),
+          child: Container(
+            padding: const EdgeInsets.all(4.0),
+            constraints: const BoxConstraints(minHeight: 80, maxHeight: 160),
+            decoration: BoxDecoration(
+                border: Border.all(
+                  color: _controller.text.isNotEmpty
+                      ? Theme.of(context).colorScheme.outline
+                      : Colors.grey.shade400,
+                ),
+                borderRadius: BorderRadius.circular(AppSizes.s10)),
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: AppPadding.p10, vertical: AppPadding.p0),
+              child: TextField(
+                controller: _controller,
+                maxLines: 10,
+                focusNode: FocusNode()..requestFocus(),
+                onChanged: (String txt) {},
+                cursorColor: Colors.blue,
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
                 ),
               ),
-            )
-          ],
+            ),
+          ),
         ),
       ),
     );
