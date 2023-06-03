@@ -5,5 +5,8 @@ class Constants {
 
   static const String emailScope = "email";
 
+
+  static const String contactUs = "https://www.facebook.com/YProjectSMU";
+
   const Constants._();
 }

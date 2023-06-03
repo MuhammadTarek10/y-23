@@ -38,6 +38,9 @@ class AppStrings {
   static const String problemWithLink = "problem_with_link";
   static const String answerAllQuestions = "answer_all_questions";
   static const String fillFeedback = "fill_feedback";
+  static const String helpYou = "help_you";
+  static const String helpDesc = "help_description";
+  static const String chatWithUs = "chat_with_us";
 
   const AppStrings._();
 }

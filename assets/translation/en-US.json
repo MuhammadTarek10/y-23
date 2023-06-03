@@ -37,5 +37,8 @@
   "details": "Details",
   "problem_with_link": "There is a problem with the link, please try again later",
   "answer_all_questions": "Please answer all questions",
-  "fill_feedback": "Please fill your feedback"
+  "fill_feedback": "Please fill your feedback",
+  "help_you": "How can we help you?",
+  "help_description": "It looks you have some trouble, please contact us.",
+  "chat_with_us": "Contact us"
 }

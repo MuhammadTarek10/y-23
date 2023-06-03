@@ -76,3 +76,17 @@ class LottieFeedback extends StatelessWidget {
     );
   }
 }
+
+
+class LottieHelp extends StatelessWidget {
+  const LottieHelp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Lottie.asset(
+      AppAssets.help,
+      repeat: true,
+      reverse: true,
+    );
+  }
+}

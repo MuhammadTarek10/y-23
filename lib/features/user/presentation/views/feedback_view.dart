@@ -46,12 +46,6 @@ class _FeedbackViewState extends State<FeedbackView> {
       appBar: AppBar(
         title: Text(title),
         elevation: 0,
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: const Icon(
-            Icons.arrow_back,
-          ),
-        ),
       ),
       body: SafeArea(
         top: false,
