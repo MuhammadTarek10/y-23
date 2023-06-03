@@ -18,7 +18,8 @@ class SessionsListWidget extends StatelessWidget {
       onRefresh: () => onRefresh(),
       child: ListView.builder(
         itemCount: sessions.length,
-        itemBuilder: (context, index) => SessionWidget(session: sessions[index]),
+        itemBuilder: (context, index) =>
+            SessionWidget(session: sessions[index]),
       ),
     );
   }

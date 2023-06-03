@@ -11,7 +11,7 @@ class AppTheme {
       //* Color Scheme
       colorScheme: const ColorScheme(
         brightness: Brightness.dark,
-        primary: Colors.transparent,
+        primary: AppColors.thirdlyColor,
         onPrimary: Colors.black,
         secondary: AppColors.primaryColor,
         onSecondary: AppColors.secondlyColor,
@@ -23,6 +23,7 @@ class AppTheme {
         onSurface: Colors.black,
         outline: AppColors.fakeWhite,
       ),
+
       //* AppBar
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
@@ -207,14 +208,14 @@ class AppTheme {
       //* Color Scheme
       colorScheme: const ColorScheme(
         brightness: Brightness.light,
-        primary: Colors.black,
+        primary: AppColors.fourthlyColor,
         onPrimary: Colors.grey,
         secondary: AppColors.primaryColor,
         onSecondary: AppColors.secondlyColor,
         error: AppColors.error,
         onError: AppColors.error,
         background: AppColors.primaryColor,
-        onBackground: Colors.transparent,
+        onBackground: AppColors.fakeWhite,
         surface: Colors.black,
         onSurface: Colors.black,
         outline: Colors.black,
