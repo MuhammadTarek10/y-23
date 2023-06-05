@@ -11,6 +11,7 @@ class UserInfoStorage {
     required String userId,
     required String displayName,
     required String? email,
+    required String? photoUrl,
   }) async {
     try {
       final userInfo = await FirebaseFirestore.instance
@@ -31,6 +32,7 @@ class UserInfoStorage {
         userId: userId,
         displayName: displayName,
         email: email,
+        photoUrl: photoUrl,
       );
       await FirebaseFirestore.instance
           .collection(

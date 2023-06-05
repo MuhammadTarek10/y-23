@@ -1,20 +1,28 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:y23/config/routes.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
+import 'package:y23/core/di.dart';
+import 'package:y23/core/prefs.dart';
+import 'package:y23/core/state/providers/theme_provider.dart';
 import 'package:y23/core/widgets/lottie.dart';
 import 'package:y23/features/auth/state/providers/user_display_name_provider.dart';
-import 'package:y23/features/user/domain/entities/quizzes/quiz_result.dart';
+import 'package:y23/features/user/presentation/views/profile/widgets/quizzes_details.dart';
 import 'package:y23/features/user/presentation/views/quizzes/state/providers/quiz_result_provider.dart';
 
 class ProfileView extends ConsumerWidget {
-  const ProfileView({super.key});
+  ProfileView({super.key});
+
+  final AppPreferences prefs = instance<AppPreferences>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final displayName = ref.read(userDisplayNameProvider);
     final quizResults = ref.watch(quizResultProvider);
+    final isDarkMode = ref.watch(themeProvider).brightness == Brightness.dark;
     return quizResults == null || displayName == null
         ? const LottieLoading()
         : Container(
@@ -29,76 +37,67 @@ class ProfileView extends ConsumerWidget {
                     style: Theme.of(context).textTheme.headlineLarge,
                   ),
                   const SizedBox(height: AppSizes.s28),
-                  QuizzesDetails(quizResults: quizResults),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        QuizzesDetails(quizResults: quizResults),
+                        const Spacer(),
+                        const Divider(),
+                        ListTile(
+                          leading: const Icon(Icons.feedback_outlined),
+                          title: Text(AppStrings.tasksFeedback.tr()),
+                          onTap: () => Navigator.pushNamed(
+                            context,
+                            Routes.tasksFeedbackRoute,
+                          ),
+                        ),
+                        const Divider(),
+                        // ListTile(
+                        //   leading: const Icon(Icons.settings_outlined),
+                        //   title: Text(AppStrings.settings.tr()),
+                        //   onTap: () => Navigator.pushNamed(
+                        //     context,
+                        //     Routes.settingsRoute,
+                        //   ),
+                        // ),
+                        ListTile(
+                          leading: const Icon(Icons.help_outline),
+                          title: Text(AppStrings.help.tr()),
+                          onTap: () => Navigator.pushNamed(
+                            context,
+                            Routes.helpRoute,
+                          ),
+                        ),
+                        ListTile(
+                          leading: Icon(
+                            isDarkMode
+                                ? Icons.dark_mode_outlined
+                                : Icons.light_mode_outlined,
+                          ),
+                          title: Text(
+                            !isDarkMode
+                                ? AppStrings.lightMode.tr()
+                                : AppStrings.darkMode.tr(),
+                          ),
+                          onTap: () {
+                            prefs.toggleTheme();
+                            ref.read(themeProvider.notifier).toggleTheme();
+                          },
+                        ),
+                        ListTile(
+                          leading: const Icon(Icons.language_outlined),
+                          title: Text(AppStrings.language.tr()),
+                          onTap: () {
+                            prefs.toggleLanguage();
+                            Phoenix.rebirth(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
           );
-  }
-}
-
-class QuizzesDetails extends StatelessWidget {
-  const QuizzesDetails({
-    super.key,
-    required this.quizResults,
-  });
-
-  final List<QuizResult> quizResults;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Column(
-          children: [
-            Text(
-              AppStrings.quizzesTaken.tr(),
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            const SizedBox(height: AppSizes.s4),
-            Text(
-              quizResults
-                  .map((result) => (result.isTaken ? 1 : 0))
-                  .reduce((value, element) => value + element)
-                  .toString(),
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-          ],
-        ),
-        Column(
-          children: [
-            Text(
-              AppStrings.quizzesPassed.tr(),
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            const SizedBox(height: AppSizes.s4),
-            Text(
-              quizResults
-                  .map((result) => (result.isPassed ? 1 : 0))
-                  .reduce((value, element) => value + element)
-                  .toString(),
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-          ],
-        ),
-        Column(
-          children: [
-            Text(
-              AppStrings.score.tr(),
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            const SizedBox(height: AppSizes.s4),
-            Text(
-              quizResults
-                  .map((result) => (result.score))
-                  .reduce((value, element) => value + element)
-                  .toString(),
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-          ],
-        ),
-      ],
-    );
   }
 }

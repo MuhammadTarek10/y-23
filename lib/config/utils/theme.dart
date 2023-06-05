@@ -9,7 +9,7 @@ class AppTheme {
       brightness: Brightness.dark,
 
       //* Color Scheme
-      colorScheme: const ColorScheme(
+      colorScheme: ColorScheme(
         brightness: Brightness.dark,
         primary: AppColors.thirdlyColor,
         onPrimary: Colors.black,
@@ -18,20 +18,20 @@ class AppTheme {
         error: AppColors.error,
         onError: AppColors.error,
         background: Colors.transparent,
-        onBackground: Colors.transparent,
+        onBackground: Colors.grey.shade600,
         surface: Colors.black,
         onSurface: Colors.black,
         outline: AppColors.fakeWhite,
       ),
 
       //* AppBar
-      appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.transparent,
-        iconTheme: IconThemeData(
+      appBarTheme: AppBarTheme(
+        backgroundColor: Colors.grey.shade800,
+        iconTheme: const IconThemeData(
           color: Colors.white,
         ),
         centerTitle: true,
-        titleTextStyle: TextStyle(
+        titleTextStyle: const TextStyle(
           color: AppColors.primaryColor,
           fontSize: 24.0,
           fontWeight: FontWeight.bold,
@@ -134,7 +134,7 @@ class AppTheme {
       ),
 
       //* Scaffold
-      scaffoldBackgroundColor: Colors.transparent,
+      scaffoldBackgroundColor: Colors.grey.shade900,
 
       //* Dialog
       dialogTheme: const DialogTheme(

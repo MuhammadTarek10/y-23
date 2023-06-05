@@ -3,6 +3,8 @@ class FirebaseFieldName {
   static const String userId = "uid";
   static const String displayName = "displayName";
   static const String email = "email";
+  static const String photoUrl = "photoUrl";
+
 
   //* Quizzes
   static const String quizId = "id";

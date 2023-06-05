@@ -8,7 +8,7 @@ class TaskSubmission {
   final dynamic submission;
   final bool? isSubmitted;
   final bool? isCorrect;
-  final List<dynamic>? feedback;
+  final List<Map<String, dynamic>>? feedback;
 
   const TaskSubmission({
     required this.id,
@@ -27,7 +27,7 @@ class TaskSubmission {
     dynamic submission,
     bool? isSubmitted,
     bool? isCorrect,
-    List<dynamic>? feedback,
+    List<Map<String, dynamic>>? feedback,
   }) {
     return TaskSubmission(
       id: id ?? this.id,

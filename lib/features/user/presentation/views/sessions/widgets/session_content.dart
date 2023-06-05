@@ -26,8 +26,10 @@ class SessionContent extends StatelessWidget {
           child: Column(
             children: [
               const Padding(
-                padding:
-                    EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppPadding.p16,
+                  vertical: AppPadding.p8,
+                ),
                 child: Text(
                   'Lorem ipsum is simply dummy text of printing & typesetting industry, Lorem ipsum is simply dummy text of printing & typesetting industry.',
                   textAlign: TextAlign.justify,
@@ -37,15 +39,36 @@ class SessionContent extends StatelessWidget {
               ),
               const SizedBox(height: AppSizes.s10),
               documentation != null
-                  ? TextButton(
-                      onPressed: () async {
-                        final url = Uri.parse(documentation!);
-                        if (await canLaunchUrl(url)) {
-                          launchUrl(url);
-                        }
-                      },
-                      child: Center(
-                        child: Text(AppStrings.details.tr()),
+                  ? Align(
+                      alignment: Alignment.bottomRight,
+                      child: InkWell(
+                        onTap: () async {
+                          final url = Uri.parse(documentation!);
+                          if (await canLaunchUrl(url)) {
+                            launchUrl(url);
+                          }
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              AppStrings.details.tr(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSecondary,
+                                  ),
+                            ),
+                            const SizedBox(width: AppSizes.s4),
+                            Icon(
+                              Icons.more_outlined,
+                              color: Theme.of(context).colorScheme.onSecondary,
+                            ),
+                          ],
+                        ),
                       ),
                     )
                   : Container(),

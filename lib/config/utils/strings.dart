@@ -41,6 +41,7 @@ class AppStrings {
   static const String helpYou = "help_you";
   static const String helpDesc = "help_description";
   static const String chatWithUs = "chat_with_us";
+  static const String tasksFeedback = "tasks_feedback";
 
   const AppStrings._();
 }

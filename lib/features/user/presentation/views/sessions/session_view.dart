@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/config/extensions.dart';
 import 'package:y23/config/utils/assets.dart';
+import 'package:y23/config/utils/values.dart';
 import 'package:y23/features/user/domain/entities/sessions/session.dart';
 import 'package:y23/features/user/presentation/views/sessions/widgets/back_button.dart';
 import 'package:y23/features/user/presentation/views/sessions/widgets/favorite_icon.dart';
@@ -9,7 +10,10 @@ import 'package:y23/features/user/presentation/views/sessions/widgets/feedback_b
 import 'package:y23/features/user/presentation/views/sessions/widgets/session_content.dart';
 
 class SessionView extends ConsumerStatefulWidget {
-  const SessionView({super.key, required this.session});
+  const SessionView({
+    super.key,
+    required this.session,
+  });
 
   final Session session;
 
@@ -25,6 +29,7 @@ class _SessionViewState extends ConsumerState<SessionView>
   double opacity1 = 0.0;
   double opacity2 = 0.0;
   double opacity3 = 0.0;
+
   @override
   void initState() {
     animationController = AnimationController(
@@ -66,7 +71,7 @@ class _SessionViewState extends ConsumerState<SessionView>
                 child: AspectRatio(
                   aspectRatio: 1.2,
                   child: widget.session.photoUrl != null
-                      ? Image.asset(widget.session.photoUrl!)
+                      ? Image.network(widget.session.photoUrl!)
                       : Image.asset(AppAssets.logo),
                 ),
               ),
@@ -103,10 +108,13 @@ class _SessionViewState extends ConsumerState<SessionView>
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
+                      children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                              top: 32.0, left: 18, right: 16),
+                            top: AppPadding.p32,
+                            left: AppPadding.p18,
+                            right: AppPadding.p16,
+                          ),
                           child: Text(
                             widget.session.title,
                             textAlign: TextAlign.left,

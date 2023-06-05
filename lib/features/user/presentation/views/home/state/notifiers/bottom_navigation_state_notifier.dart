@@ -9,10 +9,10 @@ import 'package:y23/features/user/presentation/views/tasks/tasks_view.dart';
 class BottomNavigationStateNotifier
     extends StateNotifier<BottomNavigationOptions> {
   final PageController pageController;
-  final views = const [
-    SessionsView(),
-    QuizzesView(),
-    TasksView(),
+  final views =  [
+    const SessionsView(),
+    const QuizzesView(),
+    const TasksView(),
     ProfileView(),
   ];
   BottomNavigationStateNotifier({required this.pageController})

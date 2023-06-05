@@ -10,6 +10,7 @@ import 'package:y23/features/auth/state/providers/is_logged_in_provider.dart';
 import 'package:y23/features/splash/views/splash_view.dart';
 import 'package:y23/features/user/domain/entities/sessions/session.dart';
 import 'package:y23/features/user/presentation/views/feedback/feedback_view_params.dart';
+import 'package:y23/features/user/presentation/views/feedback/tasks_feedback_view.dart';
 import 'package:y23/features/user/presentation/views/feedback_view.dart';
 import 'package:y23/features/user/presentation/views/help/help_view.dart';
 import 'package:y23/features/user/presentation/views/home/home_view.dart';
@@ -35,6 +36,7 @@ class Routes {
   static const String helpRoute = "/help";
   static const String sessionRoute = "/session";
   static const String feedbackRoute = "/feedback";
+  static const String tasksFeedbackRoute = "/personal-feedback";
   static const String taskRoute = "/task";
 
   //* Undefined
@@ -62,7 +64,7 @@ class RouterGenerator {
               );
               return isLoggedIn
                   ? isInternet != null && isInternet
-                      ? HomeView()
+                      ? const HomeView()
                       : const LottieNoInternet()
                   : const LoginView();
             },
@@ -79,7 +81,7 @@ class RouterGenerator {
                     : LoadingScreen.instance().hide();
               },
             );
-            return HomeView();
+            return const HomeView();
           }),
         );
       case Routes.quizzesRoute:
@@ -97,6 +99,10 @@ class RouterGenerator {
           builder: (context) => FeedbackView(
             params: settings.arguments as FeedbackViewParams,
           ),
+        );
+      case Routes.tasksFeedbackRoute:
+        return MaterialPageRoute(
+          builder: (context) => const TasksFeedbackView(),
         );
 
       case Routes.taskRoute:
