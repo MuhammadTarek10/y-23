@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/features/user/data/datasources/backend/tasker.dart';
 import 'package:y23/features/user/domain/entities/tasks/task_submission.dart';
@@ -14,39 +16,23 @@ class TaskSubmissionsStateNotifier
     state = await tasker.getTaskSubmissionsByUserId(userId);
   }
 
-  Future<void> saveTaskSubmission({
+  Future<bool> uploadSubmission({
     required String userId,
     required String taskId,
-    required dynamic submission,
+    required File submission,
   }) async {
-    await tasker.saveTaskSubmission(
+    bool result = false;
+    await tasker
+        .uploadSubmission(
       userId: userId,
       taskId: taskId,
       submission: submission,
-    );
-    await getTaskSubmissions();
-  }
-
-  Future<void> updateTaskSubmission({
-    required String id,
-    required dynamic submission,
-  }) async {
-    await tasker.updateTaskSubmission(
-      id: id,
-      submission: submission,
-    );
-    await getTaskSubmissions();
-  }
-
-  Future<void> submitTaskSubmission({
-    required String id,
-    required dynamic submission,
-  }) async {
-    await tasker.submitTask(
-      id: id,
-      submission: submission,
-    );
-    await getTaskSubmissions();
+    )
+        .then((value) async {
+      await getTaskSubmissions();
+      result = value;
+    });
+    return result;
   }
 
   Future<void> sendFeedback({

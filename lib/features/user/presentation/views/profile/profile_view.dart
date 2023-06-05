@@ -10,8 +10,14 @@ import 'package:y23/core/prefs.dart';
 import 'package:y23/core/state/providers/theme_provider.dart';
 import 'package:y23/core/widgets/lottie.dart';
 import 'package:y23/features/auth/state/providers/user_display_name_provider.dart';
+import 'package:y23/features/user/data/models/bottom_navigation_options.dart';
+import 'package:y23/features/user/presentation/views/home/state/providers/bottom_navigation_provider.dart';
 import 'package:y23/features/user/presentation/views/profile/widgets/quizzes_details.dart';
+import 'package:y23/features/user/presentation/views/profile/widgets/tasks_details.dart';
 import 'package:y23/features/user/presentation/views/quizzes/state/providers/quiz_result_provider.dart';
+import 'package:y23/features/user/presentation/views/quizzes/state/providers/quizzers_provider.dart';
+import 'package:y23/features/user/presentation/views/tasks/state/providers/task_submissions_provider.dart';
+import 'package:y23/features/user/presentation/views/tasks/state/providers/tasks_provider.dart';
 
 class ProfileView extends ConsumerWidget {
   ProfileView({super.key});
@@ -21,9 +27,16 @@ class ProfileView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final displayName = ref.read(userDisplayNameProvider);
+    final quizzes = ref.watch(quizzesProvider);
     final quizResults = ref.watch(quizResultProvider);
     final isDarkMode = ref.watch(themeProvider).brightness == Brightness.dark;
-    return quizResults == null || displayName == null
+    final tasks = ref.watch(tasksProvider);
+    final submissions = ref.watch(taskSubmissionsProvider);
+    return submissions == null ||
+            tasks == null ||
+            quizzes == null ||
+            quizResults == null ||
+            displayName == null
         ? const LottieLoading()
         : Container(
             padding: const EdgeInsets.all(20.0),
@@ -36,13 +49,44 @@ class ProfileView extends ConsumerWidget {
                     displayName.toUpperCase(),
                     style: Theme.of(context).textTheme.headlineLarge,
                   ),
-                  const SizedBox(height: AppSizes.s28),
+                  const SizedBox(height: AppSizes.s30),
                   Expanded(
                     child: Column(
                       children: [
-                        QuizzesDetails(quizResults: quizResults),
+                        Flexible(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              QuizzesDetails(
+                                quizzes: quizzes,
+                                quizResults: quizResults,
+                                onPressed: () => ref
+                                    .read(bottomNavigationProvider.notifier)
+                                    .immediateChange(
+                                        BottomNavigationOptions.quizzes),
+                              ),
+                              const Divider(),
+                              TasksDetails(
+                                tasks: tasks,
+                                submissions: submissions,
+                                onPressed: () => ref
+                                    .read(bottomNavigationProvider.notifier)
+                                    .immediateChange(
+                                        BottomNavigationOptions.tasks),
+                              ),
+                            ],
+                          ),
+                        ),
                         const Spacer(),
                         const Divider(),
+                        ListTile(
+                          leading: const Icon(Icons.task_outlined),
+                          title: Text(AppStrings.myTasks.tr()),
+                          onTap: () => Navigator.pushNamed(
+                            context,
+                            Routes.myTasksRoute,
+                          ),
+                        ),
                         ListTile(
                           leading: const Icon(Icons.feedback_outlined),
                           title: Text(AppStrings.tasksFeedback.tr()),

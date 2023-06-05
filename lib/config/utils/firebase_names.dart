@@ -5,7 +5,6 @@ class FirebaseFieldName {
   static const String email = "email";
   static const String photoUrl = "photoUrl";
 
-
   //* Quizzes
   static const String quizId = "id";
   static const String quizName = "name";
@@ -46,8 +45,8 @@ class FirebaseFieldName {
   static const String taskSubmissionsId = "id";
   static const String taskSubmissionsTaskId = "taskId";
   static const String taskSubmissionsUserId = "userId";
-  static const String taskSubmissionsSubmission = "submission";
-  static const String taskSubmissionsIsSubmitted = "isSubmitted";
+  static const String submission = "submission";
+  static const String isTaskSubmitted = "isSubmitted";
   static const String taskSubmissionsIsCorrect = "isCorrect";
   static const String taskSubmissionsFeedback = "feedback";
 

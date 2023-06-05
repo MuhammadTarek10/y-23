@@ -41,5 +41,10 @@
   "help_you": "كيف نساعدك؟",
   "help_description": "يبدو أنك تواجه بعض المشاكل، يمكنك التواصل معنا بالاسفل",
   "chat_with_us": "تواصل معنا",
-  "tasks_feedback": "تعليقات الواجبات"
+  "tasks_feedback": "تعليقات الواجبات",
+  "task_submitted_successfully": "تم التسليم بنجاح",
+  "error_submitting_task": "يوجد مشكلة في التسليم، حاول مجددًا لاحقًا",
+  "tasks_submitted": "الواجبات المستلمة",
+  "tasks_correct": "الواجبات الصحيحة",
+  "my_tasks": "واجباتي"
 }

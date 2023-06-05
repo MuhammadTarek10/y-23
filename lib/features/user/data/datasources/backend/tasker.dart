@@ -1,4 +1,7 @@
+import 'dart:io' show File;
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart' show FirebaseStorage;
 import 'package:y23/config/utils/firebase_names.dart';
 import 'package:y23/features/user/domain/entities/tasks/task.dart';
 import 'package:y23/features/user/domain/entities/tasks/task_submission.dart';
@@ -118,49 +121,37 @@ class Tasker {
         .toList();
   }
 
-  Future<bool> saveTaskSubmission({
+  Future<bool> uploadSubmission({
     required String userId,
     required String taskId,
-    required dynamic submission,
+    required File submission,
   }) async {
     try {
+      // get name of file
+      final name = submission.path.split("/").last;
+      final path = "${FirebaseFieldName.submission}/$userId/$taskId-$name";
+
+      final data = await FirebaseFirestore.instance
+          .collection(FirebaseCollectionName.taskSubmissions)
+          .where(FirebaseFieldName.taskSubmissionsUserId, isEqualTo: userId)
+          .where(FirebaseFieldName.taskSubmissionsTaskId, isEqualTo: taskId)
+          .get();
+
+      final ref = FirebaseStorage.instance.ref().child(path);
+      await ref.putFile(submission).whenComplete(() {});
+      final url = await ref.getDownloadURL();
+
       await FirebaseFirestore.instance
           .collection(FirebaseCollectionName.taskSubmissions)
-          .doc(taskId)
+          .doc(data.docs.first.id)
           .update({
-        FirebaseFieldName.taskSubmissionsSubmission: submission,
-        FirebaseFieldName.taskSubmissionsIsSubmitted: true,
+        FirebaseFieldName.submission: url,
+        FirebaseFieldName.isTaskSubmitted: true,
       });
       return true;
     } catch (_) {
       return false;
     }
-  }
-
-  Future<void> updateTaskSubmission({
-    required String id,
-    required dynamic submission,
-  }) async {
-    await FirebaseFirestore.instance
-        .collection(FirebaseCollectionName.taskSubmissions)
-        .doc(id)
-        .update({
-      FirebaseFieldName.taskSubmissionsSubmission: submission,
-      FirebaseFieldName.taskSubmissionsIsSubmitted: true,
-    });
-  }
-
-  Future<void> submitTask({
-    required String id,
-    required dynamic submission,
-  }) async {
-    await FirebaseFirestore.instance
-        .collection(FirebaseCollectionName.taskSubmissions)
-        .doc(id)
-        .update({
-      FirebaseFieldName.taskSubmissionsSubmission: submission,
-      FirebaseFieldName.taskSubmissionsIsSubmitted: true,
-    });
   }
 
   Future<TaskSubmission?> getTaskSubmissionById(String id) async {

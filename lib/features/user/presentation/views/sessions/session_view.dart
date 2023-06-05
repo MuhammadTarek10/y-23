@@ -61,7 +61,7 @@ class _SessionViewState extends ConsumerState<SessionView>
   Widget build(BuildContext context) {
     final double tempHeight = context.height - (context.width / 1.2) + 24.0;
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.onBackground,
       body: Stack(
         children: [
           Column(
@@ -71,7 +71,10 @@ class _SessionViewState extends ConsumerState<SessionView>
                 child: AspectRatio(
                   aspectRatio: 1.2,
                   child: widget.session.photoUrl != null
-                      ? Image.network(widget.session.photoUrl!)
+                      ? Image.network(
+                          widget.session.photoUrl!,
+                          fit: BoxFit.contain,
+                        )
                       : Image.asset(AppAssets.logo),
                 ),
               ),
@@ -91,9 +94,10 @@ class _SessionViewState extends ConsumerState<SessionView>
                 ),
                 boxShadow: <BoxShadow>[
                   BoxShadow(
-                      color: Colors.grey.withOpacity(0.2),
-                      offset: const Offset(1.1, 1.1),
-                      blurRadius: 10.0),
+                    color: Colors.grey.withOpacity(0.5),
+                    offset: const Offset(1.1, 1.1),
+                    blurRadius: 10.0,
+                  ),
                 ],
               ),
               child: Padding(
@@ -122,8 +126,7 @@ class _SessionViewState extends ConsumerState<SessionView>
                                 .textTheme
                                 .headlineLarge!
                                 .copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.onSecondary,
+                                  color: Theme.of(context).colorScheme.outline,
                                 ),
                           ),
                         ),

@@ -5,18 +5,20 @@ class TaskSubmission {
   final String id;
   final String taskId;
   final String userId;
-  final dynamic submission;
+  final String? submissionUrl;
   final bool? isSubmitted;
   final bool? isCorrect;
+  final int? points;
   final List<Map<String, dynamic>>? feedback;
 
   const TaskSubmission({
     required this.id,
     required this.taskId,
     required this.userId,
-    required this.submission,
+    required this.submissionUrl,
     this.isSubmitted,
     this.isCorrect,
+    this.points,
     this.feedback,
   });
 
@@ -27,15 +29,17 @@ class TaskSubmission {
     dynamic submission,
     bool? isSubmitted,
     bool? isCorrect,
+    int? points,
     List<Map<String, dynamic>>? feedback,
   }) {
     return TaskSubmission(
       id: id ?? this.id,
       taskId: taskId ?? this.taskId,
       userId: userId ?? this.userId,
-      submission: submission,
+      submissionUrl: submission,
       isSubmitted: isSubmitted,
       isCorrect: isCorrect,
+      points: points,
       feedback: feedback,
     );
   }
@@ -45,9 +49,10 @@ class TaskSubmission {
       id: id,
       taskId: json['taskId'] as String,
       userId: json['userId'] as String,
-      submission: json['submission'],
+      submissionUrl: json['submission'],
       isSubmitted: json['isSubmitted'],
       isCorrect: json['isCorrect'],
+      points: json['points'],
       feedback: json['feedback'],
     );
   }
@@ -57,9 +62,10 @@ class TaskSubmission {
       'id': id,
       'taskId': taskId,
       'userId': userId,
-      'submission': submission,
+      'submission': submissionUrl,
       'isSubmitted': isSubmitted,
       'isCorrect': isCorrect,
+      'points': points,
       'feedback': feedback,
     };
   }

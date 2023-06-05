@@ -41,5 +41,10 @@
   "help_you": "How can we help you?",
   "help_description": "It looks you have some trouble, please contact us.",
   "chat_with_us": "Contact us",
-  "tasks_feedback": "Tasks Feedback"
+  "tasks_feedback": "Tasks Feedback",
+  "task_submitted_successfully": "Task Submitted Successfully",
+  "error_submitting_task": "Error Submitting the Task, Please try again later",
+  "tasks_submitted": "Tasks Submitted",
+  "tasks_correct": "Tasks Correct",
+  "my_tasks": "My Tasks"
 }

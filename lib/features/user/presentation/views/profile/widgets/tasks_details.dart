@@ -2,30 +2,49 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
-import 'package:y23/features/user/domain/entities/quizzes/quiz.dart';
-import 'package:y23/features/user/domain/entities/quizzes/quiz_result.dart';
+import 'package:y23/features/user/domain/entities/tasks/task.dart';
+import 'package:y23/features/user/domain/entities/tasks/task_submission.dart';
 
-class QuizzesDetails extends StatelessWidget {
-  const QuizzesDetails({
+class TasksDetails extends StatelessWidget {
+  const TasksDetails({
     super.key,
-    required this.quizzes,
-    required this.quizResults,
+    required this.tasks,
+    required this.submissions,
     required this.onPressed,
   });
 
-  final List<Quiz> quizzes;
-  final List<QuizResult> quizResults;
+  final List<Task> tasks;
+  final List<TaskSubmission> submissions;
   final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
-    final score = quizResults
-        .map((result) => (result.score))
+    final submits = submissions
+        .map((submission) => submission.isSubmitted == true ? 1 : 0)
+        .reduce(
+          (value, element) => value + element,
+        );
+    final corrects = submissions
+        .map((submission) => submission.isCorrect == true ? 1 : 0)
+        .reduce(
+          (value, element) => value + element,
+        );
+    final subPoints = submissions
+        .map((e) => e.points ?? 0)
         .reduce((value, element) => value + element);
-    final questions = quizzes
-        .map((quiz) => (quiz.questions.length))
+    final tasksPoints = tasks
+        .map((e) => e.points ?? 0)
         .reduce((value, element) => value + element);
-    final good = score / questions > 0.5;
+    final good = tasksPoints == 0 || subPoints / tasksPoints > 0.5;
+    const int zero = 0;
+    final totalPoints = tasks
+        .map((task) => task.points ?? zero)
+        .reduce((value, element) => value + element)
+        .toString();
+    final points = submissions
+        .map((task) => task.points ?? zero)
+        .reduce((value, element) => value + element)
+        .toString();
     return InkWell(
       onTap: onPressed,
       child: Row(
@@ -34,15 +53,12 @@ class QuizzesDetails extends StatelessWidget {
           Column(
             children: [
               Text(
-                AppStrings.quizzesTaken.tr(),
+                AppStrings.tasksSubmitted.tr(),
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               const SizedBox(height: AppSizes.s4),
               Text(
-                quizResults
-                    .map((result) => (result.isTaken ? 1 : 0))
-                    .reduce((value, element) => value + element)
-                    .toString(),
+                submits.toString(),
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ],
@@ -50,15 +66,12 @@ class QuizzesDetails extends StatelessWidget {
           Column(
             children: [
               Text(
-                AppStrings.quizzesPassed.tr(),
+                AppStrings.tasksCorrect.tr(),
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               const SizedBox(height: AppSizes.s4),
               Text(
-                quizResults
-                    .map((result) => (result.isPassed ? 1 : 0))
-                    .reduce((value, element) => value + element)
-                    .toString(),
+                corrects.toString(),
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ],
@@ -71,7 +84,7 @@ class QuizzesDetails extends StatelessWidget {
               ),
               const SizedBox(height: AppSizes.s4),
               Text(
-                "$score/$questions",
+                "$points/$totalPoints",
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       color: good
                           ? const Color.fromARGB(255, 45, 194, 50)

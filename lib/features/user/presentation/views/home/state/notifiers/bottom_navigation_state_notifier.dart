@@ -9,7 +9,7 @@ import 'package:y23/features/user/presentation/views/tasks/tasks_view.dart';
 class BottomNavigationStateNotifier
     extends StateNotifier<BottomNavigationOptions> {
   final PageController pageController;
-  final views =  [
+  final views = [
     const SessionsView(),
     const QuizzesView(),
     const TasksView(),
@@ -25,5 +25,10 @@ class BottomNavigationStateNotifier
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeIn,
     );
+  }
+
+  void immediateChange(BottomNavigationOptions option) {
+    state = option;
+    pageController.jumpToPage(option.index);
   }
 }

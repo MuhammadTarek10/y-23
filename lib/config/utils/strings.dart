@@ -42,6 +42,11 @@ class AppStrings {
   static const String helpDesc = "help_description";
   static const String chatWithUs = "chat_with_us";
   static const String tasksFeedback = "tasks_feedback";
+  static const String taskSubmittedSuccessfully = "task_submitted_successfully";
+  static const String errorSubmittingTask = "error_submitting_task";
+  static const String tasksSubmitted = "tasks_submitted";
+  static const String tasksCorrect = "tasks_correct";
+  static const String myTasks = "my_tasks";
 
   const AppStrings._();
 }

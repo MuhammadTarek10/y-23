@@ -18,6 +18,7 @@ import 'package:y23/features/user/presentation/views/quizzes/quiz_view.dart';
 import 'package:y23/features/user/presentation/views/quizzes/quiz_view_params.dart';
 import 'package:y23/features/user/presentation/views/sessions/session_view.dart';
 import 'package:y23/features/user/presentation/views/settings/settings_view.dart';
+import 'package:y23/features/user/presentation/views/tasks/my_tasks.dart';
 import 'package:y23/features/user/presentation/views/tasks/task_view.dart';
 import 'package:y23/features/user/presentation/views/tasks/task_view_params.dart';
 
@@ -38,6 +39,7 @@ class Routes {
   static const String feedbackRoute = "/feedback";
   static const String tasksFeedbackRoute = "/personal-feedback";
   static const String taskRoute = "/task";
+  static const String myTasksRoute = "/my-tasks";
 
   //* Undefined
   static const String undefined = "/undefined";
@@ -111,7 +113,10 @@ class RouterGenerator {
             params: settings.arguments as TaskViewParams,
           ),
         );
-
+      case Routes.myTasksRoute:
+        return MaterialPageRoute(
+          builder: (context) => const MyTasksView(),
+        );
       case Routes.settingsRoute:
         return MaterialPageRoute(builder: (context) => const SettingsView());
       case Routes.helpRoute:
