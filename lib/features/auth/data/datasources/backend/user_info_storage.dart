@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart' show immutable;
 import 'package:y23/config/utils/firebase_names.dart';
 import 'package:y23/features/auth/data/models/user_info_payload.dart';
@@ -42,6 +45,52 @@ class UserInfoStorage {
       return true;
     } catch (_) {
       return false;
+    }
+  }
+
+  Future<String?> uploadProfilePicture({
+    required String userId,
+    required File photo,
+  }) async {
+    try {
+      final userInfo = await FirebaseFirestore.instance
+          .collection(FirebaseCollectionName.users)
+          .where(FirebaseFieldName.userId, isEqualTo: userId)
+          .limit(1)
+          .get();
+
+      if (userInfo.docs.isEmpty) return null;
+
+      final name = photo.path.split("/").last;
+      final path = "profile-pics/$userId/$name";
+
+      final ref = FirebaseStorage.instance.ref().child(path);
+      await ref.putFile(photo);
+      final url = await ref.getDownloadURL();
+
+      await userInfo.docs.first.reference.update({
+        FirebaseFieldName.photoUrl: url,
+      });
+
+      return url;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  Future<String?> getPhotoUrl(String? userId) async {
+    try {
+      final userInfo = await FirebaseFirestore.instance
+          .collection(FirebaseCollectionName.users)
+          .where(FirebaseFieldName.userId, isEqualTo: userId)
+          .limit(1)
+          .get();
+
+      if (userInfo.docs.isEmpty) return null;
+
+      return userInfo.docs.first.get(FirebaseFieldName.photoUrl);
+    } catch (_) {
+      return null;
     }
   }
 }

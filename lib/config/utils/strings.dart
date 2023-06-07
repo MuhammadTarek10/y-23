@@ -47,6 +47,9 @@ class AppStrings {
   static const String tasksSubmitted = "tasks_submitted";
   static const String tasksCorrect = "tasks_correct";
   static const String myTasks = "my_tasks";
+  static const String myQuizzes = "my_quizzes";
+  static const String leaderboard = "leaderboard";
+  static const String rank1 = "rank1";
 
   const AppStrings._();
 }

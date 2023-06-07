@@ -259,4 +259,14 @@ class Quizzer {
 
     return quizzes.docs.map((e) => Quiz.fromJson(e.id, e.data())).toList();
   }
+
+  Future<List<QuizResult>?> getAllQuizResults() async {
+    final quizResults = await FirebaseFirestore.instance
+        .collection(FirebaseCollectionName.quizResults)
+        .get();
+
+    return quizResults.docs
+        .map((e) => QuizResult.fromJson(e.id, e.data()))
+        .toList();
+  }
 }

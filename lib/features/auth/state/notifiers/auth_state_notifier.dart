@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/features/auth/data/datasources/backend/authenticator.dart';
 import 'package:y23/features/auth/data/datasources/backend/user_info_storage.dart';
@@ -16,7 +18,13 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
         userId: _authenticator.userId,
         displayName: _authenticator.displayName,
       );
+      setPhoto();
     }
+  }
+
+  Future<void> setPhoto() async {
+    final url = await _userInfoStorage.getPhotoUrl(_authenticator.userId);
+    state = state.copiedWithPhotoUrl(url ?? _authenticator.photoUrl);
   }
 
   Future<void> logOut() async {
@@ -50,4 +58,15 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
         email: _authenticator.email,
         photoUrl: _authenticator.photoUrl,
       );
+
+  Future<void> uploadProfilePicture({
+    required String userId,
+    required File photo,
+  }) async {
+    final url = await _userInfoStorage.uploadProfilePicture(
+      userId: userId,
+      photo: photo,
+    );
+    state = state.copiedWithPhotoUrl(url ?? _authenticator.photoUrl);
+  }
 }

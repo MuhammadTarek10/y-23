@@ -46,5 +46,8 @@
   "error_submitting_task": "يوجد مشكلة في التسليم، حاول مجددًا لاحقًا",
   "tasks_submitted": "الواجبات المستلمة",
   "tasks_correct": "الواجبات الصحيحة",
-  "my_tasks": "واجباتي"
+  "my_tasks": "واجباتي",
+  "leaderboard": "المتصدرين",
+  "my_quizzes": "اختباراتي",
+  "rank1": "المركز الأول"
 }

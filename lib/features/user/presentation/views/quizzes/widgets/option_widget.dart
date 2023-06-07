@@ -22,7 +22,7 @@ class OptionWidget extends StatelessWidget {
           option,
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: isSelected
-                    ? Theme.of(context).cardTheme.color
+                    ? Theme.of(context).colorScheme.outline
                     : AppColors.green,
               ),
         ),
@@ -30,6 +30,8 @@ class OptionWidget extends StatelessWidget {
           value: option,
           groupValue: isSelected ? option : null,
           onChanged: (_) => onPressed(),
+          activeColor: MaterialStateColor.resolveWith(
+              (states) => Theme.of(context).colorScheme.outline),
         ),
       ),
     );

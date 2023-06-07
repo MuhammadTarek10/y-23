@@ -31,9 +31,9 @@ dependencies:
   image_picker: ^0.8.7+5
   internet_connection_checker: ^1.0.0+1
   lottie: ^2.3.2
-  pdf_viewer_plugin: ^2.0.1
   share_plus: ^7.0.1
   shared_preferences: ^2.1.1
+  syncfusion_flutter_pdfviewer: ^21.2.9
   url_launcher: ^6.1.11
   uuid: ^3.0.7
 

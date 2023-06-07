@@ -10,7 +10,7 @@ class AppColors {
   static const Color fourthlyColor = Color(0xFF540A7B);
   static const Color green = Color(0xFF33A499);
   static const Color fakeWhite = Color(0xFFFAFAFA);
-  static const Color error = Color(0xFFFF0000);
+  static const Color error = Color(0xFFFF0040);
 
   //* Sessions
   static const Color sessionColorLightTheme = Color(0xFF00A0F0);

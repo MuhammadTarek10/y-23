@@ -7,25 +7,38 @@ class AuthState {
   final bool isLoading;
   final String? userId;
   final String? displayName;
+  final String? photoUrl;
 
   const AuthState({
     required this.result,
     required this.isLoading,
     required this.userId,
     required this.displayName,
+    this.photoUrl,
   });
 
   const AuthState.unknown()
       : result = null,
         isLoading = false,
         userId = null,
-        displayName = null;
+        displayName = null,
+        photoUrl = null;
+        
 
   AuthState copiedWithIsLoading(bool isLoading) => AuthState(
         result: result,
         isLoading: isLoading,
         userId: userId,
         displayName: displayName,
+        photoUrl: photoUrl,
+      );
+
+  AuthState copiedWithPhotoUrl(String? photoUrl) => AuthState(
+        result: result,
+        isLoading: isLoading,
+        userId: userId,
+        displayName: displayName,
+        photoUrl: photoUrl,
       );
 
   @override

@@ -90,3 +90,17 @@ class LottieHelp extends StatelessWidget {
     );
   }
 }
+
+
+class LottieCrown extends StatelessWidget {
+  const LottieCrown({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Lottie.asset(
+      AppAssets.crown,
+      repeat: true,
+      reverse: true,
+    );
+  }
+}

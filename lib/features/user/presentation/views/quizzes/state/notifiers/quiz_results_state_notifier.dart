@@ -13,6 +13,10 @@ class QuizResultStateNotifier extends StateNotifier<List<QuizResult>?> {
     state = await quizzer.getQuizResultsByUserId(userId);
   }
 
+  Future<void> getAllQuizResults() async {
+    state = await quizzer.getAllQuizResults();
+  }
+
   Future<void> saveQuizResult({
     required String userId,
     required String quizId,

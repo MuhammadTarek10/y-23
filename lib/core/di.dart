@@ -1,6 +1,8 @@
 import 'package:get_it/get_it.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:y23/core/media.dart';
 import 'package:y23/core/network_info.dart';
 import 'package:y23/core/prefs.dart';
 
@@ -13,4 +15,6 @@ Future<void> initApp() async {
       () => AppPreferences(prefs: instance()));
   instance.registerLazySingleton<NetworkInfoImp>(
       () => NetworkInfoImp(InternetConnectionChecker()));
+  instance.registerLazySingleton<AppMedia>(
+      () => AppMedia(imagePicker: ImagePicker()));
 }

@@ -141,10 +141,7 @@ class Tasker {
       await ref.putFile(submission).whenComplete(() {});
       final url = await ref.getDownloadURL();
 
-      await FirebaseFirestore.instance
-          .collection(FirebaseCollectionName.taskSubmissions)
-          .doc(data.docs.first.id)
-          .update({
+      await data.docs.first.reference.update({
         FirebaseFieldName.submission: url,
         FirebaseFieldName.isTaskSubmitted: true,
       });

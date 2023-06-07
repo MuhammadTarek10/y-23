@@ -10,15 +10,16 @@ import 'package:y23/features/auth/state/providers/is_logged_in_provider.dart';
 import 'package:y23/features/splash/views/splash_view.dart';
 import 'package:y23/features/user/domain/entities/sessions/session.dart';
 import 'package:y23/features/user/presentation/views/feedback/feedback_view_params.dart';
-import 'package:y23/features/user/presentation/views/feedback/tasks_feedback_view.dart';
 import 'package:y23/features/user/presentation/views/feedback_view.dart';
 import 'package:y23/features/user/presentation/views/help/help_view.dart';
 import 'package:y23/features/user/presentation/views/home/home_view.dart';
+import 'package:y23/features/user/presentation/views/leaderboard_view.dart';
+import 'package:y23/features/user/presentation/views/quizzes/my_quizzes.dart';
 import 'package:y23/features/user/presentation/views/quizzes/quiz_view.dart';
 import 'package:y23/features/user/presentation/views/quizzes/quiz_view_params.dart';
 import 'package:y23/features/user/presentation/views/sessions/session_view.dart';
 import 'package:y23/features/user/presentation/views/settings/settings_view.dart';
-import 'package:y23/features/user/presentation/views/tasks/my_tasks.dart';
+import 'package:y23/features/user/presentation/views/tasks/my_tasks/my_tasks.dart';
 import 'package:y23/features/user/presentation/views/tasks/task_view.dart';
 import 'package:y23/features/user/presentation/views/tasks/task_view_params.dart';
 
@@ -37,9 +38,10 @@ class Routes {
   static const String helpRoute = "/help";
   static const String sessionRoute = "/session";
   static const String feedbackRoute = "/feedback";
-  static const String tasksFeedbackRoute = "/personal-feedback";
+  static const String leaderboardRoute = "/personal-feedback";
   static const String taskRoute = "/task";
   static const String myTasksRoute = "/my-tasks";
+  static const String myQuizzesRoute = "/my-quizzes";
 
   //* Undefined
   static const String undefined = "/undefined";
@@ -102,9 +104,9 @@ class RouterGenerator {
             params: settings.arguments as FeedbackViewParams,
           ),
         );
-      case Routes.tasksFeedbackRoute:
+      case Routes.leaderboardRoute:
         return MaterialPageRoute(
-          builder: (context) => const TasksFeedbackView(),
+          builder: (context) => const LeaderboardView(),
         );
 
       case Routes.taskRoute:
@@ -116,6 +118,10 @@ class RouterGenerator {
       case Routes.myTasksRoute:
         return MaterialPageRoute(
           builder: (context) => const MyTasksView(),
+        );
+      case Routes.myQuizzesRoute:
+        return MaterialPageRoute(
+          builder: (context) => const MyQuizzesView(),
         );
       case Routes.settingsRoute:
         return MaterialPageRoute(builder: (context) => const SettingsView());

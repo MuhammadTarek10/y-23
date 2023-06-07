@@ -46,5 +46,8 @@
   "error_submitting_task": "Error Submitting the Task, Please try again later",
   "tasks_submitted": "Tasks Submitted",
   "tasks_correct": "Tasks Correct",
-  "my_tasks": "My Tasks"
+  "my_tasks": "My Tasks",
+  "leaderboard": "Leaderboard",
+  "my_quizzes": "My Quizzes",
+  "rank1": "Rank 1"
 }

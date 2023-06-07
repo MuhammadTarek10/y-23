@@ -12,4 +12,5 @@ class AppAssets {
   static const String noInternet = "assets/lottie/no-internet.json";
   static const String feedback = "assets/lottie/feedback.json";
   static const String help = "assets/lottie/help.json";
+  static const String crown = "assets/lottie/crown.json";
 }

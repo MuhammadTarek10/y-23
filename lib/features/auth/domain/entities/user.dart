@@ -5,11 +5,13 @@ class User {
   final String id;
   final String? displayName;
   final String? email;
+  final String? photoUrl;
 
   const User({
     required this.id,
     required this.displayName,
     required this.email,
+    required this.photoUrl,
   });
 
   @override
@@ -17,12 +19,23 @@ class User {
       identical(this, other) ||
       (id == other.id &&
           displayName == other.displayName &&
-          email == other.email);
+          email == other.email &&
+          photoUrl == other.photoUrl);
 
   @override
   int get hashCode => Object.hash(
         id,
         displayName,
         email,
+        photoUrl,
       );
+
+  factory User.fromJson(Map<String, dynamic> json){
+    return User(
+      id: json['uid'],
+      displayName: json['displayName'],
+      email: json['email'],
+      photoUrl: json['photoUrl'],
+    );
+  }
 }

@@ -68,14 +68,16 @@ class _SessionViewState extends ConsumerState<SessionView>
             children: [
               Hero(
                 tag: widget.session.id,
-                child: AspectRatio(
-                  aspectRatio: 1.2,
-                  child: widget.session.photoUrl != null
-                      ? Image.network(
-                          widget.session.photoUrl!,
-                          fit: BoxFit.contain,
-                        )
-                      : Image.asset(AppAssets.logo),
+                child: InteractiveViewer(
+                  child: AspectRatio(
+                    aspectRatio: 1.2,
+                    child: widget.session.photoUrl != null
+                        ? Image.network(
+                            widget.session.photoUrl!,
+                            fit: BoxFit.contain,
+                          )
+                        : Image.asset(AppAssets.logo),
+                  ),
                 ),
               ),
             ],
