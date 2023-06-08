@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:y23/config/utils/colors.dart';
 
 class OptionWidget extends StatelessWidget {
   const OptionWidget({
@@ -22,8 +21,8 @@ class OptionWidget extends StatelessWidget {
           option,
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: isSelected
-                    ? Theme.of(context).colorScheme.outline
-                    : AppColors.green,
+                    ? Theme.of(context).colorScheme.onSecondary
+                    : Theme.of(context).colorScheme.background,
               ),
         ),
         trailing: Radio<String>(

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/config/routes.dart';
+import 'package:y23/config/utils/assets.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
 import 'package:y23/core/di.dart';
@@ -45,8 +46,7 @@ class ProfileView extends ConsumerWidget {
             quizzes == null ||
             quizResults == null ||
             displayName == null ||
-            userId == null ||
-            photoUrl == null
+            userId == null
         ? const LottieLoading()
         : ProfileDetails(
             ref: ref,
@@ -81,7 +81,7 @@ class ProfileDetails extends StatelessWidget {
   final WidgetRef ref;
   final String userId;
   final String displayName;
-  final String photoUrl;
+  final String? photoUrl;
   final List<Quiz> quizzes;
   final List<QuizResult> quizResults;
   final List<Task> tasks;
@@ -102,9 +102,14 @@ class ProfileDetails extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: AppPadding.p20),
               child: Stack(
                 children: [
-                  CircleAvatar(
-                    radius: AppSizes.s80,
-                    backgroundImage: NetworkImage(photoUrl),
+                  Container(
+                    padding: const EdgeInsets.only(top: AppPadding.p40),
+                    child: CircleAvatar(
+                      radius: AppSizes.s80,
+                      backgroundImage: photoUrl != null && photoUrl!.isNotEmpty
+                          ? NetworkImage(photoUrl!)
+                          : Image.asset(AppAssets.user).image,
+                    ),
                   ),
                   Positioned(
                     bottom: 0,
@@ -155,14 +160,6 @@ class ProfileDetails extends StatelessWidget {
                       Routes.leaderboardRoute,
                     ),
                   ),
-                  // ListTile(
-                  //   leading: const Icon(Icons.check_box_outlined),
-                  //   title: Text(AppStrings.myQuizzes.tr()),
-                  //   onTap: () => Navigator.pushNamed(
-                  //     context,
-                  //     Routes.myQuizzesRoute,
-                  //   ),
-                  // ),
                   ListTile(
                     leading: const Icon(Icons.task_outlined),
                     title: Text(AppStrings.myTasks.tr()),
@@ -172,14 +169,6 @@ class ProfileDetails extends StatelessWidget {
                     ),
                   ),
                   const Divider(),
-                  // ListTile(
-                  //   leading: const Icon(Icons.settings_outlined),
-                  //   title: Text(AppStrings.settings.tr()),
-                  //   onTap: () => Navigator.pushNamed(
-                  //     context,
-                  //     Routes.settingsRoute,
-                  //   ),
-                  // ),
                   ListTile(
                     leading: const Icon(Icons.help_outline),
                     title: Text(AppStrings.help.tr()),
@@ -212,6 +201,11 @@ class ProfileDetails extends StatelessWidget {
                       Phoenix.rebirth(context);
                     },
                   ),
+                  // ListTile(
+                  //   leading: const Icon(Icons.logout),
+                  //   title: Text(AppStrings.logout.tr()),
+                  //   onTap: ref.read(authStateProvider.notifier).logOut,
+                  // ),
                 ],
               ),
             ),

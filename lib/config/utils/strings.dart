@@ -2,6 +2,7 @@ class AppStrings {
   static const String appName = "Y23' Project";
   static const String googleLogin = "google_login";
   static const String login = "login";
+  static const String register = "register";
   static const String logout = "logout";
   static const String home = "home";
   static const String profile = "profile";
@@ -49,7 +50,15 @@ class AppStrings {
   static const String myTasks = "my_tasks";
   static const String myQuizzes = "my_quizzes";
   static const String leaderboard = "leaderboard";
-  static const String rank1 = "rank1";
+  static const String leader = "rank1";
+  static const String taskDeadlinePassed = "task_deadline_passed";
+  static const String displayName = "display_name";
+  static const String email = "email";
+  static const String password = "password";
+  static const String youCanloginWithGoogle = "you_can_login_with_google";
+  static const String fillEmailAndPassword = "fill_email_and_password";
+  static const String noSubmissions = "no_submissions";
+  static const String noFeedback = "no_feedback";
 
   const AppStrings._();
 }

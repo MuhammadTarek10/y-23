@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Task {
   final String id;
   final String title;
   final String description;
+  final Timestamp deadline;
   final String? documentationLink;
   final int? points;
   final String? photoUrl;
@@ -11,6 +14,7 @@ class Task {
     required this.id,
     required this.title,
     required this.description,
+    required this.deadline,
     this.documentationLink,
     this.points,
     this.photoUrl,
@@ -21,6 +25,7 @@ class Task {
     String? id,
     String? title,
     String? description,
+    Timestamp? deadline,
     String? documentationLink,
     int? points,
     String? photoUrl,
@@ -30,6 +35,7 @@ class Task {
       id: id ?? this.id,
       title: title ?? this.title,
       description: description ?? this.description,
+      deadline: deadline ?? this.deadline,
       documentationLink: documentationLink,
       points: points,
       photoUrl: photoUrl,
@@ -42,6 +48,7 @@ class Task {
       id: id,
       title: json['title'] as String,
       description: json['description'] as String,
+      deadline: json['deadline'] as Timestamp,
       documentationLink: json['documentationLink'],
       points: json['points'],
       photoUrl: json['photoUrl'],
@@ -54,6 +61,7 @@ class Task {
       'id': id,
       'title': title,
       'description': description,
+      'deadline': deadline,
       'documentationLink': documentationLink,
       'points': points,
       'photoUrl': photoUrl,

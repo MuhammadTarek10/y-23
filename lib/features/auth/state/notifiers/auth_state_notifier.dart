@@ -19,7 +19,13 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
         displayName: _authenticator.displayName,
       );
       setPhoto();
+      setName();
     }
+  }
+
+  Future<void> setName() async {
+    final name = await _userInfoStorage.getDisplayName(_authenticator.userId);
+    state = state.copiedWithDisplayName(name ?? _authenticator.displayName);
   }
 
   Future<void> setPhoto() async {
@@ -49,15 +55,40 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     );
   }
 
+  Future<void> loginWithEmailAndPassword(
+    String email,
+    String password,
+    String? displayName,
+  ) async {
+    state = state.copiedWithIsLoading(true);
+    final result =
+        await _authenticator.loginWithEmailAndPassword(email, password);
+    final userId = _authenticator.userId;
+    if (result == AuthResults.success && userId != null) {
+      await saveUserInfo(
+        userId: userId,
+        displayName: displayName,
+      );
+    }
+    state = AuthState(
+      result: result,
+      isLoading: false,
+      userId: userId,
+      displayName: displayName,
+    );
+  }
+
   Future<void> saveUserInfo({
     required String userId,
-  }) =>
-      _userInfoStorage.saveUserInfo(
-        userId: userId,
-        displayName: _authenticator.displayName,
-        email: _authenticator.email,
-        photoUrl: _authenticator.photoUrl,
-      );
+    String? displayName,
+  }) async {
+    await _userInfoStorage.saveUserInfo(
+      userId: userId,
+      displayName: displayName ?? _authenticator.displayName,
+      email: _authenticator.email,
+      photoUrl: _authenticator.photoUrl,
+    );
+  }
 
   Future<void> uploadProfilePicture({
     required String userId,

@@ -42,75 +42,88 @@ class _FeedbackViewState extends State<FeedbackView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-        elevation: 0,
+    return Container(
+      height: double.infinity,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Theme.of(context).colorScheme.onSecondary,
+            Theme.of(context).colorScheme.secondary,
+          ],
+        ),
       ),
-      body: SafeArea(
-        top: false,
-        bottom: false,
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: SizedBox(
-            height: context.height,
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(AppPadding.p10),
-                  child: const LottieFeedback(),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: Text(
-                    AppStrings.addFeedback.tr(),
-                    style: Theme.of(context).textTheme.headlineMedium,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(title),
+          elevation: 0,
+        ),
+        body: SafeArea(
+          top: false,
+          bottom: false,
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: SizedBox(
+              height: context.height,
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(AppPadding.p10),
+                    child: const LottieFeedback(),
                   ),
-                ),
-                _buildComposer(),
-                Padding(
-                  padding: const EdgeInsets.all(AppPadding.p10),
-                  child: Center(
-                    child: Container(
-                      width: double.infinity,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Theme.of(context).colorScheme.outline,
+                  Container(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Text(
+                      AppStrings.addFeedback.tr(),
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                  ),
+                  _buildComposer(),
+                  Padding(
+                    padding: const EdgeInsets.all(AppPadding.p10),
+                    child: Center(
+                      child: Container(
+                        width: double.infinity,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Theme.of(context).colorScheme.outline,
+                          ),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(AppSizes.s10),
+                          ),
                         ),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(AppSizes.s10),
-                        ),
-                      ),
-                      child: Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          onTap: () {
-                            if (_controller.text.isNotEmpty) {
-                              onPressed(_controller.text);
-                            } else {
-                              customShowSnackBar(
-                                context: context,
-                                message: AppStrings.fillFeedback.tr(),
-                                isError: true,
-                              );
-                            }
-                          },
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: Text(
-                                AppStrings.submit.tr(),
-                                style: Theme.of(context).textTheme.bodyMedium,
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            onTap: () {
+                              if (_controller.text.isNotEmpty) {
+                                onPressed(_controller.text);
+                              } else {
+                                customShowSnackBar(
+                                  context: context,
+                                  message: AppStrings.fillFeedback.tr(),
+                                  isError: true,
+                                );
+                              }
+                            },
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(
+                                  AppStrings.submit.tr(),
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
         ),

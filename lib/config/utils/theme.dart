@@ -13,25 +13,27 @@ class AppTheme {
         brightness: Brightness.dark,
         primary: AppColors.thirdlyColor,
         onPrimary: Colors.black,
-        secondary: AppColors.primaryColor,
-        onSecondary: AppColors.secondlyColor,
+        secondary: AppColors.fifthlyColor,
+        onSecondary: AppColors.thirdlyColor,
         error: AppColors.error,
         onError: AppColors.error,
-        background: Colors.transparent,
+        background: AppColors.primaryColor,
         onBackground: Colors.grey.shade600,
-        surface: Colors.black,
-        onSurface: Colors.black,
+        surface: AppColors.primaryColor,
+        onSurface: AppColors.fourthlyColor,
         outline: AppColors.fakeWhite,
+        tertiary: Colors.grey.shade800,
       ),
 
       //* AppBar
-      appBarTheme: AppBarTheme(
-        backgroundColor: Colors.grey.shade800,
-        iconTheme: const IconThemeData(
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.transparent,
+        iconTheme: IconThemeData(
           color: Colors.white,
         ),
+        elevation: 0,
         centerTitle: true,
-        titleTextStyle: const TextStyle(
+        titleTextStyle: TextStyle(
           color: AppColors.primaryColor,
           fontSize: 24.0,
           fontWeight: FontWeight.bold,
@@ -134,7 +136,7 @@ class AppTheme {
       ),
 
       //* Scaffold
-      scaffoldBackgroundColor: Colors.grey.shade900,
+      scaffoldBackgroundColor: Colors.transparent,
 
       //* Dialog
       dialogTheme: const DialogTheme(
@@ -206,7 +208,7 @@ class AppTheme {
       brightness: Brightness.light,
 
       //* Color Scheme
-      colorScheme: const ColorScheme(
+      colorScheme: ColorScheme(
         brightness: Brightness.light,
         primary: AppColors.fourthlyColor,
         onPrimary: Colors.grey,
@@ -216,14 +218,15 @@ class AppTheme {
         onError: AppColors.error,
         background: AppColors.primaryColor,
         onBackground: AppColors.fakeWhite,
-        surface: Colors.black,
-        onSurface: Colors.black,
+        surface: AppColors.primaryColor,
+        onSurface: AppColors.secondlyColor,
         outline: Colors.black,
+        tertiary: AppColors.fakeWhite.withAlpha(100),
       ),
 
       //* AppBar
       appBarTheme: const AppBarTheme(
-        backgroundColor: AppColors.secondlyColor,
+        backgroundColor: Colors.transparent,
         iconTheme: IconThemeData(
           color: AppColors.primaryColor,
         ),
@@ -332,7 +335,7 @@ class AppTheme {
       ),
 
       //* Scaffold
-      scaffoldBackgroundColor: AppColors.fakeWhite,
+      scaffoldBackgroundColor: Colors.transparent,
 
       //* Dialog
       dialogTheme: const DialogTheme(

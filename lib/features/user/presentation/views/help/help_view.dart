@@ -12,74 +12,86 @@ class HelpView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return SafeArea(
-      top: false,
-      bottom: false,
+    return Container(
+      height: double.infinity,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Theme.of(context).colorScheme.onSecondary,
+            Theme.of(context).colorScheme.secondary,
+          ],
+        ),
+      ),
       child: Scaffold(
         appBar: AppBar(
           title: Text(AppStrings.help.tr()),
         ),
-        body: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(AppPadding.p20),
-              child: const LottieHelp(),
-            ),
-            const SizedBox(height: AppSizes.s40),
-            Text(
-              AppStrings.helpYou.tr(),
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            Container(
-              padding: const EdgeInsets.only(top: 16),
-              child: Text(
-                AppStrings.helpDesc.tr(),
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontStyle: FontStyle.italic,
-                    ),
+        body: SafeArea(
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(AppPadding.p20),
+                child: const LottieHelp(),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(AppPadding.p10),
-              child: Center(
-                child: SizedBox(
-                  width: double.infinity,
-                  height: AppSizes.s40,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Theme.of(context).colorScheme.outline,
+              const SizedBox(height: AppSizes.s40),
+              Text(
+                AppStrings.helpYou.tr(),
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              Container(
+                padding: const EdgeInsets.only(top: 16),
+                child: Text(
+                  AppStrings.helpDesc.tr(),
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontStyle: FontStyle.italic,
                       ),
-                      borderRadius: BorderRadius.circular(AppSizes.s10),
-                    ),
-                    child: InkWell(
-                      onTap: () async {
-                        final Uri url = Uri.parse(Constants.contactUs);
-                        if (await canLaunchUrl(url)) {
-                          launchUrl(url);
-                        }
-                      },
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(AppPadding.p4),
-                          child: Text(
-                            AppStrings.chatWithUs.tr(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                  color: Theme.of(context).colorScheme.outline,
-                                ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(AppPadding.p10),
+                child: Center(
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: AppSizes.s40,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Theme.of(context).colorScheme.outline,
+                        ),
+                        borderRadius: BorderRadius.circular(AppSizes.s10),
+                      ),
+                      child: InkWell(
+                        onTap: () async {
+                          final Uri url = Uri.parse(Constants.contactUs);
+                          if (await canLaunchUrl(url)) {
+                            launchUrl(url);
+                          }
+                        },
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(AppPadding.p4),
+                            child: Text(
+                              AppStrings.chatWithUs.tr(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.outline,
+                                  ),
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

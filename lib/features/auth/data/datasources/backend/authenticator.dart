@@ -39,4 +39,27 @@ class Authenticator {
       return AuthResults.failure;
     }
   }
+
+  Future<AuthResults> loginWithEmailAndPassword(
+    String email,
+    String password,
+  ) async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return AuthResults.success;
+    } on FirebaseAuthException catch (_) {
+      try {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+        return AuthResults.success;
+      } catch (_) {
+        return AuthResults.failure;
+      }
+    }
+  }
 }

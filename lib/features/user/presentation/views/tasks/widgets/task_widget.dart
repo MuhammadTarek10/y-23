@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:y23/config/extensions.dart';
 import 'package:y23/config/routes.dart';
 import 'package:y23/config/utils/assets.dart';
-import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
 import 'package:y23/features/user/domain/entities/tasks/task.dart';
 import 'package:y23/features/user/domain/entities/tasks/task_submission.dart';
@@ -23,6 +22,9 @@ class TaskWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final isSubmitted = taskSubmission.isSubmitted ?? false;
     final isCorrect = taskSubmission.isCorrect ?? false;
+    final deadline = DateFormat.MEd()
+        .add_jm()
+        .format(DateTime.parse(task.deadline.toDate().toString()));
     return InkWell(
       onTap: () => Navigator.pushNamed(
         context,
@@ -116,11 +118,7 @@ class TaskWidget extends StatelessWidget {
                               width: context.width * 0.01,
                             ),
                             Text(
-                              isSubmitted
-                                  ? isCorrect
-                                      ? AppStrings.correct.tr()
-                                      : AppStrings.incorrect.tr()
-                                  : AppStrings.notSubmitted.tr(),
+                              deadline,
                               style: Theme.of(context).textTheme.bodyLarge,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,

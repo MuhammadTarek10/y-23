@@ -49,5 +49,13 @@
   "my_tasks": "My Tasks",
   "leaderboard": "Leaderboard",
   "my_quizzes": "My Quizzes",
-  "rank1": "Rank 1"
+  "rank1": "Leader",
+  "task_deadline_passed": "We're sorry, deadline for this task has passed",
+  "display_name": "Name",
+  "email": "Email",
+  "password": "Password",
+  "you_can_login_with_google": "You can login with google here",
+  "fill_email_and_password": "Fill Email and Password",
+  "no_submissions": "There are no submissions",
+  "no_feedback": "No Feedbacks until now"
 }

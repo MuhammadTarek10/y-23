@@ -49,5 +49,13 @@
   "my_tasks": "واجباتي",
   "leaderboard": "المتصدرين",
   "my_quizzes": "اختباراتي",
-  "rank1": "المركز الأول"
+  "rank1": "المركز الأول",
+  "task_deadline_passed": "لقد مضى وقت التسليم",
+  "display_name": "الاسم",
+  "email": "البريد الإلكتروني",
+  "password": "كلمة المرور",
+  "you_can_login_with_google": "يمكنك تسجيل الدخول عبر جوجل",
+  "fill_email_and_password": "املئ البريد الإلكتروني وكلمة المرور",
+  "no_submissions": "لا يوجد تسليمات حتى الآن",
+  "no_feedback": "لا يوجد تعليقات حتى الآن"
 }

@@ -25,27 +25,56 @@ class _MyTasksViewState extends ConsumerState<MyTasksView> {
         ? const LottieLoading()
         : DefaultTabController(
             length: 2,
-            child: Scaffold(
-              appBar: AppBar(
-                title: Text(AppStrings.myTasks.tr()),
-                bottom: TabBar(
-                  tabs: [
-                    Tab(text: AppStrings.tasks.tr()),
-                    Tab(text: AppStrings.tasksFeedback.tr()),
+            child: Container(
+              height: double.infinity,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Theme.of(context).colorScheme.onSecondary,
+                    Theme.of(context).colorScheme.secondary,
                   ],
                 ),
               ),
-              body: TabBarView(
-                children: [
-                  MySubmissions(
-                    tasks: tasks,
-                    submissions: submissions,
+              child: Scaffold(
+                backgroundColor: Colors.transparent,
+                appBar: AppBar(
+                  title: Text(AppStrings.myTasks.tr()),
+                  actions: [
+                    IconButton(
+                      onPressed: () async {
+                        await ref.read(tasksProvider.notifier).getTasks();
+                        await ref
+                            .read(taskSubmissionsProvider.notifier)
+                            .getTaskSubmissions();
+                      },
+                      icon: const Icon(Icons.refresh_outlined),
+                    ),
+                  ],
+                  bottom: TabBar(
+                    tabs: [
+                      Tab(text: AppStrings.tasks.tr()),
+                      Tab(text: AppStrings.tasksFeedback.tr()),
+                    ],
                   ),
-                  MyTasksFeedback(
-                    tasks: tasks,
-                    submissions: submissions,
-                  ),
-                ],
+                ),
+                body: TabBarView(
+                  children: [
+                    MySubmissions(
+                      tasks: tasks,
+                      submissions: submissions
+                          .where((element) => element.isSubmitted == true)
+                          .toList(),
+                    ),
+                    MyTasksFeedback(
+                      tasks: tasks,
+                      submissions: submissions
+                          .where((element) => element.feedback != null)
+                          .toList(),
+                    ),
+                  ],
+                ),
               ),
             ),
           );

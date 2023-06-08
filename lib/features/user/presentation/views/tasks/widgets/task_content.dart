@@ -42,17 +42,14 @@ class TaskContent extends StatelessWidget {
                           task.documentationLink!.isNotEmpty
                       ? InkWell(
                           onTap: () async {
-                            final url = Uri.parse(
-                                task.documentationLink!);
+                            final url = Uri.parse(task.documentationLink!);
                             if (await canLaunchUrl(url)) {
                               launchUrl(url);
                             } else {
                               if (context.mounted) {
                                 customShowSnackBar(
                                   context: context,
-                                  message: AppStrings
-                                      .problemWithLink
-                                      .tr(),
+                                  message: AppStrings.problemWithLink.tr(),
                                   isError: true,
                                 );
                               }
@@ -62,8 +59,7 @@ class TaskContent extends StatelessWidget {
                             width: double.infinity,
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment:
-                                  MainAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Text(
                                   AppStrings.details.tr(),
@@ -73,16 +69,13 @@ class TaskContent extends StatelessWidget {
                                       .copyWith(
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .onSecondary,
+                                            .surface,
                                       ),
                                 ),
-                                const SizedBox(
-                                    width: AppSizes.s4),
+                                const SizedBox(width: AppSizes.s4),
                                 Icon(
                                   Icons.more_outlined,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSecondary,
+                                  color: Theme.of(context).colorScheme.surface,
                                 ),
                               ],
                             ),

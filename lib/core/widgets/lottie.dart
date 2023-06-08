@@ -32,7 +32,9 @@ class LottieEmpty extends StatelessWidget {
         ),
         Text(
           message,
-          style: Theme.of(context).textTheme.headlineMedium,
+          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                color: Theme.of(context).colorScheme.outline,
+              ),
         ),
       ],
     );
@@ -77,7 +79,6 @@ class LottieFeedback extends StatelessWidget {
   }
 }
 
-
 class LottieHelp extends StatelessWidget {
   const LottieHelp({super.key});
 
@@ -91,7 +92,6 @@ class LottieHelp extends StatelessWidget {
   }
 }
 
-
 class LottieCrown extends StatelessWidget {
   const LottieCrown({super.key});
 
@@ -102,5 +102,27 @@ class LottieCrown extends StatelessWidget {
       repeat: true,
       reverse: true,
     );
+  }
+}
+
+class LottieLogin extends StatelessWidget {
+  const LottieLogin({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Lottie.asset(
+      AppAssets.login,
+      repeat: true,
+      reverse: true,
+    );
+  }
+}
+
+class LottieSplash extends StatelessWidget {
+  const LottieSplash({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Lottie.asset(AppAssets.splash);
   }
 }

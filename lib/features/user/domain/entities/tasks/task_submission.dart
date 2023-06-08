@@ -9,7 +9,7 @@ class TaskSubmission {
   final bool? isSubmitted;
   final bool? isCorrect;
   final int? points;
-  final List<Map<String, dynamic>>? feedback;
+  final List<dynamic>? feedback;
 
   const TaskSubmission({
     required this.id,

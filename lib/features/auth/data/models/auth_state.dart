@@ -23,9 +23,16 @@ class AuthState {
         userId = null,
         displayName = null,
         photoUrl = null;
-        
 
   AuthState copiedWithIsLoading(bool isLoading) => AuthState(
+        result: result,
+        isLoading: isLoading,
+        userId: userId,
+        displayName: displayName,
+        photoUrl: photoUrl,
+      );
+
+  AuthState copiedWithDisplayName(String? displayName) => AuthState(
         result: result,
         isLoading: isLoading,
         userId: userId,

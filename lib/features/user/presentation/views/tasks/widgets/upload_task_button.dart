@@ -25,9 +25,22 @@ class UploadTaskButton extends ConsumerWidget {
     final userId = ref.watch(userIdProvider) ?? "";
     return InkWell(
       onTap: () async {
+        if (task.deadline.toDate().isBefore(DateTime.now())) {
+          customShowSnackBar(
+            context: context,
+            message: AppStrings.taskDeadlinePassed.tr(),
+            isError: true,
+          );
+          return;
+        }
+
         final path = await FlutterDocumentPicker.openDocument();
-        final file = File(path ?? "");
+
+        if (path == null) return;
+
+        final file = File(path);
         ref.read(loadingProvider.notifier).loading();
+
         if (await ref.read(taskSubmissionsProvider.notifier).uploadSubmission(
               userId: userId,
               taskId: task.id,
@@ -48,12 +61,14 @@ class UploadTaskButton extends ConsumerWidget {
             );
           }
         }
+
         ref.read(loadingProvider.notifier).doneLoading();
       },
       child: Container(
         alignment: Alignment.center,
         padding: const EdgeInsets.all(AppPadding.p10),
         decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.onSecondary.withAlpha(120),
           border: Border.all(
             color: Colors.grey.shade400,
           ),

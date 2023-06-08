@@ -62,97 +62,113 @@ class _SessionViewState extends ConsumerState<SessionView>
     final double tempHeight = context.height - (context.width / 1.2) + 24.0;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.onBackground,
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              Hero(
-                tag: widget.session.id,
-                child: InteractiveViewer(
-                  child: AspectRatio(
-                    aspectRatio: 1.2,
-                    child: widget.session.photoUrl != null
-                        ? Image.network(
-                            widget.session.photoUrl!,
-                            fit: BoxFit.contain,
-                          )
-                        : Image.asset(AppAssets.logo),
-                  ),
-                ),
-              ),
+      body: Container(
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Theme.of(context).colorScheme.onSecondary,
+              Theme.of(context).colorScheme.secondary,
             ],
           ),
-          Positioned(
-            top: (context.width / 1.2) - 24.0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.onBackground,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(32.0),
-                  topRight: Radius.circular(32.0),
-                ),
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    offset: const Offset(1.1, 1.1),
-                    blurRadius: 10.0,
-                  ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8, right: 8),
-                child: SingleChildScrollView(
-                  child: Container(
-                    constraints: BoxConstraints(
-                      minHeight: infoHeight,
-                      maxHeight:
-                          tempHeight > infoHeight ? tempHeight : infoHeight,
+        ),
+        child: Stack(
+          children: [
+            Column(
+              children: [
+                Hero(
+                  tag: widget.session.id,
+                  child: InteractiveViewer(
+                    child: AspectRatio(
+                      aspectRatio: 1.2,
+                      child: widget.session.photoUrl != null &&
+                              widget.session.photoUrl!.isNotEmpty
+                          ? Image.network(
+                              widget.session.photoUrl!,
+                              fit: BoxFit.contain,
+                            )
+                          : Image.asset(AppAssets.logo),
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: AppPadding.p32,
-                            left: AppPadding.p18,
-                            right: AppPadding.p16,
+                  ),
+                ),
+              ],
+            ),
+            Positioned(
+              top: (context.width / 1.2) - 24.0,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.onBackground,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(32.0),
+                    topRight: Radius.circular(32.0),
+                  ),
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      offset: const Offset(1.1, 1.1),
+                      blurRadius: 10.0,
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8, right: 8),
+                  child: SingleChildScrollView(
+                    child: Container(
+                      constraints: BoxConstraints(
+                        minHeight: infoHeight,
+                        maxHeight:
+                            tempHeight > infoHeight ? tempHeight : infoHeight,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: AppPadding.p32,
+                              left: AppPadding.p18,
+                              right: AppPadding.p16,
+                            ),
+                            child: Text(
+                              widget.session.title,
+                              textAlign: TextAlign.left,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineLarge!
+                                  .copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.outline,
+                                  ),
+                            ),
                           ),
-                          child: Text(
-                            widget.session.title,
-                            textAlign: TextAlign.left,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineLarge!
-                                .copyWith(
-                                  color: Theme.of(context).colorScheme.outline,
-                                ),
+                          SessionContent(
+                            documentation: widget.session.documentationLink,
+                            points: widget.session.points,
+                            opacity: opacity2,
                           ),
-                        ),
-                        SessionContent(
-                          documentation: widget.session.documentationLink,
-                          points: widget.session.points,
-                          opacity: opacity2,
-                        ),
-                        SizedBox(height: MediaQuery.of(context).padding.bottom),
-                        FeedbackButton(
-                          id: widget.session.id,
-                          title: widget.session.title,
-                          opacity: opacity3,
-                        ),
-                      ],
+                          SizedBox(
+                              height: MediaQuery.of(context).padding.bottom),
+                          FeedbackButton(
+                            id: widget.session.id,
+                            title: widget.session.title,
+                            opacity: opacity3,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-          FavoriteIcon(animationController: animationController),
-          const CustomBackButton()
-        ],
+            FavoriteIcon(animationController: animationController),
+            const CustomBackButton()
+          ],
+        ),
       ),
     );
   }

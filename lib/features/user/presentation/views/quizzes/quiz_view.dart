@@ -23,41 +23,71 @@ class QuizView extends ConsumerWidget {
     final quiz = params.quiz;
     final result = params.result;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(quiz.name),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(AppPadding.p10),
-          child: Column(
+      body: Container(
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Theme.of(context).colorScheme.onSecondary,
+              Theme.of(context).colorScheme.secondary,
+            ],
+          ),
+        ),
+        child: SafeArea(
+          child: Stack(
             children: [
-              ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: quiz.questions.length,
-                separatorBuilder: (context, index) => const Divider(),
-                itemBuilder: (context, index) {
-                  final question = quiz.questions[index];
-                  String selectedOption =
-                      result.selectedOptions[question.title] ?? "";
-                  return StatefulBuilder(
-                    builder: (context, setState) {
-                      return QuestionWidget(
-                        question: question,
-                        selectedOption: selectedOption,
-                        onPressed: (option) {
-                          result.selectedOptions[question.title] = option;
-                          setState(() {
-                            selectedOption = option;
-                          });
-                        },
-                      );
-                    },
-                  );
-                },
+              SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(AppPadding.p10),
+                  child: Container(
+                    padding: const EdgeInsets.only(top: AppPadding.p30),
+                    child: Column(
+                      children: [
+                        ListView.separated(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: quiz.questions.length,
+                          separatorBuilder: (context, index) => const Divider(),
+                          itemBuilder: (context, index) {
+                            final question = quiz.questions[index];
+                            String selectedOption =
+                                result.selectedOptions[question.title] ?? "";
+                            return StatefulBuilder(
+                              builder: (context, setState) {
+                                return QuestionWidget(
+                                  question: question,
+                                  selectedOption: selectedOption,
+                                  onPressed: (option) {
+                                    result.selectedOptions[question.title] =
+                                        option;
+                                    setState(() {
+                                      selectedOption = option;
+                                    });
+                                  },
+                                );
+                              },
+                            );
+                          },
+                        ),
+                        const SizedBox(height: AppSizes.s10),
+                        buildSubmitSection(context, ref),
+                      ],
+                    ),
+                  ),
+                ),
               ),
-              const SizedBox(height: AppSizes.s10),
-              buildSubmitSection(context, ref),
+              Positioned(
+                left: AppPadding.p0,
+                child: IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -84,6 +114,7 @@ class QuizView extends ConsumerWidget {
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey.shade400),
                 borderRadius: BorderRadius.circular(AppSizes.s10),
+                color: Theme.of(context).colorScheme.onSecondary.withAlpha(120),
               ),
               child: Center(
                 child: Text(

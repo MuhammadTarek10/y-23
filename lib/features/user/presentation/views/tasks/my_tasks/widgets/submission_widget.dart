@@ -27,7 +27,7 @@ class SubmissionWidget extends StatelessWidget {
         style: Theme.of(context).textTheme.bodyLarge,
       ),
       trailing: submission.isSubmitted != null && submission.isSubmitted!
-          ? const Icon(Icons.done)
+          ? const Icon(Icons.arrow_forward_ios)
           : const Icon(Icons.close),
     );
   }

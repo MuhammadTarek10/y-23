@@ -12,7 +12,7 @@ class UserInfoStorage {
 
   Future<bool> saveUserInfo({
     required String userId,
-    required String displayName,
+    required String? displayName,
     required String? email,
     required String? photoUrl,
   }) async {
@@ -24,8 +24,9 @@ class UserInfoStorage {
           .get();
 
       if (userInfo.docs.isNotEmpty) {
+        final name = displayName ?? userInfo.docs.first.get("displayName");
         await userInfo.docs.first.reference.update({
-          FirebaseFieldName.displayName: displayName,
+          FirebaseFieldName.displayName: name,
           FirebaseFieldName.email: email ?? "",
         });
         return true;
@@ -45,6 +46,22 @@ class UserInfoStorage {
       return true;
     } catch (_) {
       return false;
+    }
+  }
+
+  Future<String?> getDisplayName(String? userId) async {
+    try {
+      final userInfo = await FirebaseFirestore.instance
+          .collection(FirebaseCollectionName.users)
+          .where(FirebaseFieldName.userId, isEqualTo: userId)
+          .limit(1)
+          .get();
+
+      if (userInfo.docs.isEmpty) return null;
+
+      return userInfo.docs.first.get(FirebaseFieldName.displayName);
+    } catch (_) {
+      return null;
     }
   }
 

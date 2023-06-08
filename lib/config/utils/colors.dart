@@ -8,6 +8,7 @@ class AppColors {
   static const Color secondlyColor = Color(0xFF333499);
   static const Color thirdlyColor = Color(0xFF00072D);
   static const Color fourthlyColor = Color(0xFF540A7B);
+  static const Color fifthlyColor = Color(0xFF54AAFB);
   static const Color green = Color(0xFF33A499);
   static const Color fakeWhite = Color(0xFFFAFAFA);
   static const Color error = Color(0xFFFF0040);

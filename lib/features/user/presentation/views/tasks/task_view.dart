@@ -16,34 +16,49 @@ class TaskView extends StatelessWidget {
   Widget build(BuildContext context) {
     final task = params.task;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(task.title),
-      ),
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Theme.of(context).colorScheme.outline,
-                    ),
-                    borderRadius: BorderRadius.circular(AppSizes.s10),
+      body: Container(
+        padding: const EdgeInsets.only(top: AppPadding.p40),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Theme.of(context).colorScheme.onSecondary,
+              Theme.of(context).colorScheme.secondary,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Stack(
+          children: [
+            Column(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: AppPadding.p40),
+                    child: TaskContent(task: task),
                   ),
-                  child: TaskContent(task: task),
+                ),
+              ],
+            ),
+            Container(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.all(AppPadding.p20),
+                child: TaskFeedbackButton(id: task.id, title: task.title),
+              ),
+            ),
+            Positioned(
+              left: AppPadding.p0,
+              child: IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
                 ),
               ),
-            ],
-          ),
-          Container(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.all(AppPadding.p20),
-              child: TaskFeedbackButton(id: task.id, title: task.title),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

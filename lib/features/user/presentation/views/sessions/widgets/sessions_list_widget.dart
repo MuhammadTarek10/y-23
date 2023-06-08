@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:y23/config/utils/values.dart';
 import 'package:y23/features/user/domain/entities/sessions/session.dart';
 import 'package:y23/features/user/presentation/views/sessions/widgets/session_widget.dart';
 
@@ -14,12 +15,15 @@ class SessionsListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: () => onRefresh(),
-      child: ListView.builder(
-        itemCount: sessions.length,
-        itemBuilder: (context, index) =>
-            SessionWidget(session: sessions[index]),
+    return Padding(
+      padding: const EdgeInsets.only(top: AppSizes.s40),
+      child: RefreshIndicator(
+        onRefresh: () => onRefresh(),
+        child: ListView.builder(
+          itemCount: sessions.length,
+          itemBuilder: (context, index) =>
+              SessionWidget(session: sessions[index]),
+        ),
       ),
     );
   }

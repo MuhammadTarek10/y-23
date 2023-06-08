@@ -15,6 +15,8 @@ class SessionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = context.height * 0.2;
+    final width = context.width;
     return InkWell(
       onTap: () => Navigator.pushNamed(
         context,
@@ -33,7 +35,7 @@ class SessionWidget extends StatelessWidget {
                   top: AppPadding.p16,
                   bottom: AppPadding.p10,
                 ),
-                height: context.height * 0.2,
+                height: height,
                 decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
@@ -45,8 +47,13 @@ class SessionWidget extends StatelessWidget {
                     ),
                     image: DecorationImage(
                       opacity: 0.4,
-                      image: session.photoUrl != null
-                          ? Image.network(session.photoUrl!).image
+                      image: session.photoUrl != null &&
+                              session.photoUrl!.isNotEmpty
+                          ? ResizeImage(
+                              NetworkImage(session.photoUrl!),
+                              width: width.toInt(),
+                              height: height.toInt(),
+                            )
                           : Image.asset(AppAssets.logo).image,
                     ),
                     borderRadius: const BorderRadius.only(
