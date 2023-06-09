@@ -26,10 +26,12 @@ import 'package:y23/features/user/presentation/views/quizzes/state/providers/qui
 import 'package:y23/features/user/presentation/views/tasks/state/providers/task_submissions_provider.dart';
 import 'package:y23/features/user/presentation/views/tasks/state/providers/tasks_provider.dart';
 
+// ignore: must_be_immutable
 class ProfileView extends ConsumerWidget {
   ProfileView({super.key});
 
   final AppPreferences prefs = instance<AppPreferences>();
+  String? photo;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -41,6 +43,11 @@ class ProfileView extends ConsumerWidget {
     final tasks = ref.watch(tasksProvider);
     final submissions = ref.watch(taskSubmissionsProvider);
     final photoUrl = ref.watch(photoUrlProvider);
+    photoUrl.when(
+      data: (data) => photo = data,
+      error: (error, _) {},
+      loading: () {},
+    );
     return submissions == null ||
             tasks == null ||
             quizzes == null ||
@@ -52,7 +59,7 @@ class ProfileView extends ConsumerWidget {
             ref: ref,
             userId: userId,
             displayName: displayName,
-            photoUrl: photoUrl,
+            photoUrl: photo,
             quizzes: quizzes,
             quizResults: quizResults,
             tasks: tasks,

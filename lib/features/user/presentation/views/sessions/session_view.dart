@@ -4,7 +4,6 @@ import 'package:y23/config/extensions.dart';
 import 'package:y23/config/utils/assets.dart';
 import 'package:y23/config/utils/values.dart';
 import 'package:y23/features/user/domain/entities/sessions/session.dart';
-import 'package:y23/features/user/presentation/views/sessions/widgets/back_button.dart';
 import 'package:y23/features/user/presentation/views/sessions/widgets/favorite_icon.dart';
 import 'package:y23/features/user/presentation/views/sessions/widgets/feedback_button.dart';
 import 'package:y23/features/user/presentation/views/sessions/widgets/session_content.dart';
@@ -60,21 +59,20 @@ class _SessionViewState extends ConsumerState<SessionView>
   @override
   Widget build(BuildContext context) {
     final double tempHeight = context.height - (context.width / 1.2) + 24.0;
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.onBackground,
-      body: Container(
-        height: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Theme.of(context).colorScheme.onSecondary,
-              Theme.of(context).colorScheme.secondary,
-            ],
-          ),
+    return Container(
+      height: double.infinity,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Theme.of(context).colorScheme.onSecondary,
+            Theme.of(context).colorScheme.secondary,
+          ],
         ),
-        child: Stack(
+      ),
+      child: Scaffold(
+        body: Stack(
           children: [
             Column(
               children: [
@@ -87,7 +85,7 @@ class _SessionViewState extends ConsumerState<SessionView>
                               widget.session.photoUrl!.isNotEmpty
                           ? Image.network(
                               widget.session.photoUrl!,
-                              fit: BoxFit.contain,
+                              fit: BoxFit.fill,
                             )
                           : Image.asset(AppAssets.logo),
                     ),
@@ -102,10 +100,17 @@ class _SessionViewState extends ConsumerState<SessionView>
               right: 0,
               child: Container(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.onBackground,
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(32.0),
                     topRight: Radius.circular(32.0),
+                  ),
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Theme.of(context).colorScheme.onSecondary,
+                      Theme.of(context).colorScheme.secondary,
+                    ],
                   ),
                   boxShadow: <BoxShadow>[
                     BoxShadow(
@@ -165,8 +170,9 @@ class _SessionViewState extends ConsumerState<SessionView>
                 ),
               ),
             ),
-            FavoriteIcon(animationController: animationController),
-            const CustomBackButton()
+            FavoriteIcon(
+                animationController: animationController,
+                onPressed: () => Navigator.pop(context)),
           ],
         ),
       ),

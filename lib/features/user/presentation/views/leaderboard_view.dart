@@ -13,172 +13,143 @@ class LeaderboardView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final usersScore = ref.watch(leaderboardProvider);
-    return Scaffold(
-      body: usersScore == null
-          ? Container(
-              height: double.infinity,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Theme.of(context).colorScheme.onSecondary,
-                    Theme.of(context).colorScheme.secondary,
-                  ],
-                ),
-              ),
-              child: Center(
-                  child: CircularProgressIndicator(
-                color: Theme.of(context).colorScheme.outline,
-              )),
+    return Container(
+      height: double.infinity,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Theme.of(context).colorScheme.onSecondary,
+            Theme.of(context).colorScheme.secondary,
+          ],
+        ),
+      ),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(AppStrings.leaderboard.tr()),
+          actions: [
+            IconButton(
+              onPressed: () async {
+                ref.read(leaderboardProvider.notifier).getData();
+              },
+              icon: const Icon(Icons.refresh),
             )
-          : Container(
-              height: double.infinity,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Theme.of(context).colorScheme.onSecondary,
-                    Theme.of(context).colorScheme.secondary,
-                  ],
-                ),
-              ),
-              child: SafeArea(
+          ],
+        ),
+        body: usersScore == null
+            ? Center(
+                child: CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.outline,
+              ))
+            : SafeArea(
                 child: AnimatedContainer(
                   duration: const Duration(seconds: 2),
                   child: Stack(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: AppPadding.p40),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              Text(
-                                AppStrings.leader.tr(),
-                                style:
-                                    Theme.of(context).textTheme.headlineLarge,
-                              ),
-                              const SizedBox(height: AppSizes.s10),
-                              Stack(
-                                children: [
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: CircleAvatar(
-                                      radius: AppSizes.s100,
-                                      backgroundImage: usersScore.keys
-                                                      .elementAt(0)
-                                                      .photoUrl !=
-                                                  null &&
-                                              usersScore.keys
-                                                  .elementAt(0)
-                                                  .photoUrl!
-                                                  .isNotEmpty
-                                          ? NetworkImage(usersScore.keys
-                                              .elementAt(0)
-                                              .photoUrl!)
-                                          : Image.asset(AppAssets.user).image,
-                                    ),
+                      SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Text(
+                              AppStrings.leader.tr(),
+                              style: Theme.of(context).textTheme.headlineLarge,
+                            ),
+                            const SizedBox(height: AppSizes.s10),
+                            Stack(
+                              children: [
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: CircleAvatar(
+                                    radius: AppSizes.s100,
+                                    backgroundImage:
+                                        usersScore.keys.elementAt(0).photoUrl !=
+                                                    null &&
+                                                usersScore.keys
+                                                    .elementAt(0)
+                                                    .photoUrl!
+                                                    .isNotEmpty
+                                            ? NetworkImage(usersScore.keys
+                                                .elementAt(0)
+                                                .photoUrl!)
+                                            : Image.asset(AppAssets.user).image,
                                   ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: AppSizes.s100,
-                                    child: Container(
-                                      height: AppSizes.s60,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .outline,
-                                        border: Border.all(),
-                                      ),
-                                      child: const LottieCrown(),
+                                ),
+                                Positioned(
+                                  bottom: 0,
+                                  right: AppSizes.s100,
+                                  child: Container(
+                                    height: AppSizes.s60,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color:
+                                          Theme.of(context).colorScheme.outline,
+                                      border: Border.all(),
                                     ),
+                                    child: const LottieCrown(),
                                   ),
-                                ],
-                              ),
-                              const SizedBox(height: AppSizes.s40),
-                              ListView.separated(
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: usersScore.length,
-                                separatorBuilder: (context, index) =>
-                                    const Divider(),
-                                itemBuilder: (context, index) {
-                                  final user = usersScore.keys.elementAt(index);
-                                  final score =
-                                      usersScore.values.elementAt(index);
-                                  return Container(
-                                    padding: const EdgeInsets.only(
-                                        left: AppPadding.p10),
-                                    child: ListTile(
-                                      title: Row(
-                                        children: [
-                                          CircleAvatar(
-                                            backgroundImage: user.photoUrl !=
-                                                        null &&
-                                                    user.photoUrl!.isNotEmpty
-                                                ? NetworkImage(user.photoUrl!)
-                                                : Image.asset(AppAssets.user)
-                                                    .image,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: AppSizes.s40),
+                            ListView.separated(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: usersScore.length,
+                              separatorBuilder: (context, index) =>
+                                  const Divider(),
+                              itemBuilder: (context, index) {
+                                final user = usersScore.keys.elementAt(index);
+                                final score =
+                                    usersScore.values.elementAt(index);
+                                return Container(
+                                  padding: const EdgeInsets.only(
+                                      left: AppPadding.p10),
+                                  child: ListTile(
+                                    title: Row(
+                                      children: [
+                                        CircleAvatar(
+                                          backgroundImage:
+                                              user.photoUrl != null &&
+                                                      user.photoUrl!.isNotEmpty
+                                                  ? NetworkImage(user.photoUrl!)
+                                                  : Image.asset(AppAssets.user)
+                                                      .image,
+                                        ),
+                                        const SizedBox(width: AppSizes.s10),
+                                        Expanded(
+                                            child: Text(user.displayName!)),
+                                      ],
+                                    ),
+                                    leading: Text(
+                                      "# ${index + 1}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .copyWith(
+                                            fontWeight: FontWeight.bold,
                                           ),
-                                          const SizedBox(width: AppSizes.s10),
-                                          Expanded(
-                                              child: Text(user.displayName!)),
-                                        ],
-                                      ),
-                                      leading: Text(
-                                        "# ${index + 1}",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge!
-                                            .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                      ),
-                                      trailing: Text(
-                                        score.toString(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge!
-                                            .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                      ),
                                     ),
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        left: AppPadding.p0,
-                        child: IconButton(
-                          onPressed: () => Navigator.pop(context),
-                          icon: const Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        right: AppPadding.p0,
-                        child: IconButton(
-                          onPressed:
-                              ref.read(leaderboardProvider.notifier).getData,
-                          icon: const Icon(
-                            Icons.refresh,
-                            color: Colors.white,
-                          ),
+                                    trailing: Text(
+                                      score.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .copyWith(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
                 ),
               ),
-            ),
+      ),
     );
   }
 }

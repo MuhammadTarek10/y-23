@@ -12,38 +12,40 @@ class LoginView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Theme.of(context).colorScheme.onSecondary,
-                  Theme.of(context).colorScheme.secondary,
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Theme.of(context).colorScheme.onSecondary,
+                    Theme.of(context).colorScheme.secondary,
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
               ),
             ),
-          ),
-          SafeArea(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    AppStrings.welcome.tr(),
-                    style: Theme.of(context).textTheme.headlineLarge,
-                  ),
-                  const LottieLogin(),
-                  const LoginFields(),
-                  const Spacer(),
-                  const GoogleLoginButton(),
-                ],
+            SafeArea(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      AppStrings.welcome.tr(),
+                      style: Theme.of(context).textTheme.headlineLarge,
+                    ),
+                    const LottieLogin(),
+                    const LoginFields(),
+                    const Spacer(),
+                    const GoogleLoginButton(),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -102,6 +102,15 @@ class AppTheme {
         border: OutlineInputBorder(),
       ),
 
+      //* ListTile
+      listTileTheme: ListTileThemeData(
+        iconColor: AppColors.fakeWhite.withOpacity(0.8),
+        titleTextStyle: TextStyle(
+          fontSize: 15,
+          color: AppColors.fakeWhite.withOpacity(0.8),
+        ),
+      ),
+
       //* Card
       cardTheme: const CardTheme(
         elevation: 0,
@@ -120,7 +129,7 @@ class AppTheme {
 
       //* Icon
       iconTheme: const IconThemeData(
-        color: AppColors.primaryColor,
+        color: AppColors.fakeWhite,
       ),
 
       //* BottomNavigationBar
@@ -212,7 +221,7 @@ class AppTheme {
         brightness: Brightness.light,
         primary: AppColors.fourthlyColor,
         onPrimary: Colors.grey,
-        secondary: AppColors.primaryColor,
+        secondary: AppColors.primaryColor.withOpacity(0.5),
         onSecondary: AppColors.secondlyColor,
         error: AppColors.error,
         onError: AppColors.error,
@@ -301,6 +310,15 @@ class AppTheme {
         border: OutlineInputBorder(),
       ),
 
+      //* ListTile
+      listTileTheme: const ListTileThemeData(
+        iconColor: AppColors.fakeWhite,
+        titleTextStyle: TextStyle(
+          fontSize: 15,
+          color: AppColors.fakeWhite,
+        ),
+      ),
+
       //* Card
       cardTheme: const CardTheme(
         elevation: 0,
@@ -319,7 +337,7 @@ class AppTheme {
 
       //* Icon
       iconTheme: const IconThemeData(
-        color: Colors.black,
+        color: AppColors.fakeWhite,
       ),
 
       //* BottomNavigationBar

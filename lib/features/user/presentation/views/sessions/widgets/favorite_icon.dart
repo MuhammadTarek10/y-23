@@ -6,9 +6,11 @@ class FavoriteIcon extends StatelessWidget {
   const FavoriteIcon({
     super.key,
     required this.animationController,
+    required this.onPressed,
   });
 
   final AnimationController? animationController;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +26,17 @@ class FavoriteIcon extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
           elevation: 10.0,
-          child: const SizedBox(
+          child: SizedBox(
             width: 60,
             height: 60,
-            child: Center(
-              child: Icon(
-                Icons.favorite,
-                color: AppColors.fakeWhite,
-                size: 30,
+            child: InkWell(
+              onTap: onPressed,
+              child: const Center(
+                child: Icon(
+                  Icons.arrow_back,
+                  color: AppColors.fakeWhite,
+                  size: 30,
+                ),
               ),
             ),
           ),

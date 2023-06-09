@@ -25,8 +25,8 @@ class SessionContent extends StatelessWidget {
           opacity: opacity,
           child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(
+              Padding(
+                padding: const EdgeInsets.symmetric(
                   horizontal: AppPadding.p16,
                   vertical: AppPadding.p8,
                 ),
@@ -35,6 +35,9 @@ class SessionContent extends StatelessWidget {
                   textAlign: TextAlign.justify,
                   maxLines: 200,
                   overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        color: Colors.white,
+                      ),
                 ),
               ),
               const SizedBox(height: AppSizes.s10),
