@@ -7,23 +7,18 @@ class SessionsListWidget extends StatelessWidget {
   const SessionsListWidget({
     super.key,
     required this.sessions,
-    required this.onRefresh,
   });
 
   final List<Session> sessions;
-  final Function onRefresh;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: AppSizes.s40),
-      child: RefreshIndicator(
-        onRefresh: () => onRefresh(),
-        child: ListView.builder(
-          itemCount: sessions.length,
-          itemBuilder: (context, index) =>
-              SessionWidget(session: sessions[index]),
-        ),
+      child: ListView.builder(
+        itemCount: sessions.length,
+        itemBuilder: (context, index) =>
+            SessionWidget(session: sessions[index]),
       ),
     );
   }

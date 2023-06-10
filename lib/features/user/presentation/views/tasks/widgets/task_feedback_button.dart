@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/config/routes.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
@@ -47,6 +47,12 @@ class TaskFeedbackButton extends ConsumerWidget {
               child: Container(
                 height: 48,
                 decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Theme.of(context).colorScheme.secondary,
+                      Theme.of(context).colorScheme.onSecondary,
+                    ],
+                  ),
                   borderRadius: const BorderRadius.all(
                     Radius.circular(AppSizes.s16),
                   ),

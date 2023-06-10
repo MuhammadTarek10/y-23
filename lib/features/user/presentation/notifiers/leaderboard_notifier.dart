@@ -58,6 +58,16 @@ class LeaderboardNotifier extends StateNotifier<Map<User, int>?> {
       },
     ).toList();
 
+    data.submissions.map(
+      (e) {
+        if (idWithScore.containsKey(e.userId)) {
+          idWithScore[e.userId] = idWithScore[e.userId]! + (e.points ?? 0);
+        } else {
+          idWithScore[e.userId] = (e.points ?? 0);
+        }
+      },
+    ).toList();
+
     data.users.map(
       (e) {
         if (idWithScore.containsKey(e.id)) {

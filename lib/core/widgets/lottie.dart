@@ -105,6 +105,19 @@ class LottieCrown extends StatelessWidget {
   }
 }
 
+class LottieError extends StatelessWidget {
+  const LottieError({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Lottie.asset(
+      AppAssets.error,
+      repeat: true,
+      reverse: true,
+    );
+  }
+}
+
 class LottieLogin extends StatelessWidget {
   const LottieLogin({super.key});
 

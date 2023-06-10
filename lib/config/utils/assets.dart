@@ -16,4 +16,5 @@ class AppAssets {
   static const String crown = "assets/lottie/crown.json";
   static const String login = "assets/lottie/login.json";
   static const String splash = "assets/lottie/splash.json";
+  static const String error = "assets/lottie/error.json";
 }

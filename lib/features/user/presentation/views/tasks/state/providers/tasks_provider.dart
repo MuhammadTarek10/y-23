@@ -1,7 +1,33 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:y23/features/user/domain/entities/tasks/task.dart';
-import 'package:y23/features/user/presentation/views/tasks/state/notifiers/tasks_state_notifier.dart';
+import 'dart:async';
 
-final tasksProvider = StateNotifierProvider<TasksStateNotifier, List<Task>?>(
-  (_) => TasksStateNotifier(),
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:y23/config/utils/firebase_names.dart';
+import 'package:y23/features/user/domain/entities/tasks/task.dart';
+
+final tasksProvider = StreamProvider.autoDispose<List<Task>?>(
+  (ref) {
+    final controller = StreamController<List<Task>?>();
+    final subscription = FirebaseFirestore.instance
+        .collection(FirebaseCollectionName.tasks)
+        .orderBy(FirebaseFieldName.tasksTitle)
+        .snapshots()
+        .listen(
+      (snapshot) {
+        final tasks = snapshot.docs
+            .map(
+              (e) => Task.fromJson(e.id, e.data()),
+            )
+            .toList();
+        controller.sink.add(tasks);
+      },
+    );
+
+    ref.onDispose(() {
+      subscription.cancel();
+      controller.close();
+    });
+
+    return controller.stream;
+  },
 );

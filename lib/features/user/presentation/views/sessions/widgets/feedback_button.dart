@@ -4,10 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/config/routes.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
+import 'package:y23/core/di.dart';
 import 'package:y23/core/state/providers/loading_provider.dart';
 import 'package:y23/core/widgets/snackbar.dart';
+import 'package:y23/features/user/data/datasources/backend/sessioner.dart';
 import 'package:y23/features/user/presentation/views/feedback/feedback_view_params.dart';
-import 'package:y23/features/user/presentation/views/sessions/state/providers/session_provider.dart';
 
 class FeedbackButton extends ConsumerWidget {
   const FeedbackButton({
@@ -52,6 +53,12 @@ class FeedbackButton extends ConsumerWidget {
                 child: Container(
                   height: 48,
                   decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Theme.of(context).colorScheme.secondary,
+                        Theme.of(context).colorScheme.onSecondary,
+                      ],
+                    ),
                     borderRadius: const BorderRadius.all(
                       Radius.circular(AppSizes.s16),
                     ),
@@ -84,10 +91,8 @@ class FeedbackButton extends ConsumerWidget {
     String id,
   ) async {
     ref.read(loadingProvider.notifier).loading();
-    await ref.read(sessionsProvider.notifier).sendFeedback(
-          id,
-          feedback,
-        );
+    final sessioner = instance<Sessioner>();
+    await sessioner.sendFeedback(id, feedback);
     ref.read(loadingProvider.notifier).doneLoading();
     if (context.mounted) {
       customShowSnackBar(

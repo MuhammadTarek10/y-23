@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:y23/config/utils/colors.dart';
 import 'package:y23/features/user/domain/entities/tasks/task.dart';
 import 'package:y23/features/user/domain/entities/tasks/task_submission.dart';
 
@@ -24,7 +25,10 @@ class SubmissionWidget extends StatelessWidget {
       },
       leading: Text(
         task.title,
-        style: Theme.of(context).textTheme.bodyLarge,
+        style: Theme.of(context)
+            .textTheme
+            .bodyLarge!
+            .copyWith(color: AppColors.fakeWhite),
       ),
       trailing: submission.isSubmitted != null && submission.isSubmitted!
           ? const Icon(Icons.arrow_forward_ios)

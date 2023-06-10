@@ -16,21 +16,32 @@ class QuizzesView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final quizzes = ref.watch(quizzesProvider);
-    final quizResults = ref.watch(quizResultProvider);
-    return quizzes != null && quizResults != null
-        ? quizzes.isEmpty || quizResults.isEmpty
-            ? Center(
-                child: LottieEmpty(message: AppStrings.noQuizzesFound.tr()),
-              )
-            : QuizzesWidget(
-                quizzes: quizzes,
-                results: quizResults,
-                onRefresh: () async {
-                  await ref.read(quizzesProvider.notifier).getQuizzes();
-                  await ref.read(quizResultProvider.notifier).getQuizResults();
-                },
-              )
-        : const LottieLoading();
+    final results = ref.watch(quizResultsProvider);
+
+    return results == null
+        ? const LottieLoading()
+        : Center(
+            child: quizzes.when(
+              data: (data) {
+                if (data == null || data.isEmpty) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      LottieEmpty(message: AppStrings.noQuizzesFound.tr()),
+                    ],
+                  );
+                }
+                return QuizzesWidget(
+                  quizzes: data,
+                  results: results,
+                  onRefresh:
+                      ref.read(quizResultsProvider.notifier).getAllQuizResults,
+                );
+              },
+              error: (error, _) => const LottieError(),
+              loading: () => const LottieLoading(),
+            ),
+          );
   }
 }
 

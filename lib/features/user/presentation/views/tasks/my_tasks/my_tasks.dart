@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/core/widgets/lottie.dart';
+import 'package:y23/features/user/domain/entities/tasks/task.dart';
 import 'package:y23/features/user/presentation/views/tasks/my_tasks/my_submissions.dart';
 import 'package:y23/features/user/presentation/views/tasks/my_tasks/tasks_feedback.dart';
 import 'package:y23/features/user/presentation/views/tasks/state/providers/task_submissions_provider.dart';
@@ -19,7 +20,14 @@ class _MyTasksViewState extends ConsumerState<MyTasksView> {
   @override
   Widget build(BuildContext context) {
     final submissions = ref.watch(taskSubmissionsProvider);
-    final tasks = ref.watch(tasksProvider);
+    final tasksData = ref.watch(tasksProvider);
+    List<Task>? tasks;
+
+    tasksData.when(
+      data: (data) => tasks = data,
+      error: (error, _) {},
+      loading: () {},
+    );
 
     return tasks == null || submissions == null
         ? const LottieLoading()
@@ -41,17 +49,6 @@ class _MyTasksViewState extends ConsumerState<MyTasksView> {
                 backgroundColor: Colors.transparent,
                 appBar: AppBar(
                   title: Text(AppStrings.myTasks.tr()),
-                  actions: [
-                    IconButton(
-                      onPressed: () async {
-                        await ref.read(tasksProvider.notifier).getTasks();
-                        await ref
-                            .read(taskSubmissionsProvider.notifier)
-                            .getTaskSubmissions();
-                      },
-                      icon: const Icon(Icons.refresh_outlined),
-                    ),
-                  ],
                   bottom: TabBar(
                     tabs: [
                       Tab(text: AppStrings.tasks.tr()),
@@ -62,13 +59,13 @@ class _MyTasksViewState extends ConsumerState<MyTasksView> {
                 body: TabBarView(
                   children: [
                     MySubmissions(
-                      tasks: tasks,
+                      tasks: tasks!,
                       submissions: submissions
                           .where((element) => element.isSubmitted == true)
                           .toList(),
                     ),
                     MyTasksFeedback(
-                      tasks: tasks,
+                      tasks: tasks!,
                       submissions: submissions
                           .where((element) => element.feedback != null)
                           .toList(),

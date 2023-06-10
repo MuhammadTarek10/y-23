@@ -5,6 +5,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:y23/core/media.dart';
 import 'package:y23/core/network_info.dart';
 import 'package:y23/core/prefs.dart';
+import 'package:y23/features/user/data/datasources/backend/quizzer.dart';
+import 'package:y23/features/user/data/datasources/backend/sessioner.dart';
+import 'package:y23/features/user/data/datasources/backend/tasker.dart';
 
 final instance = GetIt.instance;
 
@@ -17,4 +20,7 @@ Future<void> initApp() async {
       () => NetworkInfoImp(InternetConnectionChecker()));
   instance.registerLazySingleton<AppMedia>(
       () => AppMedia(imagePicker: ImagePicker()));
+  instance.registerLazySingleton<Tasker>(() => const Tasker());
+  instance.registerLazySingleton<Sessioner>(() => const Sessioner());
+  instance.registerLazySingleton<Quizzer>(() => const Quizzer());
 }

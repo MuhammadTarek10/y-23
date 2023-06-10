@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
+import 'package:y23/core/di.dart';
 import 'package:y23/core/state/providers/loading_provider.dart';
 import 'package:y23/core/widgets/snackbar.dart';
 import 'package:y23/features/auth/state/providers/user_id_provider.dart';
+import 'package:y23/features/user/data/datasources/backend/quizzer.dart';
 import 'package:y23/features/user/presentation/views/quizzes/quiz_view_params.dart';
-import 'package:y23/features/user/presentation/views/quizzes/state/providers/quiz_result_provider.dart';
 import 'package:y23/features/user/presentation/views/quizzes/widgets/question_widget.dart';
 
 class QuizView extends ConsumerWidget {
@@ -142,13 +143,14 @@ class QuizView extends ConsumerWidget {
               (question) => question.answer == selectedOptions[question.title])
           .length;
 
-      await ref.read(quizResultProvider.notifier).saveQuizResult(
-            userId: userId,
-            quizId: quizId,
-            score: score,
-            selectedOptions: selectedOptions,
-            totalQuestions: totalQuestions,
-          );
+      final quizzer = instance<Quizzer>();
+      await quizzer.saveQuizResult(
+        userId: userId,
+        quizId: quizId,
+        score: score,
+        selectedOptions: selectedOptions,
+        totalQuestions: totalQuestions,
+      );
       ref.read(loadingProvider.notifier).doneLoading();
       if (context.mounted) {
         customShowSnackBar(

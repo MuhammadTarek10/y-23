@@ -17,53 +17,31 @@ import 'package:y23/features/auth/state/providers/auth_state_provider.dart';
 import 'package:y23/features/auth/state/providers/photo_url_provider.dart';
 import 'package:y23/features/auth/state/providers/user_display_name_provider.dart';
 import 'package:y23/features/auth/state/providers/user_id_provider.dart';
-import 'package:y23/features/user/domain/entities/quizzes/quiz.dart';
-import 'package:y23/features/user/domain/entities/quizzes/quiz_result.dart';
-import 'package:y23/features/user/domain/entities/tasks/task.dart';
-import 'package:y23/features/user/domain/entities/tasks/task_submission.dart';
-import 'package:y23/features/user/presentation/views/quizzes/state/providers/quiz_result_provider.dart';
-import 'package:y23/features/user/presentation/views/quizzes/state/providers/quizzers_provider.dart';
-import 'package:y23/features/user/presentation/views/tasks/state/providers/task_submissions_provider.dart';
-import 'package:y23/features/user/presentation/views/tasks/state/providers/tasks_provider.dart';
 
-// ignore: must_be_immutable
 class ProfileView extends ConsumerWidget {
   ProfileView({super.key});
 
   final AppPreferences prefs = instance<AppPreferences>();
-  String? photo;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userId = ref.watch(userIdProvider);
     final displayName = ref.watch(userDisplayNameProvider);
-    final quizzes = ref.watch(quizzesProvider);
-    final quizResults = ref.watch(quizResultProvider);
     final isDarkMode = ref.watch(themeProvider).brightness == Brightness.dark;
-    final tasks = ref.watch(tasksProvider);
-    final submissions = ref.watch(taskSubmissionsProvider);
     final photoUrl = ref.watch(photoUrlProvider);
+    String? photo;
     photoUrl.when(
       data: (data) => photo = data,
       error: (error, _) {},
       loading: () {},
     );
-    return submissions == null ||
-            tasks == null ||
-            quizzes == null ||
-            quizResults == null ||
-            displayName == null ||
-            userId == null
+    return displayName == null || userId == null
         ? const LottieLoading()
         : ProfileDetails(
             ref: ref,
             userId: userId,
             displayName: displayName,
             photoUrl: photo,
-            quizzes: quizzes,
-            quizResults: quizResults,
-            tasks: tasks,
-            submissions: submissions,
             isDarkMode: isDarkMode,
             prefs: prefs,
           );
@@ -77,10 +55,6 @@ class ProfileDetails extends StatelessWidget {
     required this.userId,
     required this.displayName,
     required this.photoUrl,
-    required this.quizzes,
-    required this.quizResults,
-    required this.tasks,
-    required this.submissions,
     required this.isDarkMode,
     required this.prefs,
   });
@@ -89,10 +63,6 @@ class ProfileDetails extends StatelessWidget {
   final String userId;
   final String displayName;
   final String? photoUrl;
-  final List<Quiz> quizzes;
-  final List<QuizResult> quizResults;
-  final List<Task> tasks;
-  final List<TaskSubmission> submissions;
   final bool isDarkMode;
   final AppPreferences prefs;
 

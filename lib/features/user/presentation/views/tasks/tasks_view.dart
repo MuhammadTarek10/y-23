@@ -16,25 +16,44 @@ class TasksView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tasks = ref.watch(tasksProvider);
     final taskSubmissions = ref.watch(taskSubmissionsProvider);
+    final tasksData = ref.watch(tasksProvider);
+    List<Task>? tasks;
+    tasksData.when(
+      data: (data) => tasks = data,
+      error: (error, _) => tasks = null,
+      loading: () => tasks = null,
+    );
     return tasks == null || taskSubmissions == null
         ? const LottieLoading()
-        : tasks.isEmpty && taskSubmissions.isEmpty
+        : tasks!.isEmpty && taskSubmissions.isEmpty
             ? LottieEmpty(message: AppStrings.noTasksFound.tr())
-            : buildTasks(ref, tasks, taskSubmissions);
+            : TasksListWidget(
+                tasks: tasks!,
+                submissions: taskSubmissions,
+                onRefresh: () => ref
+                    .read(taskSubmissionsProvider.notifier)
+                    .getTaskSubmissions(),
+              );
   }
+}
 
-  RefreshIndicator buildTasks(
-    WidgetRef ref,
-    List<Task> tasks,
-    List<TaskSubmission> taskSubmissions,
-  ) {
+class TasksListWidget extends StatelessWidget {
+  const TasksListWidget({
+    super.key,
+    required this.tasks,
+    required this.submissions,
+    required this.onRefresh,
+  });
+
+  final List<Task> tasks;
+  final List<TaskSubmission> submissions;
+  final Function onRefresh;
+
+  @override
+  Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () async {
-        await ref.read(tasksProvider.notifier).getTasks();
-        await ref.read(taskSubmissionsProvider.notifier).getTaskSubmissions();
-      },
+      onRefresh: () => onRefresh(),
       child: Padding(
         padding: const EdgeInsets.all(AppPadding.p10),
         child: Center(
@@ -47,7 +66,7 @@ class TasksView extends ConsumerWidget {
                   itemCount: tasks.length,
                   itemBuilder: (context, index) {
                     final task = tasks[index];
-                    final taskSubmission = taskSubmissions.firstWhere(
+                    final taskSubmission = submissions.firstWhere(
                       (element) => element.taskId == task.id,
                     );
                     return TaskWidget(

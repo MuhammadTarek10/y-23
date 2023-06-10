@@ -11,15 +11,25 @@ class SessionsView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final sessions = ref.watch(sessionsProvider);
-    return sessions == null
-        ? const LottieLoading()
-        : sessions.isEmpty
-            ? LottieEmpty(message: AppStrings.noSessionsFound.tr())
-            : SessionsListWidget(
-                sessions: sessions,
-                onRefresh: () =>
-                    ref.read(sessionsProvider.notifier).getSessions(),
-              );
+    final sessions = ref.watch(sessionProvider);
+    return Center(
+      child: sessions.when(
+        data: (data) {
+          if (data == null || data.isEmpty) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                LottieEmpty(message: AppStrings.noSessionsFound.tr()),
+              ],
+            );
+          }
+          return SessionsListWidget(
+            sessions: data,
+          );
+        },
+        error: (error, _) => const LottieError(),
+        loading: () => const LottieLoading(),
+      ),
+    );
   }
 }
