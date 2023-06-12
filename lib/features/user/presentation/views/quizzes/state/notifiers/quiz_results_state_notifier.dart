@@ -1,20 +1,21 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:y23/features/user/data/datasources/backend/quizzer.dart';
+import 'package:y23/core/di.dart';
 import 'package:y23/features/user/domain/entities/quizzes/quiz_result.dart';
+import 'package:y23/features/user/domain/repositories/quiz_repository.dart';
 
 class QuizResultStateNotifier extends StateNotifier<List<QuizResult>?> {
-  final quizzer = const Quizzer();
+  final quizRepo = instance<QuizRepository>();
   final String userId;
   QuizResultStateNotifier({required this.userId}) : super(null) {
     getQuizResults();
   }
 
   Future<void> getQuizResults() async {
-    state = await quizzer.getQuizResultsByUserId(userId);
+    state = await quizRepo.getQuizResults(userId);
   }
 
   Future<void> getAllQuizResults() async {
-    state = await quizzer.getAllQuizResults();
+    state = await quizRepo.getAllQuizResults();
   }
 
   Future<void> saveQuizResult({
@@ -24,7 +25,7 @@ class QuizResultStateNotifier extends StateNotifier<List<QuizResult>?> {
     required int score,
     required int totalQuestions,
   }) async {
-    await quizzer.saveQuizResult(
+    await quizRepo.saveQuizResult(
         userId: userId,
         quizId: quizId,
         selectedOptions: selectedOptions,

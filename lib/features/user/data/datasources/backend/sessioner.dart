@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:y23/config/utils/firebase_names.dart';
+import 'package:y23/features/user/data/datasources/session_datasource.dart';
 import 'package:y23/features/user/domain/entities/sessions/session.dart';
 
-class Sessioner {
-  const Sessioner();
-
+class RemoteSessioner extends SessionDataSource {
+  @override
   Future<List<Session>?> getSessions() async {
     final data = await FirebaseFirestore.instance
         .collection(FirebaseCollectionName.sessions)
@@ -13,6 +13,7 @@ class Sessioner {
     return data.docs.map((e) => Session.fromJson(e.id, e.data())).toList();
   }
 
+  @override
   Future<Session?> getSessionById(String id) async {
     final data = await FirebaseFirestore.instance
         .collection(FirebaseCollectionName.sessions)
@@ -22,6 +23,7 @@ class Sessioner {
     return Session.fromJson(data.id, data.data()!);
   }
 
+  @override
   Future<bool> addSession(Session session) async {
     try {
       await FirebaseFirestore.instance
@@ -33,6 +35,7 @@ class Sessioner {
     }
   }
 
+  @override
   Future<bool> sendFeedback(String id, String feedback) async {
     try {
       await FirebaseFirestore.instance
@@ -47,6 +50,7 @@ class Sessioner {
     }
   }
 
+  @override
   Future<bool> deleteSession(String id) async {
     try {
       await FirebaseFirestore.instance
@@ -59,6 +63,7 @@ class Sessioner {
     }
   }
 
+  @override
   Future<bool> updateSession(Session session) async {
     try {
       await FirebaseFirestore.instance

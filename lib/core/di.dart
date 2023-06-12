@@ -8,6 +8,9 @@ import 'package:y23/core/prefs.dart';
 import 'package:y23/features/user/data/datasources/backend/quizzer.dart';
 import 'package:y23/features/user/data/datasources/backend/sessioner.dart';
 import 'package:y23/features/user/data/datasources/backend/tasker.dart';
+import 'package:y23/features/user/domain/repositories/quiz_repository.dart';
+import 'package:y23/features/user/domain/repositories/session_repository.dart';
+import 'package:y23/features/user/domain/repositories/task_repository.dart';
 
 final instance = GetIt.instance;
 
@@ -20,7 +23,25 @@ Future<void> initApp() async {
       () => NetworkInfoImp(InternetConnectionChecker()));
   instance.registerLazySingleton<AppMedia>(
       () => AppMedia(imagePicker: ImagePicker()));
-  instance.registerLazySingleton<Tasker>(() => const Tasker());
-  instance.registerLazySingleton<Sessioner>(() => const Sessioner());
-  instance.registerLazySingleton<Quizzer>(() => const Quizzer());
+
+  instance.registerLazySingleton<RemoteTasker>(() => RemoteTasker());
+  instance.registerLazySingleton<TaskRepository>(
+    () => TaskRepository(
+      remoteTasker: instance<RemoteTasker>(),
+    ),
+  );
+
+  instance.registerLazySingleton<RemoteSessioner>(() => RemoteSessioner());
+  instance.registerLazySingleton<SessionRepository>(
+    () => SessionRepository(
+      remoteSessioner: instance<RemoteSessioner>(),
+    ),
+  );
+
+  instance.registerLazySingleton<RemoteQuizzer>(() => RemoteQuizzer());
+  instance.registerLazySingleton<QuizRepository>(
+    () => QuizRepository(
+      remoteQuizzer: instance<RemoteQuizzer>(),
+    ),
+  );
 }

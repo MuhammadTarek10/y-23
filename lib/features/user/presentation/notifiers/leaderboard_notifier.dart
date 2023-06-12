@@ -46,44 +46,6 @@ class LeaderboardNotifier extends StateNotifier<Map<User, int>?> {
       submissions,
     );
 
-    Map<String, int> idWithScore = {};
-    Map<User, int> usersScore = {};
-    data.quizResults.map(
-      (e) {
-        if (idWithScore.containsKey(e.userId)) {
-          idWithScore[e.userId] = idWithScore[e.userId]! + e.score;
-        } else {
-          idWithScore[e.userId] = e.score;
-        }
-      },
-    ).toList();
-
-    data.submissions.map(
-      (e) {
-        if (idWithScore.containsKey(e.userId)) {
-          idWithScore[e.userId] = idWithScore[e.userId]! + (e.points ?? 0);
-        } else {
-          idWithScore[e.userId] = (e.points ?? 0);
-        }
-      },
-    ).toList();
-
-    data.users.map(
-      (e) {
-        if (idWithScore.containsKey(e.id)) {
-          usersScore[e] = idWithScore[e.id]!;
-        }
-      },
-    ).toList();
-
-    // sort userScore based on score
-    usersScore = Map.fromEntries(
-      usersScore.entries.toList()
-        ..sort(
-          (a, b) => b.value.compareTo(a.value),
-        ),
-    );
-
-    state = usersScore;
+    state = data.calculateScores();
   }
 }

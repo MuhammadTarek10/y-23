@@ -1,19 +1,20 @@
 import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:y23/features/user/data/datasources/backend/tasker.dart';
+import 'package:y23/core/di.dart';
 import 'package:y23/features/user/domain/entities/tasks/task_submission.dart';
+import 'package:y23/features/user/domain/repositories/task_repository.dart';
 
 class TaskSubmissionsStateNotifier
     extends StateNotifier<List<TaskSubmission>?> {
-  final tasker = const Tasker();
+  final taskRepo = instance<TaskRepository>();
   final String userId;
   TaskSubmissionsStateNotifier({required this.userId}) : super(null) {
     getTaskSubmissions();
   }
 
   Future<void> getTaskSubmissions() async {
-    state = await tasker.getTaskSubmissionsByUserId(userId);
+    state = await taskRepo.getTaskSubmissionsByUserId(userId);
   }
 
   Future<bool> uploadSubmission({
@@ -22,7 +23,7 @@ class TaskSubmissionsStateNotifier
     required File submission,
   }) async {
     bool result = false;
-    await tasker
+    await taskRepo
         .uploadSubmission(
       userId: userId,
       taskId: taskId,
@@ -39,10 +40,9 @@ class TaskSubmissionsStateNotifier
     required String id,
     required String feedback,
   }) async {
-    await tasker.sendFeedback(
+    await taskRepo.sendFeedback(
       id,
       feedback,
     );
-    await getTaskSubmissions();
   }
 }

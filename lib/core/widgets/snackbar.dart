@@ -10,6 +10,7 @@ void customShowSnackBar({
     SnackBar(
       content: Text(message),
       backgroundColor: backgroundColor ?? (isError ? Colors.red : Colors.green),
+      duration: const Duration(seconds: 1),
     ),
   );
 }

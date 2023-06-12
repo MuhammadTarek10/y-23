@@ -5,11 +5,13 @@ class OptionWidget extends StatelessWidget {
     super.key,
     required this.onPressed,
     required this.isSelected,
+    required this.isRight,
     required this.option,
   });
 
   final VoidCallback onPressed;
   final bool isSelected;
+  final bool isRight;
   final String option;
 
   @override
@@ -17,6 +19,7 @@ class OptionWidget extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: ListTile(
+        leading: isRight ? const Icon(Icons.check) : null,
         title: Text(
           option,
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(

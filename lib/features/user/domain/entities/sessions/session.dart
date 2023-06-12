@@ -39,8 +39,8 @@ class Session {
     return Session(
       id: id,
       title: json['title'] as String,
-      points: json['points'] as Map<String, dynamic>,
       instructor: json['instructor'] as String,
+      points: json['points'],
       documentationLink: json['documentationLink'],
       photoUrl: json['photoUrl'],
       feedback: json['feedback'],

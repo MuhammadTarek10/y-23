@@ -5,7 +5,6 @@ import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
 import 'package:y23/core/widgets/snackbar.dart';
 import 'package:y23/features/user/domain/entities/tasks/task.dart';
-import 'package:y23/features/user/presentation/views/tasks/widgets/upload_task_button.dart';
 
 class TaskContent extends StatelessWidget {
   const TaskContent({
@@ -86,7 +85,6 @@ class TaskContent extends StatelessWidget {
               ),
             ),
             const SizedBox(height: AppSizes.s20),
-            UploadTaskButton(task: task),
           ],
         ),
       ),

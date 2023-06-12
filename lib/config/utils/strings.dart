@@ -59,6 +59,8 @@ class AppStrings {
   static const String fillEmailAndPassword = "fill_email_and_password";
   static const String noSubmissions = "no_submissions";
   static const String noFeedback = "no_feedback";
+  static const String quizAlreadySubmitted = "quiz_already_submitted";
+  static const String noContent = "no_content";
 
   const AppStrings._();
 }

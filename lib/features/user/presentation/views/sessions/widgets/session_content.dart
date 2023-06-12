@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
+import 'package:y23/core/widgets/lottie.dart';
 
 class SessionContent extends StatelessWidget {
   const SessionContent({
@@ -18,6 +19,15 @@ class SessionContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Map<String, dynamic>? sorted;
+    if (points != null) {
+      sorted = Map.fromEntries(
+        points!.entries.toList()
+          ..sort(
+            (a, b) => a.key.compareTo(b.key),
+          ),
+      );
+    }
     return Expanded(
       child: SingleChildScrollView(
         child: AnimatedOpacity(
@@ -30,15 +40,44 @@ class SessionContent extends StatelessWidget {
                   horizontal: AppPadding.p16,
                   vertical: AppPadding.p8,
                 ),
-                child: Text(
-                  'Lorem ipsum is simply dummy text of printing & typesetting industry, Lorem ipsum is simply dummy text of printing & typesetting industry.',
-                  textAlign: TextAlign.justify,
-                  maxLines: 200,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        color: Colors.white,
+                child: points == null
+                    ? LottieEmpty(message: AppStrings.noContent.tr())
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: AppSizes.s10),
+                          ...sorted!.entries.map(
+                            (e) => Container(
+                              padding: const EdgeInsets.only(
+                                bottom: AppPadding.p20,
+                              ),
+                              alignment: Alignment.topLeft,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    e.key.substring(3),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineMedium,
+                                  ),
+                                  const SizedBox(height: AppSizes.s10),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                      left: AppPadding.p30,
+                                    ),
+                                    child: Text(
+                                      e.value,
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                ),
               ),
               const SizedBox(height: AppSizes.s10),
               documentation != null

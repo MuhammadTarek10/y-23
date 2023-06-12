@@ -3,14 +3,14 @@ import 'dart:io' show File;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' show FirebaseStorage;
 import 'package:y23/config/utils/firebase_names.dart';
+import 'package:y23/features/user/data/datasources/task_datasource.dart';
 import 'package:y23/features/user/domain/entities/tasks/task.dart';
 import 'package:y23/features/user/domain/entities/tasks/task_submission.dart';
 
-class Tasker {
-  const Tasker();
+class RemoteTasker extends TaskDataSource {
 
   //* Tasks
-
+  @override
   Future<List<Task>?> getTasks() async {
     final data = await FirebaseFirestore.instance
         .collection(FirebaseCollectionName.tasks)
@@ -19,6 +19,7 @@ class Tasker {
     return data.docs.map((e) => Task.fromJson(e.id, e.data())).toList();
   }
 
+  @override
   Future<Task?> getTaskById(String id) async {
     final data = await FirebaseFirestore.instance
         .collection(FirebaseCollectionName.tasks)
@@ -28,6 +29,7 @@ class Tasker {
     return Task.fromJson(data.id, data.data()!);
   }
 
+  @override
   Future<bool> addTask(Task task) async {
     try {
       await FirebaseFirestore.instance
@@ -39,6 +41,7 @@ class Tasker {
     }
   }
 
+  @override
   Future<bool> sendFeedback(String id, String feedback) async {
     try {
       await FirebaseFirestore.instance
@@ -53,6 +56,7 @@ class Tasker {
     }
   }
 
+  @override
   Future<bool> deleteTask(String id) async {
     try {
       await FirebaseFirestore.instance
@@ -65,6 +69,7 @@ class Tasker {
     }
   }
 
+  @override
   Future<bool> updateTask(Task task) async {
     try {
       await FirebaseFirestore.instance
@@ -77,6 +82,7 @@ class Tasker {
     }
   }
 
+  @override
   Future<List<Task>?> getTasksByUserId(String userId) async {
     final data = await FirebaseFirestore.instance
         .collection(FirebaseCollectionName.tasks)
@@ -86,8 +92,9 @@ class Tasker {
     return data.docs.map((e) => Task.fromJson(e.id, e.data())).toList();
   }
 
-  //* Task Submissions
 
+  //* Task Submissions
+  @override
   Future<List<TaskSubmission>?> getTaskSubmissionsByUserId(
       String userId) async {
     final taskSubmissions = await FirebaseFirestore.instance
@@ -121,6 +128,7 @@ class Tasker {
         .toList();
   }
 
+  @override
   Future<bool> uploadSubmission({
     required String userId,
     required String taskId,
@@ -151,6 +159,7 @@ class Tasker {
     }
   }
 
+  @override
   Future<TaskSubmission?> getTaskSubmissionById(String id) async {
     final data = await FirebaseFirestore.instance
         .collection(FirebaseCollectionName.taskSubmissions)
@@ -160,6 +169,7 @@ class Tasker {
     return TaskSubmission.fromJson(data.id, data.data()!);
   }
 
+  @override
   Future<List<TaskSubmission>?> getTaskSubmissions() async {
     final data = await FirebaseFirestore.instance
         .collection(FirebaseCollectionName.taskSubmissions)

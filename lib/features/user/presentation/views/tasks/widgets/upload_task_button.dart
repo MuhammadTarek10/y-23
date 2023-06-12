@@ -4,6 +4,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_document_picker/flutter_document_picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:y23/config/extensions.dart';
+import 'package:y23/config/utils/colors.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
 import 'package:y23/core/state/providers/loading_provider.dart';
@@ -65,8 +67,13 @@ class UploadTaskButton extends ConsumerWidget {
         ref.read(loadingProvider.notifier).doneLoading();
       },
       child: Container(
+        width: context.width * 0.5,
         alignment: Alignment.center,
-        padding: const EdgeInsets.all(AppPadding.p10),
+        padding: const EdgeInsets.all(AppPadding.p12),
+        margin: const EdgeInsets.symmetric(
+          horizontal: AppPadding.p20,
+          vertical: AppPadding.p20,
+        ),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.onSecondary.withAlpha(120),
           border: Border.all(
@@ -74,7 +81,12 @@ class UploadTaskButton extends ConsumerWidget {
           ),
           borderRadius: BorderRadius.circular(AppSizes.s10),
         ),
-        child: Text(AppStrings.uploadTask.tr()),
+        child: Text(
+          AppStrings.uploadTask.tr(),
+          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: AppColors.fakeWhite,
+              ),
+        ),
       ),
     );
   }

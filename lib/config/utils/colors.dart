@@ -11,6 +11,7 @@ class AppColors {
   static const Color fifthlyColor = Color(0xFF54AAFB);
   static const Color green = Color(0xFF33A499);
   static const Color fakeWhite = Color(0xFFFAFAFA);
+  static const Color grey = Colors.grey;
   static const Color error = Color(0xFFFF0040);
 
   //* Sessions

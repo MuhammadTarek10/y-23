@@ -5,6 +5,7 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/config/language.dart';
 import 'package:y23/config/routes.dart';
+import 'package:y23/config/utils/theme.dart';
 import 'package:y23/core/di.dart';
 import 'package:y23/core/prefs.dart';
 import 'package:y23/core/state/providers/theme_provider.dart';
@@ -54,7 +55,9 @@ class _AppState extends State<App> {
         debugShowCheckedModeBanner: false,
         onGenerateRoute: RouterGenerator.generateRoute,
         initialRoute: Routes.initialRoute,
-        theme: theme,
+        themeMode: theme,
+        theme: AppTheme.lightModeTheme(),
+        darkTheme: AppTheme.darkModeTheme(),
       );
     });
   }

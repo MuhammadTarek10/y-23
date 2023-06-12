@@ -9,11 +9,13 @@ typedef OptionCallback = void Function(String option);
 class QuestionWidget extends StatelessWidget {
   const QuestionWidget({
     super.key,
+    required this.isTaken,
     required this.question,
     required this.selectedOption,
     required this.onPressed,
   });
 
+  final bool isTaken;
   final Question question;
   final String selectedOption;
   final OptionCallback onPressed;
@@ -23,7 +25,7 @@ class QuestionWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(AppPadding.p10),
       decoration: BoxDecoration(
-        color: AppColors.fakeWhite.withOpacity(0.15),
+        color: AppColors.grey.withOpacity(0.3),
         border: Border.all(color: Colors.grey.shade400),
         borderRadius: BorderRadius.circular(AppSizes.s10),
       ),
@@ -33,7 +35,10 @@ class QuestionWidget extends StatelessWidget {
         children: [
           Text(
             question.title,
-            style: Theme.of(context).textTheme.headlineSmall,
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall!
+                .copyWith(color: AppColors.fakeWhite),
           ),
           const SizedBox(height: AppSizes.s10),
           const Divider(thickness: AppSizes.s4),
@@ -43,8 +48,9 @@ class QuestionWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               final option = question.options[index];
               return OptionWidget(
-                onPressed: () => onPressed(option),
+                onPressed: () => isTaken ? null : onPressed(option),
                 isSelected: selectedOption == option,
+                isRight: isTaken ? question.answer == option : false,
                 option: option,
               );
             },

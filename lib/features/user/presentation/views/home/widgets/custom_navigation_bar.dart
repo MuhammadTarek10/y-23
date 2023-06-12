@@ -20,7 +20,7 @@ class CustomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = ref.watch(themeProvider).brightness == Brightness.dark;
+    final isDarkMode = ref.watch(themeProvider) == ThemeMode.dark;
     const color = AppColors.primaryColor;
     final backgroundColor =
         isDarkMode ? Colors.transparent : AppColors.secondlyColor;

@@ -27,7 +27,7 @@ class ProfileView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final userId = ref.watch(userIdProvider);
     final displayName = ref.watch(userDisplayNameProvider);
-    final isDarkMode = ref.watch(themeProvider).brightness == Brightness.dark;
+    final isDarkMode = ref.watch(themeProvider) == ThemeMode.dark;
     final photoUrl = ref.watch(photoUrlProvider);
     String? photo;
     photoUrl.when(

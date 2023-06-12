@@ -1,14 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:y23/config/utils/firebase_names.dart';
+import 'package:y23/features/user/data/datasources/quiz_datasource.dart';
 import 'package:y23/features/user/domain/entities/quizzes/quiz.dart';
 import 'package:y23/features/user/domain/entities/quizzes/quiz_result.dart';
 
-class Quizzer {
-  const Quizzer();
-
+class RemoteQuizzer extends QuizDataSource {
   //* Quizzes
-
-  Future<List<Quiz>?> getQuizzes() async {
+  @override
+  Future<List<Quiz>?> getAllQuizzes() async {
     final data = await FirebaseFirestore.instance
         .collection(FirebaseCollectionName.quizzes)
         .get();
@@ -16,6 +15,7 @@ class Quizzer {
     return data.docs.map((e) => Quiz.fromJson(e.id, e.data())).toList();
   }
 
+  @override
   Future<Quiz?> getQuizById(String id) async {
     final data = await FirebaseFirestore.instance
         .collection(FirebaseCollectionName.quizzes)
@@ -25,6 +25,7 @@ class Quizzer {
     return Quiz.fromJson(data.id, data.data()!);
   }
 
+  @override
   Future<bool?> saveQuiz(Quiz quiz) async {
     try {
       await FirebaseFirestore.instance
@@ -36,6 +37,7 @@ class Quizzer {
     }
   }
 
+  @override
   Future<bool?> updateQuiz(Quiz quiz) async {
     try {
       await FirebaseFirestore.instance
@@ -48,6 +50,7 @@ class Quizzer {
     }
   }
 
+  @override
   Future<bool?> deleteQuiz(String id) async {
     try {
       await FirebaseFirestore.instance
@@ -60,8 +63,9 @@ class Quizzer {
     }
   }
 
-  //* Quiz Results
 
+  //* Quiz Results
+  @override
   Future<bool?> saveQuizResult({
     required String userId,
     required String quizId,
@@ -146,6 +150,7 @@ class Quizzer {
     return null;
   }
 
+  @override
   Future<List<QuizResult>?> getQuizResultsByUserId(String userId) async {
     final quizResults = await FirebaseFirestore.instance
         .collection(FirebaseCollectionName.quizResults)
@@ -260,6 +265,7 @@ class Quizzer {
     return quizzes.docs.map((e) => Quiz.fromJson(e.id, e.data())).toList();
   }
 
+  @override
   Future<List<QuizResult>?> getAllQuizResults() async {
     final quizResults = await FirebaseFirestore.instance
         .collection(FirebaseCollectionName.quizResults)
@@ -268,5 +274,32 @@ class Quizzer {
     return quizResults.docs
         .map((e) => QuizResult.fromJson(e.id, e.data()))
         .toList();
+  }
+
+  @override
+  Future<bool?> updateQuizResult({
+    required String id,
+    required String userId,
+    required String quizId,
+    required Map<String, String> selectedOptions,
+    required int score,
+    required int totalQuestions,
+  }) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection(FirebaseCollectionName.quizResults)
+          .doc(id)
+          .update({
+        FirebaseFieldName.quizResultUserId: userId,
+        FirebaseFieldName.quizResultQuizId: quizId,
+        FirebaseFieldName.quizResultScore: score,
+        FirebaseFieldName.quizResultSelectedOption: selectedOptions,
+        FirebaseFieldName.quizResultIsTaken: true,
+        FirebaseFieldName.quizResultIsPassed: score / totalQuestions >= 0.5,
+      });
+      return true;
+    } catch (_) {
+      return null;
+    }
   }
 }

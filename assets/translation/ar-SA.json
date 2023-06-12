@@ -47,7 +47,7 @@
   "tasks_submitted": "الواجبات المستلمة",
   "tasks_correct": "الواجبات الصحيحة",
   "my_tasks": "واجباتي",
-  "leaderboard": "المتصدرين",
+  "leaderboard": "المتصدرون",
   "my_quizzes": "اختباراتي",
   "rank1": "المركز الأول",
   "task_deadline_passed": "لقد مضى وقت التسليم",
@@ -57,5 +57,8 @@
   "you_can_login_with_google": "يمكنك تسجيل الدخول عبر جوجل",
   "fill_email_and_password": "املئ البريد الإلكتروني وكلمة المرور",
   "no_submissions": "لا يوجد تسليمات حتى الآن",
-  "no_feedback": "لا يوجد تعليقات حتى الآن"
+  "no_feedback": "لا يوجد تعليقات حتى الآن",
+  "quiz_already_submitted": "تم تسليم الاختبار بالفعل",
+  "no_content": "لا يوجد حتى الآن"
+
 }

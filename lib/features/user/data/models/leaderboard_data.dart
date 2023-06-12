@@ -15,4 +15,45 @@ class LeaderboardData {
     this.quizResults,
     this.submissions,
   );
+
+  Map<User, int> calculateScores() {
+    Map<String, int> idWithScore = {};
+    Map<User, int> usersScore = {};
+    quizResults.map(
+      (e) {
+        if (idWithScore.containsKey(e.userId)) {
+          idWithScore[e.userId] = idWithScore[e.userId]! + e.score;
+        } else {
+          idWithScore[e.userId] = e.score;
+        }
+      },
+    ).toList();
+
+    submissions.map(
+      (e) {
+        if (idWithScore.containsKey(e.userId)) {
+          idWithScore[e.userId] = idWithScore[e.userId]! + (e.points ?? 0);
+        } else {
+          idWithScore[e.userId] = (e.points ?? 0);
+        }
+      },
+    ).toList();
+
+    users.map(
+      (e) {
+        if (idWithScore.containsKey(e.id)) {
+          usersScore[e] = idWithScore[e.id]!;
+        }
+      },
+    ).toList();
+
+    usersScore = Map.fromEntries(
+      usersScore.entries.toList()
+        ..sort(
+          (a, b) => b.value.compareTo(a.value),
+        ),
+    );
+
+    return usersScore;
+  }
 }

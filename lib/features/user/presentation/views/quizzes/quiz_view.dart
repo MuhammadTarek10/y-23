@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
-import 'package:y23/core/di.dart';
 import 'package:y23/core/state/providers/loading_provider.dart';
 import 'package:y23/core/widgets/snackbar.dart';
 import 'package:y23/features/auth/state/providers/user_id_provider.dart';
-import 'package:y23/features/user/data/datasources/backend/quizzer.dart';
 import 'package:y23/features/user/presentation/views/quizzes/quiz_view_params.dart';
+import 'package:y23/features/user/presentation/views/quizzes/state/providers/quiz_result_provider.dart';
 import 'package:y23/features/user/presentation/views/quizzes/widgets/question_widget.dart';
 
 class QuizView extends ConsumerWidget {
@@ -59,6 +58,7 @@ class QuizView extends ConsumerWidget {
                           return StatefulBuilder(
                             builder: (context, setState) {
                               return QuestionWidget(
+                                isTaken: params.result.isTaken,
                                 question: question,
                                 selectedOption: selectedOption,
                                 onPressed: (option) {
@@ -120,45 +120,50 @@ class QuizView extends ConsumerWidget {
   }
 
   Future<void> submit(BuildContext context, WidgetRef ref) async {
-    // check if all questions are answered
     final quiz = params.quiz;
     final result = params.result;
     if (quiz.questions.length != result.selectedOptions.length) {
-      customShowSnackBar(
+      return customShowSnackBar(
         context: context,
         message: AppStrings.answerAllQuestions.tr(),
         isError: true,
       );
-    } else {
-      ref.read(loadingProvider.notifier).loading();
-      final userId = ref.read(userIdProvider) as String;
+    }
 
-      final quizId = quiz.id;
-      final totalQuestions = quiz.questions.length;
-
-      final selectedOptions = result.selectedOptions;
-
-      final score = quiz.questions
-          .where(
-              (question) => question.answer == selectedOptions[question.title])
-          .length;
-
-      final quizzer = instance<Quizzer>();
-      await quizzer.saveQuizResult(
-        userId: userId,
-        quizId: quizId,
-        score: score,
-        selectedOptions: selectedOptions,
-        totalQuestions: totalQuestions,
+    if(params.result.isTaken){
+      return customShowSnackBar(
+        context: context,
+        message: AppStrings.quizAlreadySubmitted.tr(),
+        isError: true,
       );
-      ref.read(loadingProvider.notifier).doneLoading();
-      if (context.mounted) {
-        customShowSnackBar(
-          context: context,
-          message: AppStrings.quizSubmitted.tr(),
+    }
+
+    ref.read(loadingProvider.notifier).loading();
+    final userId = ref.read(userIdProvider) as String;
+
+    final quizId = quiz.id;
+    final totalQuestions = quiz.questions.length;
+
+    final selectedOptions = result.selectedOptions;
+
+    final score = quiz.questions
+        .where((question) => question.answer == selectedOptions[question.title])
+        .length;
+
+    await ref.read(quizResultsProvider.notifier).saveQuizResult(
+          userId: userId,
+          quizId: quizId,
+          score: score,
+          selectedOptions: selectedOptions,
+          totalQuestions: totalQuestions,
         );
-        Navigator.pop(context);
-      }
+    ref.read(loadingProvider.notifier).doneLoading();
+    if (context.mounted) {
+      customShowSnackBar(
+        context: context,
+        message: AppStrings.quizSubmitted.tr(),
+      );
+      Navigator.pop(context);
     }
   }
 }

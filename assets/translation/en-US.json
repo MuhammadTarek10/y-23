@@ -13,10 +13,10 @@
   "loading": "Loading...",
   "submit": "Submit",
   "are_you_sure": "Are you sure you want to submit?",
-  "no_quizzes_found": "There are no Quizzes Right Now",
-  "no_sessions_found": "There are no Sessions Right Now",
-  "no_tasks_found": "There are no Tasks Right Now",
-  "no_results_found": "No Results Found",
+  "no_quizzes_found": "There are no quizzes right now",
+  "no_sessions_found": "There are no sessions right now",
+  "no_tasks_found": "There are no tasks right now",
+  "no_results_found": "No results found",
   "help": "Help",
   "quizzes_taken": "Quizzes Taken",
   "quizzes_passed": "Quizzes Passed",
@@ -56,6 +56,8 @@
   "password": "Password",
   "you_can_login_with_google": "You can login with google here",
   "fill_email_and_password": "Fill Email and Password",
-  "no_submissions": "There are no submissions",
-  "no_feedback": "No Feedbacks until now"
+  "no_submissions": "There are no submissions until now",
+  "no_feedback": "No feedbacks until now",
+  "quiz_already_submitted": "Quiz Already Submitted",
+  "no_content": "No content until now"
 }

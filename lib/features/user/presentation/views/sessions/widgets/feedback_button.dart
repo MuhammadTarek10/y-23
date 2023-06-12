@@ -91,7 +91,7 @@ class FeedbackButton extends ConsumerWidget {
     String id,
   ) async {
     ref.read(loadingProvider.notifier).loading();
-    final sessioner = instance<Sessioner>();
+    final sessioner = instance<RemoteSessioner>();
     await sessioner.sendFeedback(id, feedback);
     ref.read(loadingProvider.notifier).doneLoading();
     if (context.mounted) {
