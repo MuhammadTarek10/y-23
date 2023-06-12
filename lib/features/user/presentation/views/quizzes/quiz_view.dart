@@ -6,6 +6,8 @@ import 'package:y23/config/utils/values.dart';
 import 'package:y23/core/state/providers/loading_provider.dart';
 import 'package:y23/core/widgets/snackbar.dart';
 import 'package:y23/features/auth/state/providers/user_id_provider.dart';
+import 'package:y23/features/user/domain/entities/quizzes/quiz.dart';
+import 'package:y23/features/user/domain/entities/quizzes/quiz_result.dart';
 import 'package:y23/features/user/presentation/views/quizzes/quiz_view_params.dart';
 import 'package:y23/features/user/presentation/views/quizzes/state/providers/quiz_result_provider.dart';
 import 'package:y23/features/user/presentation/views/quizzes/widgets/question_widget.dart';
@@ -21,7 +23,16 @@ class QuizView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final quiz = params.quiz;
-    final result = params.result;
+    final result = params.result ??
+        QuizResult(
+          id: "id",
+          userId: "userId",
+          quizId: "quizId",
+          isTaken: true,
+          selectedOptions: {},
+          score: 0,
+          isPassed: false,
+        );
     return Container(
       height: double.infinity,
       decoration: BoxDecoration(
@@ -58,7 +69,7 @@ class QuizView extends ConsumerWidget {
                           return StatefulBuilder(
                             builder: (context, setState) {
                               return QuestionWidget(
-                                isTaken: params.result.isTaken,
+                                isTaken: result.isTaken,
                                 question: question,
                                 selectedOption: selectedOption,
                                 onPressed: (option) {
@@ -74,7 +85,7 @@ class QuizView extends ConsumerWidget {
                         },
                       ),
                       const SizedBox(height: AppSizes.s10),
-                      buildSubmitSection(context, ref),
+                      buildSubmitSection(context, ref, quiz, result),
                     ],
                   ),
                 ),
@@ -86,7 +97,7 @@ class QuizView extends ConsumerWidget {
     );
   }
 
-  Row buildSubmitSection(BuildContext context, WidgetRef ref) {
+  Row buildSubmitSection(BuildContext context, WidgetRef ref, Quiz quiz, QuizResult result) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -98,7 +109,7 @@ class QuizView extends ConsumerWidget {
         ),
         Expanded(
           child: InkWell(
-            onTap: () => submit(context, ref),
+            onTap: () => submit(context, ref, quiz, result),
             child: Container(
               padding: const EdgeInsets.all(AppPadding.p10),
               margin: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
@@ -110,6 +121,7 @@ class QuizView extends ConsumerWidget {
               child: Center(
                 child: Text(
                   AppStrings.submit.tr(),
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ),
             ),
@@ -119,9 +131,13 @@ class QuizView extends ConsumerWidget {
     );
   }
 
-  Future<void> submit(BuildContext context, WidgetRef ref) async {
-    final quiz = params.quiz;
-    final result = params.result;
+  Future<void> submit(
+    BuildContext context,
+    WidgetRef ref,
+    Quiz quiz,
+    QuizResult result,
+  ) async {
+    
     if (quiz.questions.length != result.selectedOptions.length) {
       return customShowSnackBar(
         context: context,
@@ -130,7 +146,7 @@ class QuizView extends ConsumerWidget {
       );
     }
 
-    if(params.result.isTaken){
+    if (result.isTaken) {
       return customShowSnackBar(
         context: context,
         message: AppStrings.quizAlreadySubmitted.tr(),

@@ -15,10 +15,13 @@ class _SplashViewState extends ConsumerState<SplashView> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 4), () {
-      final isLoggedIn = ref.read(isLoggedInProvider);
-      isLoggedIn ? _navigateToHome() : _navigateToLogin();
-    });
+    Future.delayed(
+      const Duration(seconds: 4),
+      () {
+        final isLoggedIn = ref.read(isLoggedInProvider);
+        isLoggedIn ? _navigateToHome() : _navigateToLogin();
+      },
+    );
   }
 
   @override

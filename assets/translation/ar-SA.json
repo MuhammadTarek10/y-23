@@ -59,6 +59,22 @@
   "no_submissions": "لا يوجد تسليمات حتى الآن",
   "no_feedback": "لا يوجد تعليقات حتى الآن",
   "quiz_already_submitted": "تم تسليم الاختبار بالفعل",
-  "no_content": "لا يوجد حتى الآن"
-
+  "no_content": "لا يوجد حتى الآن",
+  "admin": "المدير",
+  "feedbacks": "التعليقات",
+  "users": "المستخدمون",
+  "add_session": "إضافة درس",
+  "edit_session": "تعديل درس",
+  "delete_session": "مسح درس",
+  "add_quiz": "إضافة اختبار",
+  "edit_quiz": "تعديل اختبار",
+  "delete_quiz": "مسح اختبار",
+  "add_task": "إضافة واجب",
+  "edit_task": "تعديل واجب",
+  "delete_task": "مسح واجب",
+  "delete_session_confirmation": "هل أنت متأكد أنك تريد مسح هذا الدرس؟",
+  "delete_quiz_confirmation": "هل أنت متأكد أنك تريد مسح هذا الاختبار؟",
+  "delete_task_confirmation": "هل أنت متأكد أنك تريد مسح هذا الواجب؟",
+  "yes": "نعم",
+  "no": "لا"
 }

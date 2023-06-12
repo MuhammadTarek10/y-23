@@ -110,4 +110,20 @@ class UserInfoStorage {
       return null;
     }
   }
+
+  Future<bool> isAdmin(String? userId) async {
+    try {
+      final userInfo = await FirebaseFirestore.instance
+          .collection(FirebaseCollectionName.users)
+          .where(FirebaseFieldName.userId, isEqualTo: userId)
+          .limit(1)
+          .get();
+
+      if (userInfo.docs.isEmpty) return false;
+
+      return userInfo.docs.first.get(FirebaseFieldName.isAdmin);
+    } catch (_) {
+      return false;
+    }
+  }
 }

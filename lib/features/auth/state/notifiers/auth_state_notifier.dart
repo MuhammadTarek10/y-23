@@ -10,7 +10,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
   final _authenticator = const Authenticator();
   final _userInfoStorage = const UserInfoStorage();
 
-  AuthStateNotifier() : super(const AuthState.unknown()) {
+  AuthStateNotifier() : super(AuthState.unknown()) {
     if (_authenticator.isAlreadyLoggedIn) {
       state = AuthState(
         result: AuthResults.success,
@@ -20,6 +20,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
       );
       setPhoto();
       setName();
+      setAdmin();
     }
   }
 
@@ -33,10 +34,15 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     state = state.copiedWithPhotoUrl(url ?? _authenticator.photoUrl);
   }
 
+  Future<void> setAdmin() async {
+    final isAdmin = await _userInfoStorage.isAdmin(_authenticator.userId);
+    state = state.copiedWithIsAdmin(isAdmin);
+  }
+
   Future<void> logOut() async {
     state = state.copiedWithIsLoading(true);
     await _authenticator.logOut();
-    state = const AuthState.unknown();
+    state = AuthState.unknown();
   }
 
   Future<void> loginWithGoogle() async {
@@ -70,11 +76,13 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
         displayName: displayName,
       );
     }
+
     state = AuthState(
       result: result,
       isLoading: false,
       userId: userId,
       displayName: displayName,
+      isAdmin: displayName != null && displayName.contains("-admin-"),
     );
   }
 

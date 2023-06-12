@@ -4,6 +4,7 @@ class FirebaseFieldName {
   static const String displayName = "displayName";
   static const String email = "email";
   static const String photoUrl = "photoUrl";
+  static const String isAdmin = "isAdmin";
 
   //* Quizzes
   static const String quizId = "id";

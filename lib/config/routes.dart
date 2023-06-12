@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:y23/core/state/providers/internet_provider.dart';
 import 'package:y23/core/state/providers/loading_provider.dart';
 import 'package:y23/core/widgets/loading_screen.dart';
-import 'package:y23/core/widgets/lottie.dart';
+import 'package:y23/features/admin/presentation/views/home_view.dart';
+import 'package:y23/features/admin/presentation/views/quizzes/add_quiz_view.dart';
+import 'package:y23/features/admin/presentation/views/quizzes/delete_quiz_view.dart';
+import 'package:y23/features/admin/presentation/views/quizzes/edit_quiz_view.dart';
+import 'package:y23/features/admin/presentation/views/sessions/add_session_view.dart';
+import 'package:y23/features/admin/presentation/views/sessions/delete_session_view.dart';
+import 'package:y23/features/admin/presentation/views/sessions/edit_session_view.dart';
+import 'package:y23/features/admin/presentation/views/tasks/add_task_view.dart';
+import 'package:y23/features/admin/presentation/views/tasks/delete_task_view.dart';
+import 'package:y23/features/admin/presentation/views/tasks/edit_task_view.dart';
+import 'package:y23/features/admin/presentation/views/users/users_view.dart';
 import 'package:y23/features/auth/presentation/views/login_view.dart';
+import 'package:y23/features/auth/state/providers/is_admin_provider.dart';
 import 'package:y23/features/auth/state/providers/is_logged_in_provider.dart';
 import 'package:y23/features/splash/views/splash_view.dart';
 import 'package:y23/features/user/domain/entities/sessions/session.dart';
@@ -29,6 +39,18 @@ class Routes {
   static const String loginRoute = "/login";
 
   //* Admin
+  static const String adminHomeRoute = "/admin-home";
+  static const String usersRoute = "/users";
+  static const String addSessionRoute = "/add-session";
+  static const String editSessionRoute = "/edit-session";
+  static const String deleteSessionRoute = "/delete-session";
+  static const String addQuizRoute = "/add-quiz";
+  static const String editQuizRoute = "/edit-quiz";
+  static const String deleteQuizRoute = "/delete-quiz";
+  static const String addTaskRoute = "/add-task";
+  static const String editTaskRoute = "/edit-task";
+  static const String deleteTaskRoute = "/delete-task";
+  static const String addFeedbackRoute = "/add-feedback";
 
   //* User
   static const String homeRoute = "/home";
@@ -56,7 +78,7 @@ class RouterGenerator {
           builder: (context) => Consumer(
             builder: (context, ref, child) {
               final isLoggedIn = ref.watch(isLoggedInProvider);
-              final isInternet = ref.watch(internetProvider);
+              final isAdmin = ref.watch(isAdminProvider);
               ref.listen<bool>(
                 loadingProvider,
                 (_, isLoading) {
@@ -66,26 +88,28 @@ class RouterGenerator {
                 },
               );
               return isLoggedIn
-                  ? isInternet != null && isInternet
-                      ? const HomeView()
-                      : const LottieNoInternet()
+                  ? isAdmin
+                      ? const AdminHomeView()
+                      : const HomeView()
                   : const LoginView();
             },
           ),
         );
       case Routes.homeRoute:
         return MaterialPageRoute(
-          builder: (context) => Consumer(builder: (context, ref, child) {
-            ref.listen<bool>(
-              loadingProvider,
-              (_, isLoading) {
-                isLoading
-                    ? LoadingScreen.instance().show(context: context)
-                    : LoadingScreen.instance().hide();
-              },
-            );
-            return const HomeView();
-          }),
+          builder: (context) => Consumer(
+            builder: (context, ref, child) {
+              ref.listen<bool>(
+                loadingProvider,
+                (_, isLoading) {
+                  isLoading
+                      ? LoadingScreen.instance().show(context: context)
+                      : LoadingScreen.instance().hide();
+                },
+              );
+              return const HomeView();
+            },
+          ),
         );
       case Routes.quizzesRoute:
         return MaterialPageRoute(
@@ -126,8 +150,30 @@ class RouterGenerator {
         return MaterialPageRoute(builder: (context) => const SettingsView());
       case Routes.helpRoute:
         return MaterialPageRoute(builder: (context) => const HelpView());
+      case Routes.adminHomeRoute:
+        return MaterialPageRoute(builder: (context) => const AdminHomeView());
+      case Routes.addSessionRoute:
+        return MaterialPageRoute(builder: (context) => const AddSessionView());
+      case Routes.editSessionRoute:
+        return MaterialPageRoute(builder: (context) => const EditSessionView());
+      case Routes.deleteSessionRoute:
+        return MaterialPageRoute(builder: (context) => const DeleteSessionView());
+      case Routes.addQuizRoute:
+        return MaterialPageRoute(builder: (context) => const AddQuizView());
+      case Routes.editQuizRoute:
+        return MaterialPageRoute(builder: (context) => const EditQuizVew());
+      case Routes.deleteQuizRoute:
+        return MaterialPageRoute(builder: (context) => const DeleteQuizView());
+      case Routes.addTaskRoute:
+        return MaterialPageRoute(builder: (context) => const AddTaskView());
+      case Routes.editTaskRoute:
+        return MaterialPageRoute(builder: (context) => const EditTaskView());
+      case Routes.deleteTaskRoute:
+        return MaterialPageRoute(builder: (context) => const DeleteTaskView());
+      case Routes.usersRoute:
+        return MaterialPageRoute(builder: (context) => const UsersView());
       default:
-        return MaterialPageRoute(builder: (context) => const LoginView());
+        return MaterialPageRoute(builder: (context) => const HomeView());
     }
   }
 }

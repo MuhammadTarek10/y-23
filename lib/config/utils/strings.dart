@@ -61,6 +61,24 @@ class AppStrings {
   static const String noFeedback = "no_feedback";
   static const String quizAlreadySubmitted = "quiz_already_submitted";
   static const String noContent = "no_content";
+  static const String admin = "admin";
+  static const String feedbacks = "feedbacks";
+  static const String users = "users";
+  static const String addSession = "add_session";
+  static const String editSession = "edit_session";
+  static const String deleteSession = "delete_session";
+  static const String addQuiz = "add_quiz";
+  static const String editQuiz = "edit_quiz";
+  static const String deleteQuiz = "delete_quiz";
+  static const String addTask = "add_task";
+  static const String editTask = "edit_task";
+  static const String deleteTask = "delete_task";
+  static const String add = "add";
+  static const String deleteSessionConfirmation = "delete_session_confirmation";
+  static const String deleteQuizConfirmation = "delete_quiz_confirmation";
+  static const String deleteTaskConfirmation = "delete_task_confirmation";
+  static const String yes = "yes";
+  static const String no = "no";
 
   const AppStrings._();
 }

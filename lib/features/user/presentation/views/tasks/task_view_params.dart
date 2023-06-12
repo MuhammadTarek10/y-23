@@ -10,7 +10,7 @@ class TaskViewParams {
   });
 
   final Task task;
-  final TaskSubmission taskSubmission;
+  final TaskSubmission? taskSubmission;
 
   @override
   bool operator ==(Object other) =>

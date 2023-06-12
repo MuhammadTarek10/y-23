@@ -136,6 +136,12 @@ class AppTheme {
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.white,
+        selectedLabelStyle: TextStyle(
+          fontStyle: FontStyle.normal,
+        ),
+        unselectedLabelStyle: TextStyle(
+          fontStyle: FontStyle.normal,
+        ),
       ),
 
       //* TabBar
@@ -342,8 +348,15 @@ class AppTheme {
 
       //* BottomNavigationBar
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.white,
+        backgroundColor: AppColors.secondlyColor,
+        selectedItemColor: AppColors.fakeWhite,
+        unselectedItemColor: AppColors.grey,
+        selectedLabelStyle: TextStyle(
+          fontStyle: FontStyle.normal,
+        ),
+        unselectedLabelStyle: TextStyle(
+          fontStyle: FontStyle.normal,
+        ),
       ),
 
       //* TabBar

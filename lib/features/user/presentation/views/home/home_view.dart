@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:y23/config/routes.dart';
 import 'package:y23/config/utils/assets.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
+import 'package:y23/features/auth/state/providers/is_admin_provider.dart';
 import 'package:y23/features/user/presentation/views/home/state/providers/bottom_navigation_provider.dart';
 import 'package:y23/features/user/presentation/views/home/widgets/custom_navigation_bar.dart';
 
@@ -49,7 +51,15 @@ class HomeView extends ConsumerWidget {
                 top: AppPadding.p0,
                 right: AppPadding.p20,
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    final isAdmin = ref.watch(isAdminProvider);
+                    isAdmin
+                        ? Navigator.pushNamed(
+                            context,
+                            Routes.adminHomeRoute,
+                          )
+                        : null;
+                  },
                   icon: Image.asset(
                     AppAssets.logo,
                     height: AppSizes.s50,

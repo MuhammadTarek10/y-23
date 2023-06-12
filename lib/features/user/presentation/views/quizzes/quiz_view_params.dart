@@ -10,7 +10,7 @@ class QuizViewParams {
   });
 
   final Quiz quiz;
-  final QuizResult result;
+  final QuizResult? result;
 
   @override
   bool operator ==(Object other) =>

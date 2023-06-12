@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:y23/config/utils/constants.dart';
+import 'package:y23/config/utils/firebase_names.dart';
 import 'package:y23/features/auth/data/models/auth_result.dart';
 
 class Authenticator {
@@ -12,6 +14,13 @@ class Authenticator {
   String get displayName => user?.displayName ?? '';
   String? get email => user?.email;
   String? get photoUrl => user?.photoURL;
+  Future<bool?> get isAdmin async {
+    final doc = await FirebaseFirestore.instance
+        .collection(FirebaseCollectionName.users)
+        .doc(userId)
+        .get();
+    return doc.data()?[FirebaseFieldName.isAdmin];
+  }
 
   Future<void> logOut() async {
     await FirebaseAuth.instance.signOut();

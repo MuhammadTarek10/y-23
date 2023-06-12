@@ -20,6 +20,7 @@ class OptionWidget extends StatelessWidget {
       onTap: onPressed,
       child: ListTile(
         leading: isRight ? const Icon(Icons.check) : null,
+        tileColor: isRight ? Theme.of(context).colorScheme.secondary : null,
         title: Text(
           option,
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(

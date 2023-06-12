@@ -15,6 +15,7 @@ class LeaderboardNotifier extends StateNotifier<Map<User, int>?> {
   Future<void> getData() async {
     final usersJson = await FirebaseFirestore.instance
         .collection(FirebaseCollectionName.users)
+        .where(FirebaseFieldName.isAdmin, isEqualTo: false)
         .get();
 
     final users = usersJson.docs.map((e) => User.fromJson(e.data()));

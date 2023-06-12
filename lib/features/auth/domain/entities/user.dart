@@ -6,12 +6,16 @@ class User {
   final String? displayName;
   final String? email;
   final String? photoUrl;
+  final bool isAdmin;
+  final List<dynamic>? feedback;
 
   const User({
     required this.id,
     required this.displayName,
     required this.email,
     required this.photoUrl,
+    this.isAdmin = false,
+    this.feedback,
   });
 
   @override
@@ -30,12 +34,14 @@ class User {
         photoUrl,
       );
 
-  factory User.fromJson(Map<String, dynamic> json){
+  factory User.fromJson(Map<String, dynamic> json) {
     return User(
       id: json['uid'],
       displayName: json['displayName'],
       email: json['email'],
       photoUrl: json['photoUrl'],
+      isAdmin: json['isAdmin'] ?? false,
+      feedback: json['feedback'],
     );
   }
 }

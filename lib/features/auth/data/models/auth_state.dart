@@ -1,28 +1,29 @@
-import 'package:flutter/foundation.dart';
 import 'package:y23/features/auth/data/models/auth_result.dart';
 
-@immutable
 class AuthState {
   final AuthResults? result;
   final bool isLoading;
   final String? userId;
   final String? displayName;
   final String? photoUrl;
+  final bool isAdmin;
 
-  const AuthState({
+  AuthState({
     required this.result,
     required this.isLoading,
     required this.userId,
     required this.displayName,
     this.photoUrl,
+    this.isAdmin = false,
   });
 
-  const AuthState.unknown()
+  AuthState.unknown()
       : result = null,
         isLoading = false,
         userId = null,
         displayName = null,
-        photoUrl = null;
+        photoUrl = null,
+        isAdmin = false;
 
   AuthState copiedWithIsLoading(bool isLoading) => AuthState(
         result: result,
@@ -46,6 +47,15 @@ class AuthState {
         userId: userId,
         displayName: displayName,
         photoUrl: photoUrl,
+      );
+
+  AuthState copiedWithIsAdmin(bool isAdmin) => AuthState(
+        result: result,
+        isLoading: isLoading,
+        userId: userId,
+        displayName: displayName,
+        photoUrl: photoUrl,
+        isAdmin: isAdmin,
       );
 
   @override
