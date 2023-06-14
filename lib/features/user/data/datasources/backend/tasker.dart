@@ -2,6 +2,7 @@ import 'dart:io' show File;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' show FirebaseStorage;
+import 'package:uuid/uuid.dart';
 import 'package:y23/config/utils/firebase_names.dart';
 import 'package:y23/features/user/data/datasources/task_datasource.dart';
 import 'package:y23/features/user/domain/entities/tasks/task.dart';
@@ -30,6 +31,9 @@ class RemoteTasker extends TaskDataSource {
 
   @override
   Future<bool> addOrUpdateTask(Task task) async {
+    if (task.id == null) {
+      task = task.copyWith(id: const Uuid().v4());
+    }
     try {
       await FirebaseFirestore.instance
           .collection(FirebaseCollectionName.tasks)

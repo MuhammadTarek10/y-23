@@ -1,5 +1,5 @@
 class Session {
-  final String id;
+  final String? id;
   final String title;
   final String instructor;
   Map<String, dynamic>? points;
@@ -8,7 +8,7 @@ class Session {
   List<dynamic>? feedback;
 
   Session({
-    required this.id,
+    this.id,
     required this.title,
     required this.instructor,
     this.points,
@@ -29,9 +29,9 @@ class Session {
       id: id ?? this.id,
       title: title ?? this.title,
       instructor: instructor ?? this.instructor,
-      points: points,
-      documentationLink: documentationLink,
-      photoUrl: photoUrl,
+      points: points ?? this.points,
+      documentationLink: documentationLink ?? this.documentationLink,
+      photoUrl: photoUrl ?? this.photoUrl,
     );
   }
 

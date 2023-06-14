@@ -84,6 +84,7 @@ class AppStrings {
   static const String deadlineHintText = "deadline_hint";
   static const String optionHintText = "option_hint";
   static const String fillFieldsError = "fill_fields_error";
+  static const String fillSession = "fill_session";
   static const String documentationHintText = "documentation_hint_text";
   static const String done = "done";
   static const String trueOrFalse = "true_of_false";
@@ -92,6 +93,9 @@ class AppStrings {
   static const String questionDeleted = "question_deleted";
   static const String generalError = "general_error";
   static const String chooseAnswer = "choose_answer";
+  static const String headerHintText = "header_hint";
+  static const String instructorHintText = "instructor_hint";
+  static const String addPoint = "add_point";
 
   const AppStrings._();
 }

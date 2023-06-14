@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:uuid/uuid.dart';
 import 'package:y23/config/utils/firebase_names.dart';
 import 'package:y23/features/user/data/datasources/quiz_datasource.dart';
 import 'package:y23/features/user/domain/entities/quizzes/quiz.dart';
@@ -31,6 +32,9 @@ class RemoteQuizzer extends QuizDataSource {
 
   @override
   Future<bool?> addOrUpdateQuiz(Quiz quiz) async {
+    if (quiz.id == null) {
+      quiz.copyWith(id: const Uuid().v4());
+    }
     try {
       final path = quiz.photoUrl;
       if (path == null) {
@@ -40,8 +44,7 @@ class RemoteQuizzer extends QuizDataSource {
             .set(quiz.toJson());
       } else {
         final name = quiz.photoUrl!.split("/").last;
-        final path =
-            "${FirebaseCollectionName.quizzes}/${FirebaseFieldName.quizId}/$name";
+        final path = "${FirebaseCollectionName.quizzes}/${quiz.id}/$name";
         final ref = FirebaseStorage.instance.ref().child(path);
         final uploadTask = ref.putFile(File(quiz.photoUrl!));
         final snapshot = await uploadTask.whenComplete(() => null);

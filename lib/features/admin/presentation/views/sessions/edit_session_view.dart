@@ -41,7 +41,7 @@ class EditSessionView extends ConsumerWidget {
                   title: Text(data[index].title),
                   onTap: () => Navigator.pushNamed(
                     context,
-                    Routes.sessionRoute,
+                    Routes.addSessionRoute,
                     arguments: session,
                   ),
                   trailing: const Icon(Icons.edit),

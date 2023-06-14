@@ -77,7 +77,7 @@ class _SessionViewState extends ConsumerState<SessionView>
             Column(
               children: [
                 Hero(
-                  tag: widget.session.id,
+                  tag: widget.session.id!,
                   child: InteractiveViewer(
                     child: AspectRatio(
                       aspectRatio: 1.2,
@@ -159,7 +159,7 @@ class _SessionViewState extends ConsumerState<SessionView>
                           SizedBox(
                               height: MediaQuery.of(context).padding.bottom),
                           FeedbackButton(
-                            id: widget.session.id,
+                            id: widget.session.id!,
                             title: widget.session.title,
                             opacity: opacity3,
                           ),

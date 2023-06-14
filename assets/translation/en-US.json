@@ -82,6 +82,7 @@
   "deadline_hint": "Choose Deadline",
   "option_hint": "Enter Option (Double Tap to make it correct option)",
   "fill_fields_error": "Please fill all fields, and choose correct answer",
+  "fill_session": "Please fill session information",
   "documentation_hint_text": "Enter Documentation Link (Optional)",
   "done": "Done",
   "true_of_false": "True of False",
@@ -89,5 +90,8 @@
   "question_added": "Question has been added",
   "question_deleted": "Question has been Deleted",
   "general_error": "Error happened, try again",
-  "choose_answer": "Please choose correct answer from options"
+  "choose_answer": "Please choose correct answer from options",
+  "header_hint": "Enter Header",
+  "instructor_hint": "Enter Instructor",
+  "add_point": "Add Point"
 }

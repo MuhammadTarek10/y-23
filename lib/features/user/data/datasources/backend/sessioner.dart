@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:uuid/uuid.dart';
 import 'package:y23/config/utils/firebase_names.dart';
 import 'package:y23/features/user/data/datasources/session_datasource.dart';
 import 'package:y23/features/user/domain/entities/sessions/session.dart';
@@ -24,11 +28,29 @@ class RemoteSessioner extends SessionDataSource {
   }
 
   @override
-  Future<bool> addSession(Session session) async {
+  Future<bool> addOrUpdateSession(Session session) async {
+    if (session.id == null) {
+      session = session.copyWith(id: const Uuid().v4());
+    }
     try {
-      await FirebaseFirestore.instance
-          .collection(FirebaseCollectionName.sessions)
-          .add(session.toJson());
+      final path = session.photoUrl;
+      if (path == null) {
+        await FirebaseFirestore.instance
+            .collection(FirebaseCollectionName.sessions)
+            .doc(session.id)
+            .set(session.toJson());
+      } else {
+        final name = session.photoUrl!.split("/").last;
+        final path = "${FirebaseCollectionName.sessions}/${session.id}/$name";
+        final ref = FirebaseStorage.instance.ref().child(path);
+        final uploadTask = ref.putFile(File(session.photoUrl!));
+        final snapshot = await uploadTask.whenComplete(() => null);
+        final downloadUrl = await snapshot.ref.getDownloadURL();
+        await FirebaseFirestore.instance
+            .collection(FirebaseCollectionName.sessions)
+            .doc(session.id)
+            .set(session.copyWith(photoUrl: downloadUrl).toJson());
+      }
       return true;
     } catch (_) {
       return false;
@@ -57,19 +79,6 @@ class RemoteSessioner extends SessionDataSource {
           .collection(FirebaseCollectionName.sessions)
           .doc(id)
           .delete();
-      return true;
-    } catch (_) {
-      return false;
-    }
-  }
-
-  @override
-  Future<bool> updateSession(Session session) async {
-    try {
-      await FirebaseFirestore.instance
-          .collection(FirebaseCollectionName.sessions)
-          .doc(session.id)
-          .update(session.toJson());
       return true;
     } catch (_) {
       return false;

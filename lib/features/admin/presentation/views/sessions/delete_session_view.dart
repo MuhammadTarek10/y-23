@@ -55,7 +55,7 @@ class DeleteSessionView extends ConsumerWidget {
                         ref.read(loadingProvider.notifier).loading();
                         await ref
                             .read(sessionFunctionalitiesProvider.notifier)
-                            .deleteSession(session.id);
+                            .deleteSession(session.id!);
                         ref.read(loadingProvider.notifier).doneLoading();
                       }
                     },

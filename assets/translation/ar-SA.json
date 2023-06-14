@@ -82,6 +82,7 @@
   "deadline_hint": "اختر ميعاد التسليم",
   "option_hint": "ادخل اختيار",
   "fill_fields_error": "املئ كل الخانات رجاء، واختر الاجابة الصحيحة",
+  "fill_session": "اضف معلومات الدرس",
   "documentation_hint_text": "ادخل رابط الملف (اختياري)",
   "done": "تمت",
   "true_of_false": "صح ام خطأ",
@@ -89,5 +90,8 @@
   "question_added": "تمت اضافة السؤال",
   "question_deleted": "تم مسح السؤال",
   "general_error": "حدث خطأ، حاول مجددًا",
-  "choose_answer": "اختر الاجابة الصحيحة من بين الاختيارات"
+  "choose_answer": "اختر الاجابة الصحيحة من بين الاختيارات",
+  "header_hint": "اضف عنوان",
+  "instructor_hint": "اضف المعلم",
+  "add_point": "اضف نقطة"
 }

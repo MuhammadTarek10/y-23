@@ -149,7 +149,9 @@ class RouterGenerator {
       case Routes.adminHomeRoute:
         return MaterialPageRoute(builder: (context) => const AdminHomeView());
       case Routes.addSessionRoute:
-        return MaterialPageRoute(builder: (context) => const AddSessionView());
+        return MaterialPageRoute(
+            builder: (context) =>
+                AddSessionView(session: settings.arguments as Session?));
       case Routes.editSessionRoute:
         return MaterialPageRoute(builder: (context) => const EditSessionView());
       case Routes.deleteSessionRoute:

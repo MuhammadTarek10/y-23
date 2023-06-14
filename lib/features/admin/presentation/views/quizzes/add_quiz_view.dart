@@ -34,7 +34,7 @@ class _AddQuizViewState extends ConsumerState<AddQuizView> {
   List<GlobalKey<QuizQuestionWidgetState>> globalKeys =
       <GlobalKey<QuizQuestionWidgetState>>[];
   late final TextEditingController _titleController;
-  late final StreamController<List<QuizQuestionWidget>> _questionController;
+  late final StreamController<List<QuizQuestionWidget>> _questionsController;
   List<QuizQuestionWidget>? _questionsWidget;
   List<Question>? _questions;
   late final StreamController<File> _photoController;
@@ -46,7 +46,7 @@ class _AddQuizViewState extends ConsumerState<AddQuizView> {
   void initState() {
     super.initState();
     _titleController = TextEditingController();
-    _questionController =
+    _questionsController =
         StreamController<List<QuizQuestionWidget>>.broadcast();
     _photoController = StreamController<File>.broadcast();
     if (widget.quiz != null) {
@@ -73,13 +73,13 @@ class _AddQuizViewState extends ConsumerState<AddQuizView> {
         )
       ];
     }
-    _questionController.sink.add(_questionsWidget!);
+    _questionsController.sink.add(_questionsWidget!);
   }
 
   @override
   void dispose() {
     _titleController.dispose();
-    _questionController.close();
+    _questionsController.close();
     _photoController.close();
     super.dispose();
   }
@@ -140,7 +140,7 @@ class _AddQuizViewState extends ConsumerState<AddQuizView> {
                 ),
                 const Divider(),
                 StreamBuilder<List<QuizQuestionWidget>?>(
-                  stream: _questionController.stream,
+                  stream: _questionsController.stream,
                   builder: (context, snapshot) {
                     return snapshot.hasData
                         ? Column(children: snapshot.data!)
@@ -164,7 +164,7 @@ class _AddQuizViewState extends ConsumerState<AddQuizView> {
                               _questions = [...?_questions, question],
                         )
                       ];
-                      _questionController.sink.add(_questionsWidget!);
+                      _questionsController.sink.add(_questionsWidget!);
                     },
                     child: Container(
                       height: AppSizes.s50,

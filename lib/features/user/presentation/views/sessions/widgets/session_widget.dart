@@ -28,7 +28,7 @@ class SessionWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppPadding.p4),
             child: Hero(
-              tag: session.id,
+              tag: session.id!,
               child: Container(
                 padding: const EdgeInsets.all(AppPadding.p10),
                 margin: const EdgeInsets.only(

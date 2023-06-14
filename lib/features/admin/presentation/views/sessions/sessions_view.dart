@@ -19,13 +19,18 @@ class AdminSessionsView extends ConsumerWidget {
         AdminOption(
           icon: Icons.add,
           title: AppStrings.addSession.tr(),
-          onPressed: () => Navigator.pushNamed(context, Routes.addSessionRoute),
+          onPressed: () => Navigator.pushNamed(
+            context,
+            Routes.addSessionRoute,
+          ),
         ),
         AdminOption(
           icon: Icons.edit,
           title: AppStrings.editSession.tr(),
-          onPressed: () =>
-              Navigator.pushNamed(context, Routes.editSessionRoute),
+          onPressed: () => Navigator.pushNamed(
+            context,
+            Routes.editSessionRoute,
+          ),
         ),
         AdminOption(
           icon: Icons.delete,
