@@ -15,12 +15,8 @@ class QuizRepository {
     return await remoteQuizzer.getQuizById(id);
   }
 
-  Future<bool?> saveQuiz(Quiz quiz) async {
-    return await remoteQuizzer.saveQuiz(quiz);
-  }
-
-  Future<bool?> updateQuiz(Quiz quiz) async {
-    return await remoteQuizzer.updateQuiz(quiz);
+  Future<bool?> addOrUpdateQuiz(Quiz quiz) async {
+    return await remoteQuizzer.addOrUpdateQuiz(quiz);
   }
 
   Future<bool?> deleteQuiz(String id) async {
@@ -44,12 +40,12 @@ class QuizRepository {
     required int totalQuestions,
   }) async {
     return await remoteQuizzer.saveQuizResult(
-        userId: userId,
-        quizId: quizId,
-        selectedOptions: selectedOptions,
-        score: score,
-        totalQuestions: totalQuestions,
-      );
+      userId: userId,
+      quizId: quizId,
+      selectedOptions: selectedOptions,
+      score: score,
+      totalQuestions: totalQuestions,
+    );
   }
 
   Future<bool?> updateQuizResult({
@@ -61,14 +57,12 @@ class QuizRepository {
     required int totalQuestions,
   }) async {
     return await remoteQuizzer.updateQuizResult(
-        id: id,
-        userId: userId,
-        quizId: quizId,
-        selectedOptions: selectedOptions,
-        score: score,
-        totalQuestions: totalQuestions,
-      );
+      id: id,
+      userId: userId,
+      quizId: quizId,
+      selectedOptions: selectedOptions,
+      score: score,
+      totalQuestions: totalQuestions,
+    );
   }
-
-  
 }

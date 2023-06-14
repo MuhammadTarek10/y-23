@@ -11,7 +11,7 @@ class QuizzesStateNotifier extends StateNotifier<List<Quiz>?> {
 
   Future<void> getQuizzes() async {
     final quizzes = await quizzer.getAllQuizzes();
-    if (quizzes != null) quizzes.sort((a, b) => a.id.compareTo(b.id));
+    if (quizzes != null) quizzes.sort((a, b) => a.id!.compareTo(b.id!));
     state = quizzes;
   }
 
@@ -21,12 +21,7 @@ class QuizzesStateNotifier extends StateNotifier<List<Quiz>?> {
   }
 
   Future<void> saveQuiz(Quiz quiz) async {
-    await quizzer.saveQuiz(quiz);
-    state = await quizzer.getAllQuizzes();
-  }
-
-  Future<void> updateQuiz(Quiz quiz) async {
-    await quizzer.updateQuiz(quiz);
+    await quizzer.addOrUpdateQuiz(quiz);
     state = await quizzer.getAllQuizzes();
   }
 

@@ -79,6 +79,19 @@ class AppStrings {
   static const String deleteTaskConfirmation = "delete_task_confirmation";
   static const String yes = "yes";
   static const String no = "no";
+  static const String titleHintText = "title_hint";
+  static const String descriptionHintText = "desc_hint";
+  static const String deadlineHintText = "deadline_hint";
+  static const String optionHintText = "option_hint";
+  static const String fillFieldsError = "fill_fields_error";
+  static const String documentationHintText = "documentation_hint_text";
+  static const String done = "done";
+  static const String trueOrFalse = "true_of_false";
+  static const String addQuestion = "add_question";
+  static const String questionAdded = "question_add";
+  static const String questionDeleted = "question_deleted";
+  static const String generalError = "general_error";
+  static const String chooseAnswer = "choose_answer";
 
   const AppStrings._();
 }

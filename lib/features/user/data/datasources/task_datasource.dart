@@ -7,8 +7,7 @@ abstract class TaskDataSource {
   //* Tasks
   Future<List<Task>?> getTasks();
   Future<Task?> getTaskById(String id);
-  Future<bool> addTask(Task task);
-  Future<bool> updateTask(Task task);
+  Future<bool> addOrUpdateTask(Task task);
   Future<bool> deleteTask(String id);
   Future<bool> sendFeedback(String id, String feedback);
   Future<List<Task>?> getTasksByUserId(String userId);

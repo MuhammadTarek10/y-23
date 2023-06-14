@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/core/di.dart';
+import 'package:y23/features/user/domain/entities/quizzes/quiz.dart';
 import 'package:y23/features/user/domain/entities/quizzes/quiz_result.dart';
 import 'package:y23/features/user/domain/repositories/quiz_repository.dart';
 
@@ -16,6 +17,16 @@ class QuizResultStateNotifier extends StateNotifier<List<QuizResult>?> {
 
   Future<void> getAllQuizResults() async {
     state = await quizRepo.getAllQuizResults();
+  }
+
+  Future<void> addOrUpdateQuiz(Quiz quiz) async {
+    await quizRepo.addOrUpdateQuiz(quiz);
+    await getQuizResults();
+  }
+
+  Future<void> deleteQuiz(Quiz quiz) async {
+    await quizRepo.deleteQuiz(quiz.id!);
+    await getQuizResults();
   }
 
   Future<void> saveQuizResult({

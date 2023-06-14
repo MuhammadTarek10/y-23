@@ -45,7 +45,7 @@ class UploadTaskButton extends ConsumerWidget {
 
         if (await ref.read(taskSubmissionsProvider.notifier).uploadSubmission(
               userId: userId,
-              taskId: task.id,
+              taskId: task.id!,
               submission: file,
             )) {
           if (context.mounted) {

@@ -5,7 +5,6 @@ import 'package:y23/config/routes.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/core/widgets/lottie.dart';
 import 'package:y23/features/user/presentation/views/tasks/state/providers/tasks_provider.dart';
-import 'package:y23/features/user/presentation/views/tasks/task_view_params.dart';
 
 class EditTaskView extends ConsumerWidget {
   const EditTaskView({super.key});
@@ -42,11 +41,8 @@ class EditTaskView extends ConsumerWidget {
                   title: Text(data[index].title),
                   onTap: () => Navigator.pushNamed(
                     context,
-                    Routes.taskRoute,
-                    arguments: TaskViewParams(
-                      task: task,
-                      taskSubmission: null,
-                    ),
+                    Routes.addTaskRoute,
+                    arguments: task,
                   ),
                   trailing: const Icon(Icons.edit),
                 );

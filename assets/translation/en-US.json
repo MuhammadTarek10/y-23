@@ -76,5 +76,18 @@
   "delete_quiz_confirmation": "Are you sure you want to delete this quiz?",
   "delete_task_confirmation": "Are you sure you want to delete this task?",
   "yes": "Yes",
-  "no": "No"
+  "no": "No",
+  "title_hint": "Enter Title",
+  "desc_hint": "Enter Description",
+  "deadline_hint": "Choose Deadline",
+  "option_hint": "Enter Option (Double Tap to make it correct option)",
+  "fill_fields_error": "Please fill all fields, and choose correct answer",
+  "documentation_hint_text": "Enter Documentation Link (Optional)",
+  "done": "Done",
+  "true_of_false": "True of False",
+  "add_question": "Add Question",
+  "question_added": "Question has been added",
+  "question_deleted": "Question has been Deleted",
+  "general_error": "Error happened, try again",
+  "choose_answer": "Please choose correct answer from options"
 }

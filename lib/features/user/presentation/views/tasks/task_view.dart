@@ -50,7 +50,7 @@ class TaskView extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.all(AppPadding.p20),
-                child: TaskFeedbackButton(id: task.id, title: task.title),
+                child: TaskFeedbackButton(id: task.id!, title: task.title),
               ),
             ),
           ],

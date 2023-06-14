@@ -16,17 +16,12 @@ class TasksStateNotifier extends StateNotifier<List<Task>?> {
   }
 
   Future<void> addTask(Task task) async {
-    final isSuccess = await taskRepo.addTask(task);
+    final isSuccess = await taskRepo.addOrUpdateTask(task);
     if (isSuccess) getTasks();
   }
 
   Future<void> deleteTask(String id) async {
     final isSuccess = await taskRepo.deleteTask(id);
-    if (isSuccess) getTasks();
-  }
-
-  Future<void> updateTask(Task task) async {
-    final isSuccess = await taskRepo.updateTask(task);
     if (isSuccess) getTasks();
   }
 

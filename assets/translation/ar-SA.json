@@ -76,5 +76,18 @@
   "delete_quiz_confirmation": "هل أنت متأكد أنك تريد مسح هذا الاختبار؟",
   "delete_task_confirmation": "هل أنت متأكد أنك تريد مسح هذا الواجب؟",
   "yes": "نعم",
-  "no": "لا"
+  "no": "لا",
+  "title_hint": "ادخل عنوان",
+  "desc_hint": "ادخل الوصف",
+  "deadline_hint": "اختر ميعاد التسليم",
+  "option_hint": "ادخل اختيار",
+  "fill_fields_error": "املئ كل الخانات رجاء، واختر الاجابة الصحيحة",
+  "documentation_hint_text": "ادخل رابط الملف (اختياري)",
+  "done": "تمت",
+  "true_of_false": "صح ام خطأ",
+  "add_question": "اضف سؤالًا",
+  "question_added": "تمت اضافة السؤال",
+  "question_deleted": "تم مسح السؤال",
+  "general_error": "حدث خطأ، حاول مجددًا",
+  "choose_answer": "اختر الاجابة الصحيحة من بين الاختيارات"
 }

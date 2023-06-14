@@ -5,8 +5,7 @@ abstract class QuizDataSource {
   //* Quizzes
   Future<List<Quiz>?> getAllQuizzes();
   Future<Quiz?> getQuizById(String id);
-  Future<bool?> saveQuiz(Quiz quiz);
-  Future<bool?> updateQuiz(Quiz quiz);
+  Future<bool?> addOrUpdateQuiz(Quiz quiz);
   Future<bool?> deleteQuiz(String id);
 
   //* Quiz Results

@@ -4,8 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/config/routes.dart';
 import 'package:y23/config/utils/colors.dart';
 import 'package:y23/config/utils/strings.dart';
+import 'package:y23/core/state/providers/loading_provider.dart';
 import 'package:y23/core/widgets/lottie.dart';
 import 'package:y23/features/user/presentation/views/quizzes/quiz_view_params.dart';
+import 'package:y23/features/user/presentation/views/quizzes/state/providers/quiz_result_provider.dart';
 import 'package:y23/features/user/presentation/views/quizzes/state/providers/quizzers_provider.dart';
 
 class DeleteQuizView extends ConsumerWidget {
@@ -40,7 +42,7 @@ class DeleteQuizView extends ConsumerWidget {
               itemBuilder: (context, index) {
                 final quiz = data.elementAt(index);
                 return ListTile(
-                  title: Text(data[index].name),
+                  title: Text(data[index].title),
                   onTap: () => Navigator.pushNamed(
                     context,
                     Routes.quizzesRoute,
@@ -53,7 +55,13 @@ class DeleteQuizView extends ConsumerWidget {
                     icon: const Icon(Icons.delete),
                     onPressed: () async {
                       final result = await confirmationDialog(context);
-                      if (result == true) {}
+                      if (result == true) {
+                        ref.read(loadingProvider.notifier).loading();
+                        await ref
+                            .read(quizResultsProvider.notifier)
+                            .deleteQuiz(quiz);
+                        ref.read(loadingProvider.notifier).doneLoading();
+                      }
                     },
                   ),
                 );

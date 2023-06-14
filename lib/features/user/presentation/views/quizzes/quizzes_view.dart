@@ -74,7 +74,16 @@ class QuizzesWidget extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final quiz = quizzes[index];
                     final quizResult = results.firstWhere(
-                        (element) => element.quizId == quizzes[index].id);
+                      (element) => element.quizId == quizzes[index].id,
+                      orElse: () => QuizResult(
+                        userId: "",
+                        quizId: "",
+                        isTaken: false,
+                        selectedOptions: {},
+                        score: 0,
+                        isPassed: false,
+                      )
+                    );
                     return QuizListWidget(quiz: quiz, result: quizResult);
                   },
                 ),

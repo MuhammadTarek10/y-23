@@ -4,7 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/config/routes.dart';
 import 'package:y23/config/utils/colors.dart';
 import 'package:y23/config/utils/strings.dart';
+import 'package:y23/core/state/providers/loading_provider.dart';
 import 'package:y23/core/widgets/lottie.dart';
+import 'package:y23/features/user/presentation/views/sessions/state/providers/session_functionalities_provider.dart';
 import 'package:y23/features/user/presentation/views/sessions/state/providers/session_provider.dart';
 
 class DeleteSessionView extends ConsumerWidget {
@@ -49,7 +51,13 @@ class DeleteSessionView extends ConsumerWidget {
                     icon: const Icon(Icons.delete),
                     onPressed: () async {
                       final result = await confirmationDialog(context);
-                      if (result == true) {}
+                      if (result == true) {
+                        ref.read(loadingProvider.notifier).loading();
+                        await ref
+                            .read(sessionFunctionalitiesProvider.notifier)
+                            .deleteSession(session.id);
+                        ref.read(loadingProvider.notifier).doneLoading();
+                      }
                     },
                   ),
                 );

@@ -21,12 +21,8 @@ class TaskRepository {
     return await remoteTasker.getTasksByUserId(userId);
   }
 
-  Future<bool> addTask(Task task) async {
-    return await remoteTasker.addTask(task);
-  }
-
-  Future<bool> updateTask(Task task) async {
-    return await remoteTasker.updateTask(task);
+  Future<bool> addOrUpdateTask(Task task) async {
+    return await remoteTasker.addOrUpdateTask(task);
   }
 
   Future<bool> sendFeedback(String id, String feedback) async {

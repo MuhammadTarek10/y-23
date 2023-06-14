@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Task {
-  final String id;
+  final String? id;
   final String title;
   final String description;
   final Timestamp deadline;
@@ -11,10 +11,10 @@ class Task {
   List<dynamic>? feedback;
 
   Task({
-    required this.id,
     required this.title,
     required this.description,
     required this.deadline,
+    this.id,
     this.documentationLink,
     this.points,
     this.photoUrl,

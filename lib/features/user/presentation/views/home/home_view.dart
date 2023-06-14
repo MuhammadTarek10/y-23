@@ -17,6 +17,20 @@ class HomeView extends ConsumerWidget {
     final views = ref.read(bottomNavigationProvider.notifier).views;
     final pageController =
         ref.read(bottomNavigationProvider.notifier).pageController;
+    final isAdmin = ref.watch(isAdminProvider);
+    VoidCallback? callback;
+    isAdmin.when(
+      data: (data) {
+        if (data == true) {
+          callback = () => Navigator.pushNamed(
+                context,
+                Routes.adminHomeRoute,
+              );
+        }
+      },
+      error: (error, _) => null,
+      loading: () => null,
+    );
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -51,15 +65,7 @@ class HomeView extends ConsumerWidget {
                 top: AppPadding.p0,
                 right: AppPadding.p20,
                 child: IconButton(
-                  onPressed: () {
-                    final isAdmin = ref.watch(isAdminProvider);
-                    isAdmin
-                        ? Navigator.pushNamed(
-                            context,
-                            Routes.adminHomeRoute,
-                          )
-                        : null;
-                  },
+                  onPressed: callback,
                   icon: Image.asset(
                     AppAssets.logo,
                     height: AppSizes.s50,

@@ -1,5 +1,5 @@
 class QuizResult {
-  final String id;
+  final String? id;
   final String userId;
   final String quizId;
   final bool isTaken;
@@ -8,7 +8,7 @@ class QuizResult {
   final bool isPassed;
 
   QuizResult({
-    required this.id,
+    this.id,
     required this.userId,
     required this.quizId,
     required this.isTaken,
@@ -51,7 +51,7 @@ class QuizResult {
 
   factory QuizResult.fromJson(String? id, Map<String, dynamic> json) {
     return QuizResult(
-      id: id as String,
+      id: id,
       userId: json['userId'] as String,
       quizId: json['quizId'] as String,
       isTaken: json['isTaken'] as bool,

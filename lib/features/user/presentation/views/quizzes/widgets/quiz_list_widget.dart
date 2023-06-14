@@ -19,6 +19,8 @@ class QuizListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = context.height * 0.2;
+    final width = context.width;
     return InkWell(
       onTap: () => Navigator.pushNamed(
         context,
@@ -38,7 +40,7 @@ class QuizListWidget extends StatelessWidget {
                 top: AppPadding.p16,
                 bottom: AppPadding.p10,
               ),
-              height: context.height * 0.2,
+              height: height,
               decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
@@ -51,7 +53,11 @@ class QuizListWidget extends StatelessWidget {
                   image: DecorationImage(
                     opacity: 0.4,
                     image: quiz.photoUrl != null
-                        ? Image.network(quiz.photoUrl!).image
+                        ? ResizeImage(
+                            NetworkImage(quiz.photoUrl!),
+                            width: width.toInt(),
+                            height: height.toInt(),
+                          )
                         : Image.asset(AppAssets.logo).image,
                   ),
                   borderRadius: const BorderRadius.only(
@@ -77,7 +83,7 @@ class QuizListWidget extends StatelessWidget {
                       top: AppPadding.p10,
                     ),
                     child: Text(
-                      quiz.name,
+                      quiz.title,
                       style: Theme.of(context)
                           .textTheme
                           .headlineSmall!

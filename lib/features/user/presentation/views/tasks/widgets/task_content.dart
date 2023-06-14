@@ -31,6 +31,7 @@ class TaskContent extends StatelessWidget {
                 borderRadius: BorderRadius.circular(AppSizes.s10),
               ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     task.description,

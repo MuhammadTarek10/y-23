@@ -11,7 +11,7 @@ class AppTheme {
       //* Color Scheme
       colorScheme: ColorScheme(
         brightness: Brightness.dark,
-        primary: AppColors.thirdlyColor,
+        primary: AppColors.green,
         onPrimary: Colors.black,
         secondary: AppColors.fifthlyColor,
         onSecondary: AppColors.thirdlyColor,
@@ -93,8 +93,13 @@ class AppTheme {
         ),
         bodyMedium: TextStyle(
           fontSize: 12.0,
-          fontStyle: FontStyle.italic,
+          color: AppColors.fakeWhite,
         ),
+      ),
+
+      //* DatePicker
+      datePickerTheme: const DatePickerThemeData(
+        backgroundColor: AppColors.fakeWhite,
       ),
 
       //* TextField
@@ -307,8 +312,13 @@ class AppTheme {
         ),
         bodyMedium: TextStyle(
           fontSize: 12.0,
-          fontStyle: FontStyle.italic,
+          color: AppColors.fakeWhite,
         ),
+      ),
+
+      //* DatePicker
+      datePickerTheme: const DatePickerThemeData(
+        backgroundColor: AppColors.fakeWhite,
       ),
 
       //* TextField

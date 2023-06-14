@@ -68,6 +68,12 @@ class TasksListWidget extends StatelessWidget {
                     final task = tasks[index];
                     final taskSubmission = submissions.firstWhere(
                       (element) => element.taskId == task.id,
+                      orElse: () => const TaskSubmission(
+                        id: "",
+                        taskId: "",
+                        userId: "",
+                        submissionUrl: "",
+                      ),
                     );
                     return TaskWidget(
                       task: task,

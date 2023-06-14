@@ -1,4 +1,8 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:y23/config/utils/firebase_names.dart';
 import 'package:y23/features/user/data/datasources/quiz_datasource.dart';
 import 'package:y23/features/user/domain/entities/quizzes/quiz.dart';
@@ -26,24 +30,27 @@ class RemoteQuizzer extends QuizDataSource {
   }
 
   @override
-  Future<bool?> saveQuiz(Quiz quiz) async {
+  Future<bool?> addOrUpdateQuiz(Quiz quiz) async {
     try {
-      await FirebaseFirestore.instance
-          .collection(FirebaseCollectionName.quizzes)
-          .add(quiz.toJson());
-      return true;
-    } catch (_) {
-      return false;
-    }
-  }
-
-  @override
-  Future<bool?> updateQuiz(Quiz quiz) async {
-    try {
-      await FirebaseFirestore.instance
-          .collection(FirebaseCollectionName.quizzes)
-          .doc(quiz.id)
-          .update(quiz.toJson());
+      final path = quiz.photoUrl;
+      if (path == null) {
+        await FirebaseFirestore.instance
+            .collection(FirebaseCollectionName.quizzes)
+            .doc(quiz.id)
+            .set(quiz.toJson());
+      } else {
+        final name = quiz.photoUrl!.split("/").last;
+        final path =
+            "${FirebaseCollectionName.quizzes}/${FirebaseFieldName.quizId}/$name";
+        final ref = FirebaseStorage.instance.ref().child(path);
+        final uploadTask = ref.putFile(File(quiz.photoUrl!));
+        final snapshot = await uploadTask.whenComplete(() => null);
+        final downloadUrl = await snapshot.ref.getDownloadURL();
+        await FirebaseFirestore.instance
+            .collection(FirebaseCollectionName.quizzes)
+            .doc(quiz.id)
+            .set(quiz.copyWith(photoUrl: downloadUrl).toJson());
+      }
       return true;
     } catch (_) {
       return false;
@@ -59,10 +66,10 @@ class RemoteQuizzer extends QuizDataSource {
           .delete();
       return true;
     } catch (_) {
+      log(_.toString());
       return false;
     }
   }
-
 
   //* Quiz Results
   @override

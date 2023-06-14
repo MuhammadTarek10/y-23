@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/config/routes.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/core/widgets/lottie.dart';
-import 'package:y23/features/user/presentation/views/quizzes/quiz_view_params.dart';
 import 'package:y23/features/user/presentation/views/quizzes/state/providers/quizzers_provider.dart';
 
 class EditQuizVew extends ConsumerWidget {
@@ -39,14 +38,11 @@ class EditQuizVew extends ConsumerWidget {
               itemBuilder: (context, index) {
                 final quiz = data.elementAt(index);
                 return ListTile(
-                  title: Text(data[index].name),
+                  title: Text(data[index].title),
                   onTap: () => Navigator.pushNamed(
                     context,
-                    Routes.quizzesRoute,
-                    arguments: QuizViewParams(
-                      quiz: quiz,
-                      result: null,
-                    ),
+                    Routes.addQuizRoute,
+                    arguments: quiz,
                   ),
                   trailing: const Icon(Icons.edit),
                 );

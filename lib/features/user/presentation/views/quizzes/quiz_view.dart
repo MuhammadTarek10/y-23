@@ -47,7 +47,7 @@ class QuizView extends ConsumerWidget {
       ),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(quiz.name),
+          title: Text(quiz.title),
         ),
         body: SafeArea(
           child: Stack(
@@ -97,7 +97,8 @@ class QuizView extends ConsumerWidget {
     );
   }
 
-  Row buildSubmitSection(BuildContext context, WidgetRef ref, Quiz quiz, QuizResult result) {
+  Row buildSubmitSection(
+      BuildContext context, WidgetRef ref, Quiz quiz, QuizResult result) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -137,7 +138,6 @@ class QuizView extends ConsumerWidget {
     Quiz quiz,
     QuizResult result,
   ) async {
-    
     if (quiz.questions.length != result.selectedOptions.length) {
       return customShowSnackBar(
         context: context,
@@ -168,7 +168,7 @@ class QuizView extends ConsumerWidget {
 
     await ref.read(quizResultsProvider.notifier).saveQuizResult(
           userId: userId,
-          quizId: quizId,
+          quizId: quizId!,
           score: score,
           selectedOptions: selectedOptions,
           totalQuestions: totalQuestions,

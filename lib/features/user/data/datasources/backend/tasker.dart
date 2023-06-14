@@ -8,7 +8,6 @@ import 'package:y23/features/user/domain/entities/tasks/task.dart';
 import 'package:y23/features/user/domain/entities/tasks/task_submission.dart';
 
 class RemoteTasker extends TaskDataSource {
-
   //* Tasks
   @override
   Future<List<Task>?> getTasks() async {
@@ -30,11 +29,12 @@ class RemoteTasker extends TaskDataSource {
   }
 
   @override
-  Future<bool> addTask(Task task) async {
+  Future<bool> addOrUpdateTask(Task task) async {
     try {
       await FirebaseFirestore.instance
           .collection(FirebaseCollectionName.tasks)
-          .add(task.toJson());
+          .doc(task.id)
+          .set(task.toJson());
       return true;
     } catch (_) {
       return false;
@@ -70,19 +70,6 @@ class RemoteTasker extends TaskDataSource {
   }
 
   @override
-  Future<bool> updateTask(Task task) async {
-    try {
-      await FirebaseFirestore.instance
-          .collection(FirebaseCollectionName.tasks)
-          .doc(task.id)
-          .update(task.toJson());
-      return true;
-    } catch (_) {
-      return false;
-    }
-  }
-
-  @override
   Future<List<Task>?> getTasksByUserId(String userId) async {
     final data = await FirebaseFirestore.instance
         .collection(FirebaseCollectionName.tasks)
@@ -91,7 +78,6 @@ class RemoteTasker extends TaskDataSource {
 
     return data.docs.map((e) => Task.fromJson(e.id, e.data())).toList();
   }
-
 
   //* Task Submissions
   @override
@@ -109,8 +95,7 @@ class RemoteTasker extends TaskDataSource {
     if (taskSubmissions.docs.length < tasks.docs.length) {
       for (final task in tasks.docs) {
         if (!taskSubmissions.docs.any((element) =>
-            element[FirebaseFieldName.taskSubmissionsTaskId] ==
-            task[FirebaseFieldName.tasksId])) {
+            element[FirebaseFieldName.taskSubmissionsTaskId] == task.id)) {
           await FirebaseFirestore.instance
               .collection(FirebaseCollectionName.taskSubmissions)
               .add({
@@ -135,7 +120,6 @@ class RemoteTasker extends TaskDataSource {
     required File submission,
   }) async {
     try {
-      // get name of file
       final name = submission.path.split("/").last;
       final path = "${FirebaseFieldName.submission}/$userId/$taskId-$name";
 
