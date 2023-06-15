@@ -67,6 +67,15 @@ class RemoteTasker extends TaskDataSource {
           .collection(FirebaseCollectionName.tasks)
           .doc(id)
           .delete();
+      FirebaseFirestore.instance.runTransaction((transaction) async {
+        final query = await FirebaseFirestore.instance
+            .collection(FirebaseCollectionName.taskSubmissions)
+            .where(FirebaseFieldName.taskSubmissionsTaskId, isEqualTo: id)
+            .get();
+        for (final doc in query.docs) {
+          transaction.delete(doc.reference);
+        }
+      });
       return true;
     } catch (_) {
       return false;

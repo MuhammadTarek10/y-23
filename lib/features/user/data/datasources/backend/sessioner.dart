@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -34,7 +35,7 @@ class RemoteSessioner extends SessionDataSource {
     }
     try {
       final path = session.photoUrl;
-      if (path == null) {
+      if (path == null || path.contains("firebase")) {
         await FirebaseFirestore.instance
             .collection(FirebaseCollectionName.sessions)
             .doc(session.id)
@@ -53,6 +54,7 @@ class RemoteSessioner extends SessionDataSource {
       }
       return true;
     } catch (_) {
+      log(_.toString());
       return false;
     }
   }
@@ -78,6 +80,11 @@ class RemoteSessioner extends SessionDataSource {
       await FirebaseFirestore.instance
           .collection(FirebaseCollectionName.sessions)
           .doc(id)
+          .delete();
+      await FirebaseStorage.instance
+          .ref()
+          .child(FirebaseCollectionName.sessions)
+          .child(id)
           .delete();
       return true;
     } catch (_) {

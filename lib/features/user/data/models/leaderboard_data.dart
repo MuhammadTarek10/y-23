@@ -19,6 +19,7 @@ class LeaderboardData {
   Map<User, int> calculateScores() {
     Map<String, int> idWithScore = {};
     Map<User, int> usersScore = {};
+
     quizResults.map(
       (e) {
         if (idWithScore.containsKey(e.userId)) {
@@ -41,9 +42,7 @@ class LeaderboardData {
 
     users.map(
       (e) {
-        if (idWithScore.containsKey(e.id)) {
-          usersScore[e] = idWithScore[e.id]!;
-        }
+        usersScore[e] = idWithScore[e.id] ?? 0;
       },
     ).toList();
 

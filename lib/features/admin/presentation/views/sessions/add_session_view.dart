@@ -12,6 +12,7 @@ import 'package:y23/core/di.dart';
 import 'package:y23/core/media.dart';
 import 'package:y23/core/state/providers/loading_provider.dart';
 import 'package:y23/core/widgets/snackbar.dart';
+import 'package:y23/features/admin/presentation/views/sessions/widgets/point_widget.dart';
 import 'package:y23/features/admin/presentation/widgets/text_input_widget.dart';
 import 'package:y23/features/user/domain/entities/sessions/session.dart';
 import 'package:y23/features/user/presentation/views/sessions/state/providers/session_functionalities_provider.dart';
@@ -71,6 +72,7 @@ class _AddSessionViewState extends ConsumerState<AddSessionView> {
           key: globalKey,
           point: point,
           onAdd: (point) => _points.addEntries(point.entries),
+          onDelete: (point) => _points.remove(point),
         ),
       ];
     }
@@ -170,6 +172,7 @@ class _AddSessionViewState extends ConsumerState<AddSessionView> {
                           PointWidget(
                             key: globalKey,
                             onAdd: (point) => _points.addEntries(point.entries),
+                            onDelete: (point) => _points.remove(point),
                           ),
                         ];
                         _pointsController.sink.add(_pointsWidget!);
@@ -198,6 +201,7 @@ class _AddSessionViewState extends ConsumerState<AddSessionView> {
   }
 
   Future<void> _addSession() async {
+    _points.clear();
     for (var key in globalKeys) {
       key.currentState!.getPoints();
     }
@@ -213,7 +217,6 @@ class _AddSessionViewState extends ConsumerState<AddSessionView> {
         return;
       }
     }
-
     final Session session = Session(
       id: widget.session != null ? widget.session!.id : null,
       title: _titleController.text,
@@ -234,69 +237,6 @@ class _AddSessionViewState extends ConsumerState<AddSessionView> {
         message: AppStrings.done.tr(),
       );
       Navigator.pop(context);
-    }
-  }
-}
-
-typedef PointAddCallback = void Function(Map<String, dynamic> point);
-
-class PointWidget extends StatefulWidget {
-  const PointWidget({
-    super.key,
-    this.point,
-    required this.onAdd,
-  });
-
-  final Map<String, dynamic>? point;
-  final PointAddCallback onAdd;
-
-  @override
-  State<PointWidget> createState() => PointWidgetState();
-}
-
-class PointWidgetState extends State<PointWidget> {
-  late final TextEditingController _headerController;
-  late final TextEditingController _descriptionController;
-
-  @override
-  void initState() {
-    super.initState();
-    _headerController = TextEditingController();
-    _descriptionController = TextEditingController();
-
-    if (widget.point != null) {
-      _headerController.text = widget.point!.keys.first;
-      _descriptionController.text = widget.point!.values.first;
-    }
-  }
-
-  @override
-  void dispose() {
-    _headerController.dispose();
-    _descriptionController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        TextInputWidget(
-          controller: _headerController,
-          hintText: AppStrings.headerHintText.tr(),
-        ),
-        TextInputWidget(
-          controller: _descriptionController,
-          hintText: AppStrings.descriptionHintText.tr(),
-        ),
-      ],
-    );
-  }
-
-  void getPoints() {
-    if (_headerController.text.isNotEmpty &&
-        _descriptionController.text.isNotEmpty) {
-      widget.onAdd({_headerController.text: _descriptionController.text});
     }
   }
 }

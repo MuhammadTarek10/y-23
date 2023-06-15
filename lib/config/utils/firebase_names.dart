@@ -8,7 +8,7 @@ class FirebaseFieldName {
 
   //* Quizzes
   static const String quizId = "id";
-  static const String quizName = "name";
+  static const String quizTitle = "name";
 
   //* Questions
   static const String questionId = "id";

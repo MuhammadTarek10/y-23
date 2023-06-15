@@ -33,7 +33,7 @@ class RemoteQuizzer extends QuizDataSource {
   @override
   Future<bool?> addOrUpdateQuiz(Quiz quiz) async {
     if (quiz.id == null) {
-      quiz.copyWith(id: const Uuid().v4());
+      quiz = quiz.copyWith(id: const Uuid().v4());
     }
     try {
       final path = quiz.photoUrl;
@@ -67,6 +67,21 @@ class RemoteQuizzer extends QuizDataSource {
           .collection(FirebaseCollectionName.quizzes)
           .doc(id)
           .delete();
+      await FirebaseStorage.instance
+          .ref()
+          .child(FirebaseCollectionName.quizzes)
+          .child(id)
+          .delete();
+
+      FirebaseFirestore.instance.runTransaction((transaction) async {
+        final query = await FirebaseFirestore.instance
+            .collection(FirebaseCollectionName.quizResults)
+            .where(FirebaseFieldName.quizResultQuizId, isEqualTo: id)
+            .get();
+        for (final doc in query.docs) {
+          transaction.delete(doc.reference);
+        }
+      });
       return true;
     } catch (_) {
       log(_.toString());
@@ -174,8 +189,7 @@ class RemoteQuizzer extends QuizDataSource {
     if (quizResults.docs.length < quizzes.docs.length) {
       for (final quiz in quizzes.docs) {
         if (!quizResults.docs.any((element) =>
-            element[FirebaseFieldName.quizResultQuizId] ==
-            quiz[FirebaseFieldName.quizId])) {
+            element[FirebaseFieldName.quizResultQuizId] == quiz.id)) {
           await FirebaseFirestore.instance
               .collection(FirebaseCollectionName.quizResults)
               .add({

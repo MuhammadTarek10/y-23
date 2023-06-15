@@ -10,7 +10,7 @@ final quizzesProvider = StreamProvider.autoDispose<List<Quiz>?>(
     final controller = StreamController<List<Quiz>?>();
     final subscription = FirebaseFirestore.instance
         .collection(FirebaseCollectionName.quizzes)
-        .orderBy(FirebaseFieldName.quizName)
+        .orderBy(FirebaseFieldName.quizTitle)
         .snapshots()
         .listen(
       (snapshot) {

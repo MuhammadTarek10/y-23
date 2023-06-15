@@ -191,6 +191,7 @@ class _AddQuizViewState extends ConsumerState<AddQuizView> {
   }
 
   Future<void> _addQuiz() async {
+    if (_questions != null) _questions!.clear();
     for (var key in globalKeys) {
       key.currentState!.getQuestions();
     }
