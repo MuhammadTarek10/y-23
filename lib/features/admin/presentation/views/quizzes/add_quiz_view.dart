@@ -101,9 +101,10 @@ class _AddQuizViewState extends ConsumerState<AddQuizView> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(AppStrings.addQuiz.tr()),
-          actions: [
-            IconButton(onPressed: _addQuiz, icon: const Icon(Icons.add)),
-          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _addQuiz,
+          child: const Icon(Icons.save_outlined),
         ),
         body: SafeArea(
           child: SingleChildScrollView(

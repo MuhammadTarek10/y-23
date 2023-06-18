@@ -25,8 +25,8 @@ class QuizzesStateNotifier extends StateNotifier<List<Quiz>?> {
     state = await quizzer.getAllQuizzes();
   }
 
-  Future<void> deleteQuiz(String quizId) async {
-    await quizzer.deleteQuiz(quizId);
+  Future<void> deleteQuiz(Quiz quiz) async {
+    await quizzer.deleteQuiz(quiz);
     state = await quizzer.getAllQuizzes();
   }
 

@@ -155,10 +155,20 @@ class QuizQuestionWidgetState extends State<QuizQuestionWidget> {
   void getQuestions() {
     final List<String> options = <String>[];
     String answer = "";
+    bool wrong = false;
     for (var i = 0; i < _optionsControllers!.length; i++) {
       options.add(_optionsControllers![i].text);
       if (_isCorrect[i]) {
         answer = _optionsControllers![i].text;
+      }
+    }
+
+    for (var i = 0; i < _isCorrect.length; i++) {
+      if (_isCorrect[i]) {
+        if (wrong) {
+          return;
+        }
+        wrong = true;
       }
     }
 
@@ -197,36 +207,48 @@ class OptionInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onDoubleTap: () => onPressed(this),
-      child: Padding(
-        padding: const EdgeInsets.all(AppPadding.p12),
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppPadding.p10,
-          ),
-          decoration: BoxDecoration(
-            color: color,
-            border: Border.all(
-              color: AppColors.fakeWhite,
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(AppPadding.p12),
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppPadding.p10,
             ),
-            borderRadius: BorderRadius.circular(AppSizes.s10),
-          ),
-          child: TextField(
-            controller: controller,
-            keyboardType: type,
-            cursorColor: Colors.blue,
-            style: Theme.of(context).textTheme.bodyMedium,
-            decoration: InputDecoration(
-              hintText: hintText,
-              hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: Colors.grey,
+            decoration: BoxDecoration(
+              color: color,
+              border: Border.all(
+                color: AppColors.fakeWhite,
+              ),
+              borderRadius: BorderRadius.circular(AppSizes.s10),
+            ),
+            child: Stack(
+              children: [
+                TextField(
+                  controller: controller,
+                  keyboardType: type,
+                  cursorColor: Colors.blue,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  decoration: InputDecoration(
+                    hintText: hintText,
+                    hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: Colors.grey,
+                        ),
+                    border: InputBorder.none,
                   ),
-              border: InputBorder.none,
+                ),
+                Positioned(
+                  right: 0,
+                  child: Checkbox(
+                    value: isCorrect,
+                    onChanged: (value) => onPressed(this),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
-      ),
+      ],
     );
   }
 }

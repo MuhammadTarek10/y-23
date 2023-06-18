@@ -40,6 +40,11 @@ class AppTheme {
         ),
       ),
 
+      //* Floating Action Button
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: AppColors.primaryColor,
+      ),
+
       //* Button
       buttonTheme: const ButtonThemeData(
         buttonColor: Colors.blue,
@@ -259,6 +264,11 @@ class AppTheme {
         ),
       ),
 
+      //* Floating Action Button
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: AppColors.primaryColor,
+      ),
+
       //* Button
       buttonTheme: const ButtonThemeData(
         buttonColor: Colors.blue,
@@ -294,7 +304,7 @@ class AppTheme {
         ),
         headlineMedium: TextStyle(
           fontSize: 22.0,
-          color: AppColors.fourthlyColor,
+          color: AppColors.primaryColor,
           fontWeight: FontWeight.bold,
         ),
         headlineSmall: TextStyle(
@@ -327,11 +337,15 @@ class AppTheme {
       ),
 
       //* ListTile
-      listTileTheme: const ListTileThemeData(
+      listTileTheme: ListTileThemeData(
         iconColor: AppColors.fakeWhite,
         titleTextStyle: TextStyle(
           fontSize: 15,
-          color: AppColors.fakeWhite,
+          color: AppColors.fakeWhite.withOpacity(0.8),
+        ),
+        subtitleTextStyle: const TextStyle(
+          fontSize: 13,
+          color: AppColors.primaryColor,
         ),
       ),
 

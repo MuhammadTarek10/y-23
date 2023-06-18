@@ -46,7 +46,7 @@
   "error_submitting_task": "Error Submitting the Task, Please try again later",
   "tasks_submitted": "Tasks Submitted",
   "tasks_correct": "Tasks Correct",
-  "my_tasks": "My Tasks",
+  "performance": "Performance",
   "leaderboard": "Leaderboard",
   "my_quizzes": "My Quizzes",
   "rank1": "Leader",
@@ -61,6 +61,7 @@
   "quiz_already_submitted": "Quiz Already Submitted",
   "no_content": "No content until now",
   "admin": "Admin",
+  "admins": "Admins",
   "feedbacks": "Feedbacks",
   "users": "Users",
   "add_session": "Add Session",
@@ -80,7 +81,7 @@
   "title_hint": "Enter Title",
   "desc_hint": "Enter Description",
   "deadline_hint": "Choose Deadline",
-  "option_hint": "Enter Option (Double Tap to make it correct option)",
+  "option_hint": "Enter Option (Check box to make it correct)",
   "fill_fields_error": "Please fill all fields, and choose correct answer",
   "fill_session": "Please fill session information",
   "documentation_hint_text": "Enter Documentation Link (Optional)",
@@ -93,5 +94,8 @@
   "choose_answer": "Please choose correct answer from options",
   "header_hint": "Enter Header",
   "instructor_hint": "Enter Instructor",
-  "add_point": "Add Point"
+  "add_point": "Add Point",
+  "stats": "Stats",
+  "title": "Name",
+  "total_score": "Total Score"
 }

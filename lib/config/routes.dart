@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:y23/core/state/providers/loading_provider.dart';
 import 'package:y23/core/widgets/loading_screen.dart';
-import 'package:y23/features/admin/presentation/views/home_view.dart';
+import 'package:y23/features/admin/presentation/views/admin_home_view.dart';
 import 'package:y23/features/admin/presentation/views/quizzes/add_quiz_view.dart';
 import 'package:y23/features/admin/presentation/views/quizzes/delete_quiz_view.dart';
 import 'package:y23/features/admin/presentation/views/quizzes/edit_quiz_view.dart';
 import 'package:y23/features/admin/presentation/views/sessions/add_session_view.dart';
 import 'package:y23/features/admin/presentation/views/sessions/delete_session_view.dart';
 import 'package:y23/features/admin/presentation/views/sessions/edit_session_view.dart';
+import 'package:y23/features/admin/presentation/views/stats/stats_view.dart';
 import 'package:y23/features/admin/presentation/views/tasks/add_task_view.dart';
 import 'package:y23/features/admin/presentation/views/tasks/delete_task_view.dart';
 import 'package:y23/features/admin/presentation/views/tasks/edit_task_view.dart';
-import 'package:y23/features/admin/presentation/views/users/users_view.dart';
 import 'package:y23/features/auth/presentation/views/login_view.dart';
 import 'package:y23/features/auth/state/providers/is_logged_in_provider.dart';
 import 'package:y23/features/splash/views/splash_view.dart';
@@ -29,7 +29,7 @@ import 'package:y23/features/user/presentation/views/quizzes/quiz_view.dart';
 import 'package:y23/features/user/presentation/views/quizzes/quiz_view_params.dart';
 import 'package:y23/features/user/presentation/views/sessions/session_view.dart';
 import 'package:y23/features/user/presentation/views/settings/settings_view.dart';
-import 'package:y23/features/user/presentation/views/tasks/my_tasks/my_tasks.dart';
+import 'package:y23/features/user/presentation/views/tasks/performance/performance_view.dart';
 import 'package:y23/features/user/presentation/views/tasks/task_view.dart';
 import 'package:y23/features/user/presentation/views/tasks/task_view_params.dart';
 
@@ -41,7 +41,6 @@ class Routes {
 
   //* Admin
   static const String adminHomeRoute = "/admin-home";
-  static const String usersRoute = "/users";
   static const String addSessionRoute = "/add-session";
   static const String editSessionRoute = "/edit-session";
   static const String deleteSessionRoute = "/delete-session";
@@ -52,6 +51,7 @@ class Routes {
   static const String editTaskRoute = "/edit-task";
   static const String deleteTaskRoute = "/delete-task";
   static const String addFeedbackRoute = "/add-feedback";
+  static const String statsRoute = "/stats";
 
   //* User
   static const String homeRoute = "/home";
@@ -62,7 +62,7 @@ class Routes {
   static const String feedbackRoute = "/feedback";
   static const String leaderboardRoute = "/personal-feedback";
   static const String taskRoute = "/task";
-  static const String myTasksRoute = "/my-tasks";
+  static const String performanceRoute = "/my-tasks";
   static const String myQuizzesRoute = "/my-quizzes";
 
   //* Undefined
@@ -134,9 +134,9 @@ class RouterGenerator {
             params: settings.arguments as TaskViewParams,
           ),
         );
-      case Routes.myTasksRoute:
+      case Routes.performanceRoute:
         return MaterialPageRoute(
-          builder: (context) => const MyTasksView(),
+          builder: (context) => const PerformanceView(),
         );
       case Routes.myQuizzesRoute:
         return MaterialPageRoute(
@@ -174,8 +174,8 @@ class RouterGenerator {
         return MaterialPageRoute(builder: (context) => const EditTaskView());
       case Routes.deleteTaskRoute:
         return MaterialPageRoute(builder: (context) => const DeleteTaskView());
-      case Routes.usersRoute:
-        return MaterialPageRoute(builder: (context) => const UsersView());
+      case Routes.statsRoute:
+        return MaterialPageRoute(builder: (context) => const StatsView());
       default:
         return MaterialPageRoute(builder: (context) => const HomeView());
     }

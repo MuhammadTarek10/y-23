@@ -25,7 +25,7 @@ class QuizResultStateNotifier extends StateNotifier<List<QuizResult>?> {
   }
 
   Future<void> deleteQuiz(Quiz quiz) async {
-    await quizRepo.deleteQuiz(quiz.id!);
+    await quizRepo.deleteQuiz(quiz);
     await getQuizResults();
   }
 

@@ -47,7 +47,7 @@ class AppStrings {
   static const String errorSubmittingTask = "error_submitting_task";
   static const String tasksSubmitted = "tasks_submitted";
   static const String tasksCorrect = "tasks_correct";
-  static const String myTasks = "my_tasks";
+  static const String performance = "performance";
   static const String myQuizzes = "my_quizzes";
   static const String leaderboard = "leaderboard";
   static const String leader = "rank1";
@@ -62,6 +62,7 @@ class AppStrings {
   static const String quizAlreadySubmitted = "quiz_already_submitted";
   static const String noContent = "no_content";
   static const String admin = "admin";
+  static const String admins = "admins";
   static const String feedbacks = "feedbacks";
   static const String users = "users";
   static const String addSession = "add_session";
@@ -96,6 +97,9 @@ class AppStrings {
   static const String headerHintText = "header_hint";
   static const String instructorHintText = "instructor_hint";
   static const String addPoint = "add_point";
+  static const String stats = "stats";
+  static const String name = "title";
+  static const String totalScore = "total_score";
 
   const AppStrings._();
 }

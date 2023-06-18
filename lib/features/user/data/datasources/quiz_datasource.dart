@@ -6,7 +6,7 @@ abstract class QuizDataSource {
   Future<List<Quiz>?> getAllQuizzes();
   Future<Quiz?> getQuizById(String id);
   Future<bool?> addOrUpdateQuiz(Quiz quiz);
-  Future<bool?> deleteQuiz(String id);
+  Future<bool?> deleteQuiz(Quiz quiz);
 
   //* Quiz Results
   Future<List<QuizResult>?> getQuizResultsByUserId(String userId);

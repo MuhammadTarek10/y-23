@@ -104,9 +104,10 @@ class _AddSessionViewState extends ConsumerState<AddSessionView> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(AppStrings.addSession.tr()),
-          actions: [
-            IconButton(onPressed: _addSession, icon: const Icon(Icons.add)),
-          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _addSession,
+          child: const Icon(Icons.save_outlined),
         ),
         body: SafeArea(
           child: SingleChildScrollView(

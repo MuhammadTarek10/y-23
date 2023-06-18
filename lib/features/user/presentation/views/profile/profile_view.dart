@@ -14,6 +14,7 @@ import 'package:y23/core/prefs.dart';
 import 'package:y23/core/state/providers/theme_provider.dart';
 import 'package:y23/core/widgets/lottie.dart';
 import 'package:y23/features/auth/state/providers/auth_state_provider.dart';
+import 'package:y23/features/auth/state/providers/is_admin_provider.dart';
 import 'package:y23/features/auth/state/providers/photo_url_provider.dart';
 import 'package:y23/features/auth/state/providers/user_display_name_provider.dart';
 import 'package:y23/features/auth/state/providers/user_id_provider.dart';
@@ -29,9 +30,17 @@ class ProfileView extends ConsumerWidget {
     final displayName = ref.watch(userDisplayNameProvider);
     final isDarkMode = ref.watch(themeProvider) == ThemeMode.dark;
     final photoUrl = ref.watch(photoUrlProvider);
+
     String? photo;
     photoUrl.when(
       data: (data) => photo = data,
+      error: (error, _) {},
+      loading: () {},
+    );
+    final adminStream = ref.watch(isAdminProvider);
+    bool isAdmin = false;
+    adminStream.when(
+      data: (data) => isAdmin = data,
       error: (error, _) {},
       loading: () {},
     );
@@ -43,6 +52,7 @@ class ProfileView extends ConsumerWidget {
             displayName: displayName,
             photoUrl: photo,
             isDarkMode: isDarkMode,
+            isAdmin: isAdmin,
             prefs: prefs,
           );
   }
@@ -56,6 +66,7 @@ class ProfileDetails extends StatelessWidget {
     required this.displayName,
     required this.photoUrl,
     required this.isDarkMode,
+    required this.isAdmin,
     required this.prefs,
   });
   final imagePicker = instance<AppMedia>();
@@ -64,6 +75,7 @@ class ProfileDetails extends StatelessWidget {
   final String displayName;
   final String? photoUrl;
   final bool isDarkMode;
+  final bool isAdmin;
   final AppPreferences prefs;
 
   @override
@@ -138,12 +150,23 @@ class ProfileDetails extends StatelessWidget {
                     ),
                   ),
                   ListTile(
-                    leading: const Icon(Icons.task_outlined),
-                    title: Text(AppStrings.myTasks.tr()),
-                    onTap: () => Navigator.pushNamed(
-                      context,
-                      Routes.myTasksRoute,
+                    leading: isAdmin
+                        ? const Icon(Icons.pie_chart_outline_outlined)
+                        : const Icon(Icons.task_outlined),
+                    title: Text(
+                      isAdmin
+                          ? AppStrings.stats.tr()
+                          : AppStrings.performance.tr(),
                     ),
+                    onTap: () => isAdmin
+                        ? Navigator.pushNamed(
+                            context,
+                            Routes.statsRoute,
+                          )
+                        : Navigator.pushNamed(
+                            context,
+                            Routes.performanceRoute,
+                          ),
                   ),
                   const Divider(),
                   ListTile(

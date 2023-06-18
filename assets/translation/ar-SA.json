@@ -46,7 +46,7 @@
   "error_submitting_task": "يوجد مشكلة في التسليم، حاول مجددًا لاحقًا",
   "tasks_submitted": "الواجبات المستلمة",
   "tasks_correct": "الواجبات الصحيحة",
-  "my_tasks": "واجباتي",
+  "performance": "الاداء",
   "leaderboard": "المتصدرون",
   "my_quizzes": "اختباراتي",
   "rank1": "المركز الأول",
@@ -61,6 +61,7 @@
   "quiz_already_submitted": "تم تسليم الاختبار بالفعل",
   "no_content": "لا يوجد حتى الآن",
   "admin": "المدير",
+  "admins": "المديرون",
   "feedbacks": "التعليقات",
   "users": "المستخدمون",
   "add_session": "إضافة درس",
@@ -93,5 +94,8 @@
   "choose_answer": "اختر الاجابة الصحيحة من بين الاختيارات",
   "header_hint": "اضف عنوان",
   "instructor_hint": "اضف المعلم",
-  "add_point": "اضف نقطة"
+  "add_point": "اضف نقطة",
+  "stats": "احصائيات",
+  "title": "الاسم",
+  "total_score": "الدرجة الكلية"
 }

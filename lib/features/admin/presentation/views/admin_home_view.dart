@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:y23/config/routes.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/features/admin/presentation/views/feedbacks/feedbacks_view.dart';
 import 'package:y23/features/admin/presentation/views/quizzes/quizzes_view.dart';
@@ -38,24 +37,6 @@ class AdminHomeView extends ConsumerWidget {
                 Tab(text: AppStrings.feedbacks.tr()),
               ],
             ),
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: 0,
-            onTap: (value) {
-              if (value == 1) {
-                Navigator.pushNamed(context, Routes.usersRoute);
-              }
-            },
-            items: [
-              BottomNavigationBarItem(
-                icon: const Icon(Icons.admin_panel_settings_outlined),
-                label: AppStrings.home.tr(),
-              ),
-              BottomNavigationBarItem(
-                icon: const Icon(Icons.person_outline),
-                label: AppStrings.users.tr(),
-              ),
-            ],
           ),
           body: const TabBarView(
             children: [

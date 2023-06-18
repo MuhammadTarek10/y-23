@@ -71,9 +71,10 @@ class _AddTaskViewState extends ConsumerState<AddTaskView> {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text(AppStrings.addTask.tr()),
-          actions: [
-            IconButton(onPressed: _addTask, icon: const Icon(Icons.add))
-          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _addTask,
+          child: const Icon(Icons.save_outlined),
         ),
         body: SafeArea(
             child: Center(
@@ -182,8 +183,12 @@ class _AddTaskViewState extends ConsumerState<AddTaskView> {
     return showTimePicker(
       context: context,
       initialTime: TimeOfDay(
-        hour: dateTime.hour,
-        minute: dateTime.minute,
+        hour: widget.task != null
+            ? widget.task!.deadline.toDate().hour
+            : dateTime.hour,
+        minute: widget.task != null
+            ? widget.task!.deadline.toDate().minute
+            : dateTime.minute,
       ),
     );
   }
@@ -191,7 +196,8 @@ class _AddTaskViewState extends ConsumerState<AddTaskView> {
   Future<DateTime?> _getDate() {
     return showDatePicker(
       context: context,
-      initialDate: dateTime,
+      initialDate:
+          widget.task != null ? widget.task!.deadline.toDate() : dateTime,
       firstDate: DateTime(2023),
       lastDate: DateTime(2024),
     );

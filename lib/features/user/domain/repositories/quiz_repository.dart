@@ -19,8 +19,8 @@ class QuizRepository {
     return await remoteQuizzer.addOrUpdateQuiz(quiz);
   }
 
-  Future<bool?> deleteQuiz(String id) async {
-    return await remoteQuizzer.deleteQuiz(id);
+  Future<bool?> deleteQuiz(Quiz quiz) async {
+    return await remoteQuizzer.deleteQuiz(quiz);
   }
 
   //* Quiz Results

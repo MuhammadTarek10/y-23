@@ -37,7 +37,7 @@ class RemoteQuizzer extends QuizDataSource {
     }
     try {
       final path = quiz.photoUrl;
-      if (path == null) {
+      if (path == null || path.contains('firebase')) {
         await FirebaseFirestore.instance
             .collection(FirebaseCollectionName.quizzes)
             .doc(quiz.id)
@@ -61,22 +61,25 @@ class RemoteQuizzer extends QuizDataSource {
   }
 
   @override
-  Future<bool?> deleteQuiz(String id) async {
+  Future<bool?> deleteQuiz(Quiz quiz) async {
     try {
       await FirebaseFirestore.instance
           .collection(FirebaseCollectionName.quizzes)
-          .doc(id)
+          .doc(quiz.id)
           .delete();
-      await FirebaseStorage.instance
-          .ref()
-          .child(FirebaseCollectionName.quizzes)
-          .child(id)
-          .delete();
+
+      if (quiz.photoUrl != null) {
+        await FirebaseStorage.instance
+            .ref()
+            .child(FirebaseCollectionName.quizzes)
+            .child(quiz.id!)
+            .delete();
+      }
 
       FirebaseFirestore.instance.runTransaction((transaction) async {
         final query = await FirebaseFirestore.instance
             .collection(FirebaseCollectionName.quizResults)
-            .where(FirebaseFieldName.quizResultQuizId, isEqualTo: id)
+            .where(FirebaseFieldName.quizResultQuizId, isEqualTo: quiz.id)
             .get();
         for (final doc in query.docs) {
           transaction.delete(doc.reference);
