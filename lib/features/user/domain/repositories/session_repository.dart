@@ -21,7 +21,7 @@ class SessionRepository {
     return await remoteSessioner.sendFeedback(id, feedback);
   }
 
-  Future<bool> deleteSession(String id) async {
-    return await remoteSessioner.deleteSession(id);
+  Future<bool> deleteSession(Session session) async {
+    return await remoteSessioner.deleteSession(session);
   }
 }

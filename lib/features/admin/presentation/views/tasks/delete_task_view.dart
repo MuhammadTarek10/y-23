@@ -6,6 +6,7 @@ import 'package:y23/config/utils/colors.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/core/state/providers/loading_provider.dart';
 import 'package:y23/core/widgets/lottie.dart';
+import 'package:y23/core/widgets/snackbar.dart';
 import 'package:y23/features/user/presentation/views/tasks/state/providers/task_submissions_provider.dart';
 import 'package:y23/features/user/presentation/views/tasks/state/providers/tasks_provider.dart';
 import 'package:y23/features/user/presentation/views/tasks/task_view_params.dart';
@@ -57,10 +58,25 @@ class DeleteTaskView extends ConsumerWidget {
                       final result = await confirmationDialog(context);
                       if (result == true) {
                         ref.read(loadingProvider.notifier).loading();
-                        ref
+                        final result = await ref
                             .read(taskSubmissionsProvider.notifier)
                             .deleteTask(task);
                         ref.read(loadingProvider.notifier).doneLoading();
+                        if (context.mounted) {
+                          if (result) {
+                            customShowSnackBar(
+                              context: context,
+                              message: AppStrings.done.tr(),
+                            );
+                          } else {
+                            customShowSnackBar(
+                              context: context,
+                              message: AppStrings.generalError.tr(),
+                              isError: true,
+                            );
+                          }
+                          Navigator.pop(context);
+                        }
                       }
                     },
                   ),

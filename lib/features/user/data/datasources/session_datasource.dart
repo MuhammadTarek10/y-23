@@ -5,5 +5,5 @@ abstract class SessionDataSource {
   Future<Session?> getSessionById(String id);
   Future<bool> addOrUpdateSession(Session session);
   Future<bool> sendFeedback(String id, String feedback);
-  Future<bool> deleteSession(String id);
+  Future<bool> deleteSession(Session session);
 }

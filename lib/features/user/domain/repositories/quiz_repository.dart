@@ -15,11 +15,11 @@ class QuizRepository {
     return await remoteQuizzer.getQuizById(id);
   }
 
-  Future<bool?> addOrUpdateQuiz(Quiz quiz) async {
+  Future<bool> addOrUpdateQuiz(Quiz quiz) async {
     return await remoteQuizzer.addOrUpdateQuiz(quiz);
   }
 
-  Future<bool?> deleteQuiz(Quiz quiz) async {
+  Future<bool> deleteQuiz(Quiz quiz) async {
     return await remoteQuizzer.deleteQuiz(quiz);
   }
 

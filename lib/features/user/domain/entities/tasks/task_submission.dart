@@ -15,7 +15,7 @@ class TaskSubmission {
     required this.id,
     required this.taskId,
     required this.userId,
-    required this.submissionUrl,
+    this.submissionUrl,
     this.isSubmitted,
     this.isCorrect,
     this.points,

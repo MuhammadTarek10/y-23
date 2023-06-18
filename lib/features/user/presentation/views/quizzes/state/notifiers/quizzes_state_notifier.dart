@@ -20,14 +20,16 @@ class QuizzesStateNotifier extends StateNotifier<List<Quiz>?> {
     state = [quiz!];
   }
 
-  Future<void> saveQuiz(Quiz quiz) async {
-    await quizzer.addOrUpdateQuiz(quiz);
+  Future<bool> addOrUpdateQuiz(Quiz quiz) async {
+    final result = await quizzer.addOrUpdateQuiz(quiz);
     state = await quizzer.getAllQuizzes();
+    return result;
   }
 
-  Future<void> deleteQuiz(Quiz quiz) async {
-    await quizzer.deleteQuiz(quiz);
+  Future<bool> deleteQuiz(Quiz quiz) async {
+    final result = await quizzer.deleteQuiz(quiz);
     state = await quizzer.getAllQuizzes();
+    return result;
   }
 
   Future<void> saveQuizResult({

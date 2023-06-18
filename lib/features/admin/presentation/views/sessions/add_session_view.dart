@@ -228,15 +228,23 @@ class _AddSessionViewState extends ConsumerState<AddSessionView> {
     );
 
     ref.read(loadingProvider.notifier).loading();
-    await ref
+    final result = await ref
         .read(sessionFunctionalitiesProvider.notifier)
         .addOrUpdateSession(session);
     ref.read(loadingProvider.notifier).doneLoading();
     if (context.mounted) {
-      customShowSnackBar(
-        context: context,
-        message: AppStrings.done.tr(),
-      );
+      if (result) {
+        customShowSnackBar(
+          context: context,
+          message: AppStrings.done.tr(),
+        );
+      } else {
+        customShowSnackBar(
+          context: context,
+          message: AppStrings.generalError.tr(),
+          isError: true,
+        );
+      }
       Navigator.pop(context);
     }
   }

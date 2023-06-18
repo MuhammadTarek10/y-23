@@ -3,36 +3,40 @@ import 'package:flutter/material.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
 import 'package:y23/core/widgets/lottie.dart';
-import 'package:y23/features/user/domain/entities/tasks/task.dart';
-import 'package:y23/features/user/domain/entities/tasks/task_submission.dart';
+import 'package:y23/features/auth/domain/entities/user.dart';
 
-class MyTasksFeedback extends StatelessWidget {
-  const MyTasksFeedback({
+class MyFeedback extends StatelessWidget {
+  const MyFeedback({
     super.key,
-    required this.tasks,
-    required this.submissions,
+    required this.user,
   });
 
-  final List<Task> tasks;
-  final List<TaskSubmission> submissions;
+  final User user;
 
   @override
   Widget build(BuildContext context) {
-    return submissions.isEmpty
+    return user.feedback == null || user.feedback!.isEmpty
         ? LottieEmpty(message: AppStrings.noFeedback.tr())
-        : ListView.separated(
-            itemCount: submissions.length,
-            separatorBuilder: (context, index) => const Divider(),
-            itemBuilder: (context, index) {
-              final submission = submissions[index];
-              final task = tasks.firstWhere(
-                (element) => element.id == submission.taskId,
-              );
-              return FeedbackWidget(
-                task: task,
-                submission: submission,
-              );
-            },
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(AppPadding.p10),
+                child: Text(
+                  AppStrings.feedbacks.tr(),
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+              ),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: user.feedback!.length,
+                itemBuilder: (context, index) {
+                  final feedback = user.feedback![index];
+                  return FeedbackWidget(feedback: feedback);
+                },
+              ),
+            ],
           );
   }
 }
@@ -40,12 +44,10 @@ class MyTasksFeedback extends StatelessWidget {
 class FeedbackWidget extends StatelessWidget {
   const FeedbackWidget({
     super.key,
-    required this.task,
-    required this.submission,
+    required this.feedback,
   });
 
-  final Task task;
-  final TaskSubmission submission;
+  final String feedback;
 
   @override
   Widget build(BuildContext context) {
@@ -53,30 +55,17 @@ class FeedbackWidget extends StatelessWidget {
       padding: const EdgeInsets.all(AppPadding.p8),
       margin: const EdgeInsets.all(AppPadding.p8),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppSizes.s10),
-          border: Border.all()),
+        borderRadius: BorderRadius.circular(AppSizes.s10),
+        border: Border.all(),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            task.title,
-            style: Theme.of(context).textTheme.headlineSmall,
+            feedback,
+            style: Theme.of(context).textTheme.bodyLarge,
+            maxLines: null,
           ),
-          const Divider(thickness: AppSizes.s4),
-          ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: submission.feedback!.length,
-            separatorBuilder: (context, index) => const Divider(),
-            itemBuilder: (context, index) {
-              final feedback = submission.feedback![index];
-              return Text(
-                feedback,
-                style: Theme.of(context).textTheme.bodyLarge,
-                maxLines: null,
-              );
-            },
-          )
         ],
       ),
     );

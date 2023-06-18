@@ -47,14 +47,16 @@ class TaskSubmissionsStateNotifier
     );
   }
 
-  Future<void> addOrUpdateTask(Task task) async {
-    await taskRepo.addOrUpdateTask(task);
+  Future<bool> addOrUpdateTask(Task task) async {
+    final result = await taskRepo.addOrUpdateTask(task);
     getTaskSubmissions();
+    return result;
   }
 
 
-  Future<void> deleteTask(Task task) async {
-    await taskRepo.deleteTask(task.id!);
+  Future<bool> deleteTask(Task task) async {
+    final result = await taskRepo.deleteTask(task.id!);
     getTaskSubmissions();
+    return result;
   }
 }

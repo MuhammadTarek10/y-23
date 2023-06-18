@@ -216,13 +216,22 @@ class _AddQuizViewState extends ConsumerState<AddQuizView> {
     );
 
     ref.read(loadingProvider.notifier).loading();
-    await ref.read(quizResultsProvider.notifier).addOrUpdateQuiz(quiz);
+    final result =
+        await ref.read(quizResultsProvider.notifier).addOrUpdateQuiz(quiz);
     ref.read(loadingProvider.notifier).doneLoading();
     if (context.mounted) {
-      customShowSnackBar(
-        context: context,
-        message: AppStrings.done.tr(),
-      );
+      if (result) {
+        customShowSnackBar(
+          context: context,
+          message: AppStrings.done.tr(),
+        );
+      } else {
+        customShowSnackBar(
+          context: context,
+          message: AppStrings.generalError.tr(),
+          isError: true,
+        );
+      }
       Navigator.pop(context);
     }
   }

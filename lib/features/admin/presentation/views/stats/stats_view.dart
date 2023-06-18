@@ -81,11 +81,15 @@ class StatsView extends ConsumerWidget {
                   child: Column(
                     children: [
                       StatsWidget(
-                          sessions: sessions!,
-                          tasks: tasks!,
-                          quizzes: quizzes!),
+                        sessions: sessions!,
+                        tasks: tasks!,
+                        quizzes: quizzes!,
+                      ),
                       const Divider(),
-                      UsersListWidget(users: users!, admins: admins!),
+                      UsersListWidget(
+                        users: users!,
+                        admins: admins!,
+                      ),
                     ],
                   ),
                 ),

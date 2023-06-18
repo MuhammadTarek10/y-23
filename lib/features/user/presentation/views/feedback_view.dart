@@ -93,6 +93,12 @@ class _FeedbackViewState extends State<FeedbackView> {
                           borderRadius: const BorderRadius.all(
                             Radius.circular(AppSizes.s10),
                           ),
+                          gradient: LinearGradient(
+                            colors: [
+                              Theme.of(context).colorScheme.secondary,
+                              Theme.of(context).colorScheme.onSecondary,
+                            ],
+                          ),
                         ),
                         child: Material(
                           color: Colors.transparent,
@@ -113,7 +119,7 @@ class _FeedbackViewState extends State<FeedbackView> {
                                 padding: const EdgeInsets.all(4.0),
                                 child: Text(
                                   AppStrings.submit.tr(),
-                                  style: Theme.of(context).textTheme.bodyMedium,
+                                  style: Theme.of(context).textTheme.bodyLarge,
                                 ),
                               ),
                             ),

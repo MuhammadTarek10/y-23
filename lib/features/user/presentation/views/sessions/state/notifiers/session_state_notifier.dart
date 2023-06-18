@@ -20,9 +20,10 @@ class SessionsStateNotifier extends StateNotifier<List<Session>?> {
     state = [session!];
   }
 
-  Future<void> addOrUpdateSession(Session session) async {
-    await sessionRepo.addOrUpdateSession(session);
+  Future<bool> addOrUpdateSession(Session session) async {
+    final result = await sessionRepo.addOrUpdateSession(session);
     getSessions();
+    return result;
   }
 
   Future<void> sendFeedback(String id, String feedback) async {
@@ -30,9 +31,9 @@ class SessionsStateNotifier extends StateNotifier<List<Session>?> {
     getSessions();
   }
 
-  Future<void> deleteSession(String id) async {
-    await sessionRepo.deleteSession(id);
+  Future<bool> deleteSession(Session session) async {
+    final result = await sessionRepo.deleteSession(session);
     getSessions();
+    return result;
   }
-
 }

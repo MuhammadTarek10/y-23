@@ -25,7 +25,7 @@ class Quiz {
       id: id ?? this.id,
       title: title ?? this.title,
       questions: questions ?? this.questions,
-      photoUrl: photoUrl,
+      photoUrl: photoUrl ?? this.photoUrl,
     );
   }
 

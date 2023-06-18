@@ -6,6 +6,7 @@ import 'package:y23/config/utils/colors.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/core/state/providers/loading_provider.dart';
 import 'package:y23/core/widgets/lottie.dart';
+import 'package:y23/core/widgets/snackbar.dart';
 import 'package:y23/features/user/presentation/views/quizzes/quiz_view_params.dart';
 import 'package:y23/features/user/presentation/views/quizzes/state/providers/quiz_result_provider.dart';
 import 'package:y23/features/user/presentation/views/quizzes/state/providers/quizzers_provider.dart';
@@ -57,10 +58,24 @@ class DeleteQuizView extends ConsumerWidget {
                       final result = await confirmationDialog(context);
                       if (result == true) {
                         ref.read(loadingProvider.notifier).loading();
-                        await ref
+                        final result = await ref
                             .read(quizResultsProvider.notifier)
                             .deleteQuiz(quiz);
                         ref.read(loadingProvider.notifier).doneLoading();
+                        if (context.mounted) {
+                          if (result) {
+                            customShowSnackBar(
+                              context: context,
+                              message: AppStrings.done.tr(),
+                            );
+                          } else {
+                            customShowSnackBar(
+                              context: context,
+                              message: AppStrings.generalError.tr(),
+                              isError: true,
+                            );
+                          }
+                        }
                       }
                     },
                   ),

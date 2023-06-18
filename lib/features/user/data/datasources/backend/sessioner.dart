@@ -75,17 +75,22 @@ class RemoteSessioner extends SessionDataSource {
   }
 
   @override
-  Future<bool> deleteSession(String id) async {
+  Future<bool> deleteSession(Session session) async {
     try {
       await FirebaseFirestore.instance
           .collection(FirebaseCollectionName.sessions)
-          .doc(id)
+          .doc(session.id)
           .delete();
-      await FirebaseStorage.instance
-          .ref()
-          .child(FirebaseCollectionName.sessions)
-          .child(id)
-          .delete();
+      if (session.photoUrl != null) {
+        final path = "${FirebaseCollectionName.sessions}/${session.id}";
+        await FirebaseStorage.instance.ref(path).listAll().then(
+          (value) {
+            for (var element in value.items) {
+              FirebaseStorage.instance.ref(element.fullPath).delete();
+            }
+          },
+        );
+      }
       return true;
     } catch (_) {
       return false;
