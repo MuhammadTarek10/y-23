@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:y23/config/utils/assets.dart';
 import 'package:y23/config/utils/strings.dart';
+import 'package:y23/config/utils/values.dart';
 
 class LottieLoading extends StatelessWidget {
   const LottieLoading({super.key});
@@ -23,20 +24,23 @@ class LottieEmpty extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Lottie.asset(
-          AppAssets.empty,
-          repeat: true,
-          reverse: true,
-        ),
-        Text(
-          message,
-          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                color: Theme.of(context).colorScheme.outline,
-              ),
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(AppPadding.p10),
+      child: Column(
+        children: [
+          Lottie.asset(
+            AppAssets.empty,
+            repeat: true,
+            reverse: true,
+          ),
+          Text(
+            message,
+            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                  color: Theme.of(context).colorScheme.outline,
+                ),
+          ),
+        ],
+      ),
     );
   }
 }

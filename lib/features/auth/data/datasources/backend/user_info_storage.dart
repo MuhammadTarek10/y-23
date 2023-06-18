@@ -15,6 +15,7 @@ class UserInfoStorage {
     required String? displayName,
     required String? email,
     required String? photoUrl,
+    bool isAdmin = false,
   }) async {
     try {
       final userInfo = await FirebaseFirestore.instance
@@ -37,6 +38,7 @@ class UserInfoStorage {
         displayName: displayName,
         email: email,
         photoUrl: photoUrl,
+        isAdmin: isAdmin,
       );
       await FirebaseFirestore.instance
           .collection(

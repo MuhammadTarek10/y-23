@@ -84,63 +84,62 @@ class ProfileDetails extends StatelessWidget {
       padding: const EdgeInsets.all(AppPadding.p20),
       child: Padding(
         padding: const EdgeInsets.all(AppPadding.p10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p20),
-              child: Stack(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.only(top: AppPadding.p40),
-                    child: CircleAvatar(
-                      radius: AppSizes.s80,
-                      backgroundImage: photoUrl != null && photoUrl!.isNotEmpty
-                          ? NetworkImage(photoUrl!)
-                          : Image.asset(AppAssets.user).image,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: AppPadding.p20),
+                child: Stack(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.only(top: AppPadding.p40),
+                      child: CircleAvatar(
+                        radius: AppSizes.s80,
+                        backgroundImage:
+                            photoUrl != null && photoUrl!.isNotEmpty
+                                ? NetworkImage(photoUrl!)
+                                : Image.asset(AppAssets.user).image,
+                      ),
                     ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: InkWell(
-                      onTap: () async {
-                        final photo = await imagePicker.pickImage();
-                        if (photo != null) {
-                          ref
-                              .read(authStateProvider.notifier)
-                              .uploadProfilePicture(
-                                userId: userId,
-                                photo: File(photo.path),
-                              );
-                        }
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(AppPadding.p10),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.onSecondary,
-                          borderRadius: BorderRadius.circular(AppSizes.s20),
-                        ),
-                        child: const Icon(
-                          Icons.camera_alt,
-                          color: Colors.white,
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: InkWell(
+                        onTap: () async {
+                          final photo = await imagePicker.pickImage();
+                          if (photo != null) {
+                            ref
+                                .read(authStateProvider.notifier)
+                                .uploadProfilePicture(
+                                  userId: userId,
+                                  photo: File(photo.path),
+                                );
+                          }
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(AppPadding.p10),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.onSecondary,
+                            borderRadius: BorderRadius.circular(AppSizes.s20),
+                          ),
+                          child: const Icon(
+                            Icons.camera_alt,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Text(
-              displayName,
-              style: Theme.of(context).textTheme.headlineLarge,
-            ),
-            const SizedBox(height: AppSizes.s30),
-            Expanded(
-              child: Column(
+              Text(
+                displayName,
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const SizedBox(height: AppSizes.s30),
+              Column(
                 children: [
-                  const Spacer(),
-                  const Divider(),
                   ListTile(
                     leading: const Icon(Icons.leaderboard_outlined),
                     title: Text(AppStrings.leaderboard.tr()),
@@ -208,8 +207,8 @@ class ProfileDetails extends StatelessWidget {
                   // ),
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

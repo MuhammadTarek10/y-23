@@ -7,11 +7,23 @@ import 'package:y23/config/utils/values.dart';
 import 'package:y23/core/widgets/lottie.dart';
 import 'package:y23/features/user/presentation/providers/leaderboard_provider.dart';
 
-class LeaderboardView extends ConsumerWidget {
+class LeaderboardView extends ConsumerStatefulWidget {
   const LeaderboardView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _LeaderboardViewState();
+}
+
+class _LeaderboardViewState extends ConsumerState<LeaderboardView> {
+  @override
+  void initState() {
+    super.initState();
+    ref.read(leaderboardProvider.notifier).getData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final usersScore = ref.watch(leaderboardProvider);
     return Container(
       height: double.infinity,

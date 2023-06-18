@@ -7,7 +7,7 @@ class TextInputWidget extends StatelessWidget {
     super.key,
     required this.controller,
     required this.hintText,
-    this.type = TextInputType.name,
+    this.type = TextInputType.multiline,
     this.flex = 1,
   });
 

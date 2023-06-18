@@ -11,41 +11,50 @@ class LoginView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Theme.of(context).colorScheme.onSecondary,
-                  Theme.of(context).colorScheme.secondary,
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
+    return Container(
+      height: double.infinity,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Theme.of(context).colorScheme.onSecondary,
+            Theme.of(context).colorScheme.secondary,
+          ],
+        ),
+      ),
+      child: Scaffold(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Text(
+                  AppStrings.welcome.tr(),
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
+                const LottieLogin(),
+                const LoginFields(),
+                const GoogleLoginButton(),
+              ],
             ),
           ),
-          SafeArea(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    AppStrings.welcome.tr(),
-                    style: Theme.of(context).textTheme.headlineLarge,
-                  ),
-                  const LottieLogin(),
-                  const LoginFields(),
-                  const Spacer(),
-                  const GoogleLoginButton(),
-                ],
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
 }
+
+
+// Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             Text(
+//               AppStrings.welcome.tr(),
+//               style: Theme.of(context).textTheme.headlineLarge,
+//             ),
+//             const LottieLogin(),
+//             const LoginFields(),
+//             const Spacer(),
+//             const GoogleLoginButton(),
+//           ],
+//         ),

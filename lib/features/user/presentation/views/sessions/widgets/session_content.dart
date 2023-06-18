@@ -30,93 +30,99 @@ class SessionContent extends StatelessWidget {
     }
     return Expanded(
       child: SingleChildScrollView(
-        child: AnimatedOpacity(
-          duration: const Duration(milliseconds: 500),
-          opacity: opacity,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppPadding.p16,
-                  vertical: AppPadding.p8,
-                ),
-                child: points == null
-                    ? LottieEmpty(message: AppStrings.noContent.tr())
-                    : Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: AppSizes.s10),
-                          ...sorted!.entries.map(
-                            (e) => Container(
-                              padding: const EdgeInsets.only(
-                                bottom: AppPadding.p20,
-                              ),
-                              alignment: Alignment.topLeft,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+        child: sorted!.isEmpty == true
+            ? LottieEmpty(message: AppStrings.noContent.tr())
+            : AnimatedOpacity(
+                duration: const Duration(milliseconds: 500),
+                opacity: opacity,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppPadding.p16,
+                        vertical: AppPadding.p8,
+                      ),
+                      child: points == null
+                          ? LottieEmpty(message: AppStrings.noContent.tr())
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(height: AppSizes.s10),
+                                ...sorted.entries.map(
+                                  (e) => Container(
+                                    padding: const EdgeInsets.only(
+                                      bottom: AppPadding.p20,
+                                    ),
+                                    alignment: Alignment.topLeft,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          e.key.substring(3),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineMedium,
+                                        ),
+                                        const SizedBox(height: AppSizes.s10),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                            left: AppPadding.p30,
+                                          ),
+                                          child: Text(
+                                            e.value,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                    ),
+                    const SizedBox(height: AppSizes.s10),
+                    documentation != null
+                        ? Align(
+                            alignment: Alignment.bottomRight,
+                            child: InkWell(
+                              onTap: () async {
+                                final url = Uri.parse(documentation!);
+                                if (await canLaunchUrl(url)) {
+                                  launchUrl(url);
+                                }
+                              },
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
-                                    e.key.substring(3),
+                                    AppStrings.details.tr(),
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headlineMedium,
+                                        .bodyLarge!
+                                        .copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSecondary,
+                                        ),
                                   ),
-                                  const SizedBox(height: AppSizes.s10),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                      left: AppPadding.p30,
-                                    ),
-                                    child: Text(
-                                      e.value,
-                                      style:
-                                          Theme.of(context).textTheme.bodyLarge,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-              ),
-              const SizedBox(height: AppSizes.s10),
-              documentation != null
-                  ? Align(
-                      alignment: Alignment.bottomRight,
-                      child: InkWell(
-                        onTap: () async {
-                          final url = Uri.parse(documentation!);
-                          if (await canLaunchUrl(url)) {
-                            launchUrl(url);
-                          }
-                        },
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              AppStrings.details.tr(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(
+                                  const SizedBox(width: AppSizes.s4),
+                                  Icon(
+                                    Icons.more_outlined,
                                     color: Theme.of(context)
                                         .colorScheme
                                         .onSecondary,
                                   ),
+                                ],
+                              ),
                             ),
-                            const SizedBox(width: AppSizes.s4),
-                            Icon(
-                              Icons.more_outlined,
-                              color: Theme.of(context).colorScheme.onSecondary,
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  : Container(),
-            ],
-          ),
-        ),
+                          )
+                        : Container(),
+                  ],
+                ),
+              ),
       ),
     );
   }

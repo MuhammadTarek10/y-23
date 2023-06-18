@@ -52,10 +52,7 @@ class GoogleLoginButton extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 10),
                       child: Text(
                         AppStrings.googleLogin.tr(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium!
-                            .copyWith(
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                               color: Colors.black,
                             ),
                       ),

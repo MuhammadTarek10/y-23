@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:y23/config/extensions.dart';
 import 'package:y23/config/utils/colors.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
@@ -76,12 +77,14 @@ class Stats extends StatelessWidget {
                 title,
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       color: AppColors.fakeWhite,
+                      fontSize: context.width * 0.035,
                     ),
               ),
               Text(
                 '${list.length}',
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       color: AppColors.fakeWhite,
+                      fontSize: context.width * 0.035,
                     ),
               ),
             ],

@@ -74,6 +74,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
       await saveUserInfo(
         userId: userId,
         displayName: displayName,
+        
       );
     }
 
@@ -89,12 +90,14 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
   Future<void> saveUserInfo({
     required String userId,
     String? displayName,
+    bool? isAdmin,
   }) async {
     await _userInfoStorage.saveUserInfo(
       userId: userId,
       displayName: displayName ?? _authenticator.displayName,
       email: _authenticator.email,
       photoUrl: _authenticator.photoUrl,
+      isAdmin: state.isAdmin,
     );
   }
 
