@@ -11,11 +11,13 @@ class UserInfoPayload extends MapView<String, dynamic> {
     required String? email,
     required String? photoUrl,
     required bool? isAdmin,
+    required List<String>? feedback,
   }) : super({
           FirebaseFieldName.userId: userId,
           FirebaseFieldName.displayName: displayName ?? '',
           FirebaseFieldName.email: email ?? '',
           FirebaseFieldName.photoUrl: photoUrl ?? '',
           FirebaseFieldName.isAdmin: isAdmin ?? false,
+          FirebaseFieldName.feedback: feedback ?? [],
         });
 }

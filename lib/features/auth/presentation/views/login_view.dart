@@ -43,18 +43,3 @@ class LoginView extends ConsumerWidget {
     );
   }
 }
-
-
-// Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             Text(
-//               AppStrings.welcome.tr(),
-//               style: Theme.of(context).textTheme.headlineLarge,
-//             ),
-//             const LottieLogin(),
-//             const LoginFields(),
-//             const Spacer(),
-//             const GoogleLoginButton(),
-//           ],
-//         ),

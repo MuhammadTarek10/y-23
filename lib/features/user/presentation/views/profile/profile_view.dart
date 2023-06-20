@@ -138,7 +138,7 @@ class ProfileDetails extends StatelessWidget {
                 displayName,
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              SizedBox(height: context.height * (isAdmin ? 0.12 : 0.2)),
+              SizedBox(height: context.height * (isAdmin ? 0.05 : 0.2)),
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [

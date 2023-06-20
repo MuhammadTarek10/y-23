@@ -57,7 +57,20 @@ class _MyTasksViewState extends ConsumerState<PerformanceView> {
             user == null ||
             quizzes == null ||
             quizResults == null
-        ? const LottieLoading()
+        ? Container(
+            height: double.infinity,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Theme.of(context).colorScheme.onSecondary,
+                  Theme.of(context).colorScheme.secondary,
+                ],
+              ),
+            ),
+            child: const LottieLoading(),
+          )
         : DefaultTabController(
             length: 2,
             child: Container(

@@ -235,7 +235,7 @@ class AppTheme {
       //* Color Scheme
       colorScheme: ColorScheme(
         brightness: Brightness.light,
-        primary: AppColors.fourthlyColor,
+        primary: AppColors.green,
         onPrimary: Colors.grey,
         secondary: AppColors.primaryColor.withOpacity(0.5),
         onSecondary: AppColors.secondlyColor,

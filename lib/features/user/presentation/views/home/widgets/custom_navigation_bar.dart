@@ -22,8 +22,9 @@ class CustomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDarkMode = ref.watch(themeProvider) == ThemeMode.dark;
     const color = AppColors.primaryColor;
-    final backgroundColor =
-        isDarkMode ? Colors.transparent : AppColors.secondlyColor;
+    final backgroundColor = isDarkMode
+        ? Theme.of(context).colorScheme.onSecondary
+        : Theme.of(context).colorScheme.onSecondary;
     return BubbleBottomBar(
       opacity: 0.2,
       backgroundColor: backgroundColor,
