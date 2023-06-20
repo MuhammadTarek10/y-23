@@ -128,4 +128,27 @@ class UserInfoStorage {
       return false;
     }
   }
+
+  Future<bool> sendFeedback(String id, String feedback) async {
+    try {
+      final userInfo = await FirebaseFirestore.instance
+          .collection(FirebaseCollectionName.users)
+          .where(FirebaseFieldName.userId, isEqualTo: id)
+          .limit(1)
+          .get();
+
+      if (userInfo.docs.isEmpty) return false;
+
+      final user = userInfo.docs.first;
+      final feedbacks = user.get(FirebaseFieldName.feedback) as List<dynamic>;
+      feedbacks.add(feedback);
+      await user.reference.update({
+        FirebaseFieldName.feedback: feedbacks,
+      });
+
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
 }

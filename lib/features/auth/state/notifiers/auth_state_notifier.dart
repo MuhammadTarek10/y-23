@@ -111,4 +111,8 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     );
     state = state.copiedWithPhotoUrl(url ?? _authenticator.photoUrl);
   }
+
+  Future<void> sendFeedback(String id, String feedback)async {
+    await _userInfoStorage.sendFeedback(id, feedback);
+  }
 }

@@ -49,7 +49,6 @@ class DeleteTaskView extends ConsumerWidget {
                     Routes.taskRoute,
                     arguments: TaskViewParams(
                       task: task,
-                      taskSubmission: null,
                     ),
                   ),
                   trailing: IconButton(

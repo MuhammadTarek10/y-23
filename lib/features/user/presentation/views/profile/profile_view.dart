@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:y23/config/extensions.dart';
 import 'package:y23/config/routes.dart';
 import 'package:y23/config/utils/assets.dart';
 import 'package:y23/config/utils/strings.dart';
@@ -137,8 +138,9 @@ class ProfileDetails extends StatelessWidget {
                 displayName,
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: AppSizes.s30),
+              SizedBox(height: context.height * (isAdmin ? 0.12 : 0.2)),
               Column(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   ListTile(
                     leading: const Icon(Icons.leaderboard_outlined),
@@ -149,24 +151,29 @@ class ProfileDetails extends StatelessWidget {
                     ),
                   ),
                   ListTile(
-                    leading: isAdmin
-                        ? const Icon(Icons.pie_chart_outline_outlined)
-                        : const Icon(Icons.task_outlined),
-                    title: Text(
-                      isAdmin
-                          ? AppStrings.stats.tr()
-                          : AppStrings.performance.tr(),
+                    leading: const Icon(Icons.task_outlined),
+                    title: Text(AppStrings.performance.tr()),
+                    onTap: () => Navigator.pushNamed(
+                      context,
+                      Routes.performanceRoute,
                     ),
-                    onTap: () => isAdmin
-                        ? Navigator.pushNamed(
-                            context,
-                            Routes.statsRoute,
-                          )
-                        : Navigator.pushNamed(
-                            context,
-                            Routes.performanceRoute,
-                          ),
                   ),
+                  isAdmin
+                      ? Column(
+                          children: [
+                            const Divider(),
+                            ListTile(
+                              leading:
+                                  const Icon(Icons.pie_chart_outline_outlined),
+                              title: Text(AppStrings.stats.tr()),
+                              onTap: () => Navigator.pushNamed(
+                                context,
+                                Routes.statsRoute,
+                              ),
+                            ),
+                          ],
+                        )
+                      : Container(),
                   const Divider(),
                   ListTile(
                     leading: const Icon(Icons.help_outline),

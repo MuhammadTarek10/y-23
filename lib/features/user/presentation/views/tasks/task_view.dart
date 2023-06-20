@@ -3,7 +3,6 @@ import 'package:y23/config/utils/values.dart';
 import 'package:y23/features/user/presentation/views/tasks/task_view_params.dart';
 import 'package:y23/features/user/presentation/views/tasks/widgets/task_content.dart';
 import 'package:y23/features/user/presentation/views/tasks/widgets/task_feedback_button.dart';
-import 'package:y23/features/user/presentation/views/tasks/widgets/upload_task_button.dart';
 
 class TaskView extends StatelessWidget {
   const TaskView({
@@ -40,7 +39,7 @@ class TaskView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       TaskContent(task: task),
-                      UploadTaskButton(task: task),
+                      // UploadTaskButton(task: task),
                     ],
                   ),
                 ),

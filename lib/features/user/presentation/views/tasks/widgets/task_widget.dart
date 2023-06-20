@@ -5,23 +5,18 @@ import 'package:y23/config/routes.dart';
 import 'package:y23/config/utils/assets.dart';
 import 'package:y23/config/utils/values.dart';
 import 'package:y23/features/user/domain/entities/tasks/task.dart';
-import 'package:y23/features/user/domain/entities/tasks/task_submission.dart';
 import 'package:y23/features/user/presentation/views/tasks/task_view_params.dart';
 
 class TaskWidget extends StatelessWidget {
   const TaskWidget({
     super.key,
     required this.task,
-    required this.taskSubmission,
   });
 
   final Task task;
-  final TaskSubmission taskSubmission;
 
   @override
   Widget build(BuildContext context) {
-    final isSubmitted = taskSubmission.isSubmitted ?? false;
-    final isCorrect = taskSubmission.isCorrect ?? false;
     final deadline = DateFormat.MEd()
         .add_jm()
         .format(DateTime.parse(task.deadline.toDate().toString()));
@@ -31,7 +26,6 @@ class TaskWidget extends StatelessWidget {
         Routes.taskRoute,
         arguments: TaskViewParams(
           task: task,
-          taskSubmission: taskSubmission,
         ),
       ),
       child: Stack(
@@ -105,18 +99,6 @@ class TaskWidget extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Icon(
-                              isSubmitted
-                                  ? isCorrect
-                                      ? Icons.check
-                                      : Icons.close
-                                  : Icons.read_more,
-                              color:
-                                  Theme.of(context).textTheme.bodyLarge!.color,
-                            ),
-                            SizedBox(
-                              width: context.width * 0.01,
-                            ),
                             Text(
                               deadline,
                               style: Theme.of(context).textTheme.bodyLarge,

@@ -50,7 +50,6 @@ class Routes {
   static const String addTaskRoute = "/add-task";
   static const String editTaskRoute = "/edit-task";
   static const String deleteTaskRoute = "/delete-task";
-  static const String addFeedbackRoute = "/add-feedback";
   static const String statsRoute = "/stats";
 
   //* User

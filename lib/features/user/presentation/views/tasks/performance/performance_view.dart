@@ -11,7 +11,6 @@ import 'package:y23/features/user/domain/entities/quizzes/quiz_result.dart';
 import 'package:y23/features/user/domain/entities/tasks/task.dart';
 import 'package:y23/features/user/presentation/views/quizzes/state/providers/quiz_result_provider.dart';
 import 'package:y23/features/user/presentation/views/quizzes/state/providers/quizzers_provider.dart';
-import 'package:y23/features/user/presentation/views/tasks/performance/my_submissions.dart';
 import 'package:y23/features/user/presentation/views/tasks/performance/tasks_feedback.dart';
 import 'package:y23/features/user/presentation/views/tasks/performance/widgets/providers/user_provider.dart';
 import 'package:y23/features/user/presentation/views/tasks/state/providers/task_submissions_provider.dart';
@@ -60,7 +59,7 @@ class _MyTasksViewState extends ConsumerState<PerformanceView> {
             quizResults == null
         ? const LottieLoading()
         : DefaultTabController(
-            length: 3,
+            length: 2,
             child: Container(
               height: double.infinity,
               decoration: BoxDecoration(
@@ -80,7 +79,6 @@ class _MyTasksViewState extends ConsumerState<PerformanceView> {
                   bottom: TabBar(
                     tabs: [
                       Tab(text: AppStrings.quizzes.tr()),
-                      Tab(text: AppStrings.tasks.tr()),
                       Tab(text: AppStrings.feedbacks.tr()),
                     ],
                   ),
@@ -92,12 +90,6 @@ class _MyTasksViewState extends ConsumerState<PerformanceView> {
                         quizResults: quizResults
                             .where((element) => element.isTaken == true)
                             .toList()),
-                    MySubmissions(
-                      tasks: tasks!,
-                      submissions: submissions
-                          .where((element) => element.isSubmitted == true)
-                          .toList(),
-                    ),
                     MyFeedback(
                       user: user!,
                     ),
