@@ -7,6 +7,7 @@ import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
 import 'package:y23/core/state/providers/loading_provider.dart';
 import 'package:y23/core/widgets/snackbar.dart';
+import 'package:y23/features/admin/presentation/views/stats/widgets/user_feedback_view_params.dart';
 import 'package:y23/features/auth/domain/entities/user.dart';
 import 'package:y23/features/auth/state/providers/auth_state_provider.dart';
 import 'package:y23/features/user/presentation/views/feedback/feedback_view_params.dart';
@@ -94,14 +95,21 @@ class UserWidget extends StatelessWidget {
         return ListTile(
           onTap: () => Navigator.pushNamed(
             context,
-            Routes.feedbackRoute,
-            arguments: FeedbackViewParams(
-              title: user.displayName!,
-              onPressed: (feedback) => sendFeedback(
+            Routes.userFeedbackRoute,
+            arguments: UserFeedbackViewParams(
+              user: user,
+              onPressed: () => Navigator.pushNamed(
                 context,
-                ref,
-                feedback,
-                user.id,
+                Routes.feedbackRoute,
+                arguments: FeedbackViewParams(
+                  title: user.displayName.toString(),
+                  onPressed: (feedback) => sendFeedback(
+                    context,
+                    ref,
+                    feedback,
+                    user.id,
+                  ),
+                ),
               ),
             ),
           ),

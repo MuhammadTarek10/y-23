@@ -5,8 +5,8 @@ import 'package:y23/config/utils/values.dart';
 import 'package:y23/core/widgets/lottie.dart';
 import 'package:y23/features/auth/domain/entities/user.dart';
 
-class MyFeedback extends StatelessWidget {
-  const MyFeedback({
+class UserFeedback extends StatelessWidget {
+  const UserFeedback({
     super.key,
     required this.user,
   });

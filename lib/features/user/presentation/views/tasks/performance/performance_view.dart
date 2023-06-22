@@ -11,7 +11,7 @@ import 'package:y23/features/user/domain/entities/quizzes/quiz_result.dart';
 import 'package:y23/features/user/domain/entities/tasks/task.dart';
 import 'package:y23/features/user/presentation/views/quizzes/state/providers/quiz_result_provider.dart';
 import 'package:y23/features/user/presentation/views/quizzes/state/providers/quizzers_provider.dart';
-import 'package:y23/features/user/presentation/views/tasks/performance/tasks_feedback.dart';
+import 'package:y23/features/user/presentation/views/tasks/performance/user_feedback.dart';
 import 'package:y23/features/user/presentation/views/tasks/performance/widgets/providers/user_provider.dart';
 import 'package:y23/features/user/presentation/views/tasks/state/providers/task_submissions_provider.dart';
 import 'package:y23/features/user/presentation/views/tasks/state/providers/tasks_provider.dart';
@@ -103,7 +103,7 @@ class _MyTasksViewState extends ConsumerState<PerformanceView> {
                         quizResults: quizResults
                             .where((element) => element.isTaken == true)
                             .toList()),
-                    MyFeedback(
+                    UserFeedback(
                       user: user!,
                     ),
                   ],

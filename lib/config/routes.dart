@@ -10,6 +10,8 @@ import 'package:y23/features/admin/presentation/views/sessions/add_session_view.
 import 'package:y23/features/admin/presentation/views/sessions/delete_session_view.dart';
 import 'package:y23/features/admin/presentation/views/sessions/edit_session_view.dart';
 import 'package:y23/features/admin/presentation/views/stats/stats_view.dart';
+import 'package:y23/features/admin/presentation/views/stats/user_feedback_view.dart';
+import 'package:y23/features/admin/presentation/views/stats/widgets/user_feedback_view_params.dart';
 import 'package:y23/features/admin/presentation/views/tasks/add_task_view.dart';
 import 'package:y23/features/admin/presentation/views/tasks/delete_task_view.dart';
 import 'package:y23/features/admin/presentation/views/tasks/edit_task_view.dart';
@@ -51,6 +53,7 @@ class Routes {
   static const String editTaskRoute = "/edit-task";
   static const String deleteTaskRoute = "/delete-task";
   static const String statsRoute = "/stats";
+  static const String userFeedbackRoute = "/user-feedback";
 
   //* User
   static const String homeRoute = "/home";
@@ -175,6 +178,12 @@ class RouterGenerator {
         return MaterialPageRoute(builder: (context) => const DeleteTaskView());
       case Routes.statsRoute:
         return MaterialPageRoute(builder: (context) => const StatsView());
+      case Routes.userFeedbackRoute:
+        return MaterialPageRoute(
+          builder: (context) => AdminUserFeedback(
+            params: settings.arguments as UserFeedbackViewParams,
+          ),
+        );
       default:
         return MaterialPageRoute(builder: (context) => const HomeView());
     }

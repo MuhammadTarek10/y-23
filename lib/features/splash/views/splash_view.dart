@@ -26,8 +26,8 @@ class _SplashViewState extends ConsumerState<SplashView>
       vsync: this,
     )..forward();
     _animation = Tween<Offset>(
-      begin: const Offset(0.65, 20.0),
-      end: const Offset(0.65, 15.0),
+      begin: const Offset(0.65, 50),
+      end: const Offset(0.65, 20),
     ).animate(
       CurvedAnimation(
         parent: _controller,
