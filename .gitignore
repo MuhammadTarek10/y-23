@@ -11,6 +11,7 @@
 .svn/
 migrate_working_dir/
 firebase_options.dart
+.env
 
 # IntelliJ related
 *.iml
@@ -44,3 +45,5 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+**/android/key.properties
+**/android/app/upload-keystore.jks
