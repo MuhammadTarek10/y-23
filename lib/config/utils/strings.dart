@@ -100,6 +100,9 @@ class AppStrings {
   static const String stats = "stats";
   static const String name = "title";
   static const String totalScore = "total_score";
+  static const String registration = "registration";
+  static const String registerAttendance = "attendance";
+  static const String addName = "add_name";
 
   const AppStrings._();
 }

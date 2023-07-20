@@ -6,6 +6,9 @@ import 'package:y23/features/admin/presentation/views/admin_home_view.dart';
 import 'package:y23/features/admin/presentation/views/quizzes/add_quiz_view.dart';
 import 'package:y23/features/admin/presentation/views/quizzes/delete_quiz_view.dart';
 import 'package:y23/features/admin/presentation/views/quizzes/edit_quiz_view.dart';
+import 'package:y23/features/admin/presentation/views/registration/attendance_view.dart';
+import 'package:y23/features/admin/presentation/views/registration/register_attendance_view.dart';
+import 'package:y23/features/admin/presentation/views/registration/registration_view.dart';
 import 'package:y23/features/admin/presentation/views/sessions/add_session_view.dart';
 import 'package:y23/features/admin/presentation/views/sessions/delete_session_view.dart';
 import 'package:y23/features/admin/presentation/views/sessions/edit_session_view.dart';
@@ -54,6 +57,9 @@ class Routes {
   static const String deleteTaskRoute = "/delete-task";
   static const String statsRoute = "/stats";
   static const String userFeedbackRoute = "/user-feedback";
+  static const String registrationRoute = "/registration";
+  static const String registerAttendanceRoute = "register-attendance";
+  static const String attendanceRoute = "attendance";
 
   //* User
   static const String homeRoute = "/home";
@@ -178,6 +184,19 @@ class RouterGenerator {
         return MaterialPageRoute(builder: (context) => const DeleteTaskView());
       case Routes.statsRoute:
         return MaterialPageRoute(builder: (context) => const StatsView());
+      case Routes.registrationRoute:
+        return MaterialPageRoute(
+            builder: (context) => const RegistrationView());
+      case Routes.registerAttendanceRoute:
+        return MaterialPageRoute(
+            builder: (context) => RegisterAttendance(
+                  title: settings.arguments as String?,
+                ));
+      case Routes.attendanceRoute:
+        return MaterialPageRoute(
+            builder: (context) => AttendanceView(
+                  attendance: settings.arguments as Map<String, dynamic>,
+                ));
       case Routes.userFeedbackRoute:
         return MaterialPageRoute(
           builder: (context) => AdminUserFeedback(

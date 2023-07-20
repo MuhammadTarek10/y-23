@@ -97,5 +97,8 @@
   "add_point": "اضف نقطة",
   "stats": "احصائيات",
   "title": "الاسم",
-  "total_score": "الدرجة الكلية"
+  "total_score": "الدرجة الكلية",
+  "registration": "تسجيل الحضور",
+  "attendance": "الحضور",
+  "add_name": "أضف اسم"
 }

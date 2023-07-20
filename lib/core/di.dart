@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:y23/core/media.dart';
 import 'package:y23/core/network_info.dart';
 import 'package:y23/core/prefs.dart';
+import 'package:y23/features/admin/data/repositories/attendance_repository_impl.dart';
 import 'package:y23/features/user/data/datasources/backend/quizzer.dart';
 import 'package:y23/features/user/data/datasources/backend/sessioner.dart';
 import 'package:y23/features/user/data/datasources/backend/tasker.dart';
@@ -43,5 +44,8 @@ Future<void> initApp() async {
     () => QuizRepository(
       remoteQuizzer: instance<RemoteQuizzer>(),
     ),
+  );
+  instance.registerLazySingleton<AttendanceRepoImpl>(
+    () => AttendanceRepoImpl(),
   );
 }

@@ -1,5 +1,5 @@
 class FirebaseFieldName {
-  //* Users
+  // * Users
   static const String userId = "uid";
   static const String displayName = "displayName";
   static const String email = "email";
@@ -7,18 +7,18 @@ class FirebaseFieldName {
   static const String isAdmin = "isAdmin";
   static const String feedback = "feedback";
 
-  //* Quizzes
+  // * Quizzes
   static const String quizId = "id";
   static const String quizTitle = "name";
 
-  //* Questions
+  // * Questions
   static const String questionId = "id";
   static const String questionTitle = "title";
   static const String questionOptions = "options";
   static const String questionAnswer = "answer";
   static const String questionQuizId = "quizId";
 
-  //* Quiz Results
+  // * Quiz Results
   static const String quizResultId = "id";
   static const String quizResultUserId = "userId";
   static const String quizResultQuizId = "quizId";
@@ -27,7 +27,7 @@ class FirebaseFieldName {
   static const String quizResultScore = "score";
   static const String quizResultIsPassed = "isPassed";
 
-  //* Sessions
+  // * Sessions
   static const String sessionsId = "id";
   static const String sessionsTitle = "title";
   static const String sessionsPoints = "points";
@@ -35,7 +35,7 @@ class FirebaseFieldName {
   static const String sessionsPhotoUrl = "photoUrl";
   static const String sessionsFeedback = "feedback";
 
-  //* Tasks
+  // * Tasks
   static const String tasksId = "id";
   static const String tasksTitle = "title";
   static const String tasksDescription = "description";
@@ -43,7 +43,7 @@ class FirebaseFieldName {
   static const String tasksPoints = "points";
   static const String tasksFeedback = "feedback";
 
-  //* Task Submissions
+  // * Task Submissions
   static const String taskSubmissionsId = "id";
   static const String taskSubmissionsTaskId = "taskId";
   static const String taskSubmissionsUserId = "userId";
@@ -51,6 +51,10 @@ class FirebaseFieldName {
   static const String isTaskSubmitted = "isSubmitted";
   static const String taskSubmissionsIsCorrect = "isCorrect";
   static const String taskSubmissionsFeedback = "feedback";
+
+  // * Registration
+  static const String registrationId = "id";
+  static const String registrationSession = "session";
 
   const FirebaseFieldName._();
 }
@@ -63,6 +67,7 @@ class FirebaseCollectionName {
   static const String sessions = "sessions";
   static const String tasks = "tasks";
   static const String taskSubmissions = "taskSubmissions";
+  static const String attendance = "attendance";
 
   const FirebaseCollectionName._();
 }
