@@ -24,7 +24,10 @@ class SessionContent extends StatelessWidget {
       sorted = Map.fromEntries(
         points!.entries.toList()
           ..sort(
-            (a, b) => a.key.compareTo(b.key),
+            (a, b) => a.key
+                .split('.')[0]
+                .trimLeft()
+                .compareTo(b.key.split('.')[0].trimLeft().trimRight()),
           ),
       );
     }
@@ -59,7 +62,7 @@ class SessionContent extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          e.key.substring(3),
+                                          e.key.split('.')[1],
                                           style: Theme.of(context)
                                               .textTheme
                                               .headlineMedium,
