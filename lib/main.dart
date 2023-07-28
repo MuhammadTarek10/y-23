@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:y23/config/language.dart';
 import 'package:y23/config/routes.dart';
 import 'package:y23/config/utils/theme.dart';
@@ -38,6 +39,13 @@ class _AppState extends State<App> {
   @override
   void didChangeDependencies() {
     prefs.getLocale().then((locale) => {context.setLocale(locale)});
+    InAppUpdate.checkForUpdate().then(
+      (value) {
+        if (value.updateAvailability == UpdateAvailability.updateAvailable) {
+          InAppUpdate.startFlexibleUpdate().then((value) => null);
+        }
+      },
+    );
     super.didChangeDependencies();
   }
 

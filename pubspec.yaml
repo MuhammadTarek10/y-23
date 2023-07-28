@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: "none"
 
-version: 1.2.0+3
+version: 1.2.0+4
 
 environment:
   sdk: ">=2.19.6 <3.0.0"
@@ -25,6 +25,7 @@ dependencies:
   get_it: ^7.6.0
   google_sign_in: ^6.1.0
   image_picker: ^0.8.7+5
+  in_app_update: ^4.1.4
   internet_connection_checker: ^1.0.0+1
   lottie: ^2.3.2
   shared_preferences: ^2.1.1

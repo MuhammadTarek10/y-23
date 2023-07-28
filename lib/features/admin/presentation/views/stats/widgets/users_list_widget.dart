@@ -95,7 +95,7 @@ class UserWidget extends StatelessWidget {
         return ListTile(
           onTap: () => Navigator.pushNamed(
             context,
-            Routes.userFeedbackRoute,
+            Routes.adminFeedbackRoute,
             arguments: UserFeedbackViewParams(
               user: user,
               onPressed: () => Navigator.pushNamed(

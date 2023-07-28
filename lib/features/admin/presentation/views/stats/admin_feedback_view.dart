@@ -35,6 +35,10 @@ class AdminUserFeedback extends StatelessWidget {
               body: LottieEmpty(
                 message: AppStrings.noFeedback.tr(),
               ),
+              floatingActionButton: FloatingActionButton(
+                onPressed: params.onPressed,
+                child: const Icon(Icons.add),
+              ),
             ),
           )
         : Container(
