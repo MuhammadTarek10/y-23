@@ -103,6 +103,7 @@ class AppStrings {
   static const String registration = "registration";
   static const String registerAttendance = "attendance";
   static const String addName = "add_name";
+  static const String documentation = "documentation";
 
   const AppStrings._();
 }

@@ -64,20 +64,23 @@ class _SplashViewState extends ConsumerState<SplashView>
       child: Stack(
         children: [
           const Center(child: LottieSplash()),
-          AnimatedBuilder(
-            animation: _animation,
-            builder: (context, child) {
-              return FractionalTranslation(
-                translation: _animation.value,
-                child: child,
-              );
-            },
-            child: Text(
-              AppStrings.appName,
-              style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                    color: AppColors.fakeWhite,
-                    fontWeight: FontWeight.bold,
-                  ),
+          Positioned(
+            left: 0,
+            child: AnimatedBuilder(
+              animation: _animation,
+              builder: (context, child) {
+                return FractionalTranslation(
+                  translation: _animation.value,
+                  child: child,
+                );
+              },
+              child: Text(
+                AppStrings.appName,
+                style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                      color: AppColors.fakeWhite,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
             ),
           ),
         ],

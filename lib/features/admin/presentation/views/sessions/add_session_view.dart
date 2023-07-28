@@ -34,6 +34,7 @@ class _AddSessionViewState extends ConsumerState<AddSessionView> {
       <GlobalKey<PointWidgetState>>[];
   late final TextEditingController _titleController;
   late final TextEditingController _instructorController;
+  late final TextEditingController _documentationController;
   late final StreamController<List<PointWidget>> _pointsController;
   List<PointWidget>? _pointsWidget;
   Map<String, dynamic> _points = {};
@@ -47,13 +48,21 @@ class _AddSessionViewState extends ConsumerState<AddSessionView> {
     super.initState();
     _titleController = TextEditingController();
     _instructorController = TextEditingController();
+    _documentationController = TextEditingController();
     _pointsController = StreamController<List<PointWidget>>.broadcast();
     _photoController = StreamController<File>.broadcast();
 
     if (widget.session != null) {
       _titleController.text = widget.session!.title;
       _instructorController.text = widget.session!.instructor;
-      _points = widget.session!.points!;
+      _documentationController.text = widget.session!.documentationLink ?? "";
+      _points = Map.fromEntries(
+        widget.session!.points!.entries.toList()
+          ..sort(
+            (a, b) => int.parse(a.key.split('.')[0].trimLeft()).compareTo(
+                int.parse(b.key.split('.')[0].trimLeft().trimRight())),
+          ),
+      );
       _setPointsWidget();
       if (widget.session!.photoUrl != null) {
         previewPhoto = File(widget.session!.photoUrl!);
@@ -83,6 +92,7 @@ class _AddSessionViewState extends ConsumerState<AddSessionView> {
     super.dispose();
     _titleController.dispose();
     _instructorController.dispose();
+    _documentationController.dispose();
     _pointsController.close();
     _photoController.close();
   }
@@ -147,6 +157,14 @@ class _AddSessionViewState extends ConsumerState<AddSessionView> {
                         }
                       },
                       icon: const Icon(Icons.add_a_photo),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    TextInputWidget(
+                      controller: _documentationController,
+                      hintText: AppStrings.documentation.tr(),
                     ),
                   ],
                 ),
@@ -222,6 +240,7 @@ class _AddSessionViewState extends ConsumerState<AddSessionView> {
       id: widget.session != null ? widget.session!.id : null,
       title: _titleController.text,
       instructor: _instructorController.text,
+      documentationLink: _documentationController.text,
       points: _points,
       photoUrl: photoPath ??
           (widget.session != null ? widget.session!.photoUrl : null),

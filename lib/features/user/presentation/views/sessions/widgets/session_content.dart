@@ -24,10 +24,8 @@ class SessionContent extends StatelessWidget {
       sorted = Map.fromEntries(
         points!.entries.toList()
           ..sort(
-            (a, b) => a.key
-                .split('.')[0]
-                .trimLeft()
-                .compareTo(b.key.split('.')[0].trimLeft().trimRight()),
+            (a, b) => int.parse(a.key.split('.')[0].trimLeft()).compareTo(
+                int.parse(b.key.split('.')[0].trimLeft().trimRight())),
           ),
       );
     }
@@ -101,7 +99,7 @@ class SessionContent extends StatelessWidget {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
-                                    AppStrings.details.tr(),
+                                    AppStrings.documentation.tr(),
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyLarge!
