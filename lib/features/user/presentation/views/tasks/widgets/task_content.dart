@@ -44,7 +44,7 @@ class TaskContent extends StatelessWidget {
                           onTap: () async {
                             final url = Uri.parse(task.documentationLink!);
                             if (await canLaunchUrl(url)) {
-                              launchUrl(url);
+                              launch(task.documentationLink!);
                             } else {
                               if (context.mounted) {
                                 customShowSnackBar(

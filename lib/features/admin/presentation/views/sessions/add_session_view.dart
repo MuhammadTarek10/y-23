@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:y23/config/extensions.dart';
 import 'package:y23/config/utils/colors.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
@@ -56,13 +57,7 @@ class _AddSessionViewState extends ConsumerState<AddSessionView> {
       _titleController.text = widget.session!.title;
       _instructorController.text = widget.session!.instructor;
       _documentationController.text = widget.session!.documentationLink ?? "";
-      _points = Map.fromEntries(
-        widget.session!.points!.entries.toList()
-          ..sort(
-            (a, b) => int.parse(a.key.split('.')[0].trimLeft()).compareTo(
-                int.parse(b.key.split('.')[0].trimLeft().trimRight())),
-          ),
-      );
+      _points = widget.session!.points.sort();
       _setPointsWidget();
       if (widget.session!.photoUrl != null) {
         previewPhoto = File(widget.session!.photoUrl!);

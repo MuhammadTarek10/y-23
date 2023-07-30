@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:y23/config/extensions.dart';
 import 'package:y23/config/utils/strings.dart';
 import 'package:y23/config/utils/values.dart';
 import 'package:y23/core/widgets/lottie.dart';
@@ -21,13 +22,7 @@ class SessionContent extends StatelessWidget {
   Widget build(BuildContext context) {
     Map<String, dynamic>? sorted;
     if (points != null) {
-      sorted = Map.fromEntries(
-        points!.entries.toList()
-          ..sort(
-            (a, b) => int.parse(a.key.split('.')[0].trimLeft()).compareTo(
-                int.parse(b.key.split('.')[0].trimLeft().trimRight())),
-          ),
-      );
+      sorted = points.sort();
     }
     return Expanded(
       child: SingleChildScrollView(
@@ -60,7 +55,10 @@ class SessionContent extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          e.key.split('.')[1],
+                                          e.key
+                                              .split('.')[1]
+                                              .trimLeft()
+                                              .trimRight(),
                                           style: Theme.of(context)
                                               .textTheme
                                               .headlineMedium,
@@ -86,37 +84,41 @@ class SessionContent extends StatelessWidget {
                     ),
                     const SizedBox(height: AppSizes.s10),
                     documentation != null
-                        ? Align(
-                            alignment: Alignment.bottomRight,
-                            child: InkWell(
-                              onTap: () async {
-                                final url = Uri.parse(documentation!);
-                                if (await canLaunchUrl(url)) {
-                                  launchUrl(url);
-                                }
-                              },
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    AppStrings.documentation.tr(),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge!
-                                        .copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onSecondary,
-                                        ),
-                                  ),
-                                  const SizedBox(width: AppSizes.s4),
-                                  Icon(
-                                    Icons.more_outlined,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSecondary,
-                                  ),
-                                ],
+                        ? Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: AppPadding.p8),
+                            child: Align(
+                              alignment: Alignment.bottomRight,
+                              child: InkWell(
+                                onTap: () async {
+                                  final url = Uri.parse(documentation!);
+                                  if (await canLaunchUrl(url)) {
+                                    launch(documentation!);
+                                  }
+                                },
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      AppStrings.documentation.tr(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSecondary,
+                                          ),
+                                    ),
+                                    const SizedBox(width: AppSizes.s4),
+                                    Icon(
+                                      Icons.more_outlined,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSecondary,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           )
