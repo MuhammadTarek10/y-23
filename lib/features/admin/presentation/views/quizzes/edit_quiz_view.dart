@@ -26,7 +26,7 @@ class EditQuizVew extends ConsumerWidget {
       ),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(AppStrings.deleteTask.tr()),
+          title: Text(AppStrings.editQuiz.tr()),
         ),
         body: quizzes.when(
           data: (data) {

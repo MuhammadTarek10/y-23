@@ -67,6 +67,7 @@ class HelpView extends ConsumerWidget {
                         onTap: () async {
                           final Uri url = Uri.parse(Constants.contactUs);
                           if (await canLaunchUrl(url)) {
+                            // ignore: deprecated_member_use
                             launch(Constants.contactUs);
                           }
                         },

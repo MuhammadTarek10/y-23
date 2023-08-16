@@ -171,14 +171,6 @@ class ProfileDetails extends StatelessWidget {
                                 Routes.statsRoute,
                               ),
                             ),
-                            ListTile(
-                              leading: const Icon(Icons.people_alt_outlined),
-                              title: Text(AppStrings.registration.tr()),
-                              onTap: () => Navigator.pushNamed(
-                                context,
-                                Routes.registrationRoute,
-                              ),
-                            ),
                           ],
                         )
                       : Container(),

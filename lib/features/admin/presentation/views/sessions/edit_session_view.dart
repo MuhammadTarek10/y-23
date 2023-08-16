@@ -26,7 +26,7 @@ class EditSessionView extends ConsumerWidget {
       ),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(AppStrings.deleteTask.tr()),
+          title: Text(AppStrings.editSession.tr()),
         ),
         body: sessions.when(
           data: (data) {

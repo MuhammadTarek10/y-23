@@ -20,6 +20,7 @@ class SubmissionWidget extends StatelessWidget {
       onTap: () async {
         final url = Uri.parse(submission.submissionUrl ?? "");
         if (await canLaunchUrl(url)) {
+          // ignore: deprecated_member_use
           launch(submission.submissionUrl ?? "");
         }
       },

@@ -93,6 +93,7 @@ class SessionContent extends StatelessWidget {
                                 onTap: () async {
                                   final url = Uri.parse(documentation!);
                                   if (await canLaunchUrl(url)) {
+                                    // ignore: deprecated_member_use
                                     launch(documentation!);
                                   }
                                 },
