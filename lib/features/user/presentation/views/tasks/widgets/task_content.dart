@@ -16,9 +16,7 @@ class TaskContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final inserted = task.copyWith(
-      description: task.description.replaceAll('\\n', '\n'),
-    );
+    final description = task.description.replaceAll('\\n', '\n');
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(AppPadding.p10),
@@ -37,18 +35,18 @@ class TaskContent extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    inserted.description,
+                    description,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   const SizedBox(height: AppSizes.s20),
-                  inserted.documentationLink != null &&
-                          inserted.documentationLink!.isNotEmpty
+                  task.documentationLink != null &&
+                          task.documentationLink!.isNotEmpty
                       ? InkWell(
                           onTap: () async {
-                            final url = Uri.parse(inserted.documentationLink!);
+                            final url = Uri.parse(task.documentationLink!);
                             if (await canLaunchUrl(url)) {
                               // ignore: deprecated_member_use
-                              launch(inserted.documentationLink!);
+                              launch(task.documentationLink!);
                             } else {
                               if (context.mounted) {
                                 customShowSnackBar(

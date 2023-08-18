@@ -26,7 +26,7 @@ class EditTaskView extends ConsumerWidget {
       ),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(AppStrings.deleteTask.tr()),
+          title: Text(AppStrings.editTask.tr()),
         ),
         body: tasks.when(
           data: (data) {

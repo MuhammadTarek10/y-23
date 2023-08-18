@@ -8,8 +8,6 @@ import 'package:y23/features/user/domain/entities/tasks/task.dart';
 import 'package:y23/features/user/presentation/views/tasks/state/providers/tasks_provider.dart';
 import 'package:y23/features/user/presentation/views/tasks/widgets/task_widget.dart';
 
-import 'state/providers/task_submissions_provider.dart';
-
 class TasksView extends ConsumerWidget {
   const TasksView({super.key});
 
@@ -28,9 +26,7 @@ class TasksView extends ConsumerWidget {
             ? LottieEmpty(message: AppStrings.noTasksFound.tr())
             : TasksListWidget(
                 tasks: tasks!,
-                onRefresh: () => ref
-                    .read(taskSubmissionsProvider.notifier)
-                    .getTaskSubmissions(),
+                onRefresh: () {},
               );
   }
 }
