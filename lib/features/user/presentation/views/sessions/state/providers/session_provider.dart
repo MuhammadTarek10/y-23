@@ -19,6 +19,7 @@ final sessionProvider = StreamProvider.autoDispose<List<Session>?>(
           )
           .toList();
 
+      sessions.sort((a, b) => a.instructor.compareTo(b.instructor));
       controller.sink.add(sessions);
     });
 

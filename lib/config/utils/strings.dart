@@ -104,6 +104,8 @@ class AppStrings {
   static const String registerAttendance = "attendance";
   static const String addName = "add_name";
   static const String documentation = "documentation";
+  static const String available = "available";
+  static const String taken = "taken";
 
   const AppStrings._();
 }

@@ -34,8 +34,6 @@ class QuizzesView extends ConsumerWidget {
                 return QuizzesWidget(
                   quizzes: data,
                   results: results,
-                  onRefresh:
-                      ref.read(quizResultsProvider.notifier).getAllQuizResults,
                 );
               },
               error: (error, _) => const LottieError(),
@@ -50,45 +48,89 @@ class QuizzesWidget extends StatelessWidget {
     super.key,
     required this.quizzes,
     required this.results,
-    required this.onRefresh,
   });
 
   final List<Quiz> quizzes;
   final List<QuizResult> results;
-  final Function onRefresh;
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: () => onRefresh(),
-      child: Padding(
-        padding: const EdgeInsets.all(AppPadding.p10),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: quizzes.length,
-                  itemBuilder: (context, index) {
-                    final quiz = quizzes[index];
-                    final quizResult = results.firstWhere(
+    final taken = results.where((element) => element.isTaken).toList();
+    final notTaken = results.where((element) => !element.isTaken).toList();
+
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          bottom: TabBar(
+            indicatorColor: Theme.of(context).colorScheme.onSecondary,
+            tabs: [
+              Tab(text: AppStrings.available.tr()),
+              Tab(text: AppStrings.taken.tr()),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            Quizzes(
+              quizzes: notTaken
+                  .map((e) =>
+                      quizzes.firstWhere((element) => element.id == e.quizId))
+                  .toList(),
+              results: results,
+            ),
+            Quizzes(
+              quizzes: taken
+                  .map((e) =>
+                      quizzes.firstWhere((element) => element.id == e.quizId))
+                  .toList(),
+              results: results,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Quizzes extends StatelessWidget {
+  const Quizzes({
+    super.key,
+    required this.quizzes,
+    required this.results,
+  });
+
+  final List<Quiz> quizzes;
+  final List<QuizResult> results;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(AppPadding.p10),
+      child: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: quizzes.length,
+                itemBuilder: (context, index) {
+                  final quiz = quizzes[index];
+                  final quizResult = results.firstWhere(
                       (element) => element.quizId == quizzes[index].id,
                       orElse: () => QuizResult(
-                        userId: "",
-                        quizId: "",
-                        isTaken: false,
-                        selectedOptions: {},
-                        score: 0,
-                        isPassed: false,
-                      )
-                    );
-                    return QuizListWidget(quiz: quiz, result: quizResult);
-                  },
-                ),
-              ],
-            ),
+                            userId: "",
+                            quizId: "",
+                            isTaken: false,
+                            selectedOptions: {},
+                            score: 0,
+                            isPassed: false,
+                          ));
+                  return QuizListWidget(quiz: quiz, result: quizResult);
+                },
+              ),
+            ],
           ),
         ),
       ),

@@ -101,5 +101,7 @@
   "registration": "تسجيل الحضور",
   "attendance": "الحضور",
   "add_name": "أضف اسم",
-  "documentation": "التفاصيل"
+  "documentation": "التفاصيل",
+  "available": "متاح",
+  "taken": "تم حلها"
 }

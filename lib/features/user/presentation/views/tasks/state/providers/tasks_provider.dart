@@ -19,6 +19,7 @@ final tasksProvider = StreamProvider.autoDispose<List<Task>?>(
               (e) => Task.fromJson(e.id, e.data()),
             )
             .toList();
+        tasks.sort((a, b) => a.deadline.compareTo(b.deadline));
         controller.sink.add(tasks);
       },
     );

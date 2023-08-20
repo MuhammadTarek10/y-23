@@ -125,7 +125,9 @@ class MyQuizzes extends StatelessWidget {
   final List<QuizResult> quizResults;
 
   String _totalScore() {
-    return "${quizResults.map((e) => e.score).reduce((value, element) => value + element)} / ${quizzes.map((e) => e.questions.length).reduce((value, element) => value + element)}";
+    final score =
+        "${quizResults.map((e) => e.score).reduce((value, element) => value + element)} / ${quizzes.map((e) => e.questions.length).reduce((value, element) => value + element).toStringAsFixed(1)}";
+    return score;
   }
 
   double _totalPercentage() {
@@ -161,7 +163,7 @@ class MyQuizzes extends StatelessWidget {
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         Text(
-                          "${_totalPercentage()} %",
+                          "${_totalPercentage().toStringAsFixed(2)} %",
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         Text(

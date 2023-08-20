@@ -19,6 +19,7 @@ final quizzesProvider = StreamProvider.autoDispose<List<Quiz>?>(
               (e) => Quiz.fromJson(e.id, e.data()),
             )
             .toList();
+        quizzes.sort((a, b) => a.title.compareTo(b.title));
         controller.sink.add(quizzes);
       },
     );

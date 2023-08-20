@@ -101,5 +101,7 @@
   "registration": "Registration",
   "attendance": "Attendance",
   "add_name": "Add Name",
-  "documentation": "Documentation"
+  "documentation": "Documentation",
+  "available": "Available",
+  "taken": "Taken"
 }
